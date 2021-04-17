@@ -16,7 +16,7 @@ public class Hero {
 	}
 	
 	public String tooltipMassage() {
-		return "name: "+ name + "\nmaxHp:" + maxHp + "\nattack:" + attack +"\nEnergy:" + energy;
+		return "name: "+ name + "\nmaxHp: " + maxHp + "\nattack: " + attack +"\nEnergy: " + energy;
 	}
 
 	public String getName() {

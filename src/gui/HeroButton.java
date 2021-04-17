@@ -24,7 +24,7 @@ public class HeroButton extends Button {
 		this.hero = new Hero(Name);
 		
 		ImageView imageView = new ImageView(hero.getUrl());
-		imageView.setFitHeight(100);
+		imageView.setFitWidth(100);
 		imageView.setFitHeight(100);
 		this.setGraphic(imageView);
 		this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -32,8 +32,6 @@ public class HeroButton extends Button {
 				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.setTooltip();
 	}
-	
-
 	
 	private void setTooltip() {
 		Tooltip	tooltip = new Tooltip();
