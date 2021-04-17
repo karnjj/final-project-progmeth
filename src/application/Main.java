@@ -12,20 +12,23 @@ import javafx.stage.WindowEvent;
 import logic.GameLoop;
 
 public class Main extends Application {
-
+	
+	private final int window_width = 1289;
+	private final int window_height = 595;
+	
     @Override
     public void start(Stage primaryStage) throws Exception {
         StackPane root = new StackPane();
+        
+        Scene scene = new Scene(root, window_width, window_height);
 
-        Scene scene = new Scene(root, 854, 480);
-
-        Canvas canvas = new Canvas(854, 480);
+        Canvas canvas = new Canvas(window_width, window_height);
         root.getChildren().add( canvas );
         GraphicsContext gc = canvas.getGraphicsContext2D();
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
-        GameLoop loop = new GameLoop(gc, 854, 480);
+        GameLoop loop = new GameLoop(gc, window_width, window_height);
         loop.start();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

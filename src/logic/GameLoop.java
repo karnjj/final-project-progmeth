@@ -15,7 +15,7 @@ public class GameLoop extends Thread {
     int updates = 0; // count update
     int draws = 0; // count draw
 
-    Ranger karn;
+    Ranger karn,non;
 
     public GameLoop(GraphicsContext gc, int width, int height) {
         this.width = width;
@@ -34,6 +34,7 @@ public class GameLoop extends Thread {
         updatePerSecond = 60;
         GameController.InitGame();
         karn = new Ranger(0,height-25,"Karn",1);
+        non = new Ranger(width-25,height-25,"Non",-1);
     }
 
     private void update(double dt) {

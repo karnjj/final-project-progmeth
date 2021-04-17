@@ -29,6 +29,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
                 this.speed = 10;
                 this.side = side;
             }
+            
             case "Non" -> {
                 this.name = name;
                 this.currentHP = 200;

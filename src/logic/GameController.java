@@ -10,9 +10,15 @@ public class GameController {
     public static int getCurrentEnergy() {
         return energy.getCurrentEnergy();
     }
+    
     public static void useEnergy(int energy) {
         if (!GameController.energy.Use(energy)) {
             System.out.println("error");
         }
     }
+    
+    public static void createRanger(String name) {
+    	// create Ranger at start position
+    }
+    
 }
