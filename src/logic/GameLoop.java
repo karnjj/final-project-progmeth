@@ -1,8 +1,11 @@
 package logic;
 
 import entity.Ranger;
+import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import java.util.Iterator;
 
 public class GameLoop extends Thread {
     int width, height;
@@ -14,8 +17,6 @@ public class GameLoop extends Thread {
 
     int updates = 0; // count update
     int draws = 0; // count draw
-
-    Ranger karn,non;
 
     public GameLoop(GraphicsContext gc, int width, int height) {
         this.width = width;
@@ -33,18 +34,45 @@ public class GameLoop extends Thread {
         framePerSecond = 60;
         updatePerSecond = 60;
         GameController.InitGame();
-        karn = new Ranger(0,height-25,"Karn",1);
-        non = new Ranger(width-25,height-25,"Non",-1);
+        Ranger karn = new Ranger(0,height-30,"Pirate",1);
+        Ranger non = new Ranger(width-25,height-30,"Slime",-1);
+        Ranger karn2 = new Ranger(0,height-40,"Slime",1);
+        Ranger non2 = new Ranger(width-25,height-40,"Pirate",-1);
+        GameController.getHero().add(karn);
+        GameController.getEnemy().add(non);
+        GameController.getHero().add(karn2);
+        GameController.getEnemy().add(non2);
     }
 
     private void update(double dt) {
-        karn.move(dt);
+        Iterator<Ranger> iterator = GameController.getHero().iterator();
+        while (iterator.hasNext()) {
+            Ranger e = iterator.next();
+            e.update(dt);
+            if(e.getState() == logic.State.WALK) e.move(dt);
+            if(e.getState() == logic.State.ATTACK && e.canAttack()) e.attack(e.nearestTarget());
+            if(e.getState() == logic.State.DEAD ) iterator.remove();
+        }
+        iterator = GameController.getEnemy().iterator();
+        while (iterator.hasNext()) {
+            Ranger e = iterator.next();
+            e.update(dt);
+            if(e.getState() == logic.State.WALK) e.move(dt);
+            if(e.getState() == logic.State.ATTACK && e.canAttack()) e.attack(e.nearestTarget());
+            if(e.getState() == logic.State.DEAD ) iterator.remove();
+        }
+//        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
     }
 
     private void draw() {
         gc.clearRect(0,0,width,height);
-        karn.draw(gc);
+        for(Ranger e : GameController.getHero()) {
+            e.draw(gc);
+        }
+        for(Ranger e : GameController.getEnemy()) {
+            e.draw(gc);
+        }
         draws++;
     }
 

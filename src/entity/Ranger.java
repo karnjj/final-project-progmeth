@@ -2,6 +2,10 @@ package entity;
 
 import entity.base.*;
 import logic.GameController;
+import logic.State;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Ranger extends Entity implements Attackable, Damageable, Buyable, Movable {
     private String name;
@@ -9,37 +13,41 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
     private int mxHP;
     private int currentHP;
     private int attackRange;
-    private int cooldown;
-    private int delayTime;
+    private double buyCooldown;
+    private double buyDelay;
     private int energyUsage;
     private int speed;
     private int side; // 1 is hero, -1 is enemy
+    private double attackCooldown;
+    private double attackDelay;
+    private State state;
 
-    public Ranger(int x, int y,String name,int side) {
+    public Ranger(int x, int y, String name, int side) {
         super(x, y);
         switch (name) {
-            case "Karn" -> {
+            case "Pirate" -> {
                 this.name = name;
                 this.currentHP = 100;
                 this.mxHP = 100;
-                this.attack = 10;
+                this.attack = 30;
                 this.attackRange = 50;
-                this.delayTime = 6;
+                this.buyDelay = 6;
                 this.energyUsage = 50;
-                this.speed = 10;
+                this.speed = 100;
                 this.side = side;
+                this.attackDelay = 1;
             }
-            
-            case "Non" -> {
+            case "Slime" -> {
                 this.name = name;
                 this.currentHP = 200;
                 this.mxHP = 200;
-                this.attack = 3;
-                this.attackRange = 5;
-                this.delayTime = 8;
-                this.energyUsage = 80;
-                this.speed = 30;
+                this.attack = 20;
+                this.attackRange = 100;
+                this.buyDelay = 6;
+                this.energyUsage = 50;
+                this.speed = 80;
                 this.side = side;
+                this.attackDelay = 2;
             }
         }
     }
@@ -47,6 +55,12 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
     @Override
     public void attack(Damageable e) {
         e.takeDamage(this.attack);
+        this.attackCooldown = this.attackDelay;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return this.attackCooldown == 0;
     }
 
     @Override
@@ -64,19 +78,23 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
         return currentHP == 0;
     }
 
+    public int getCurrentHP() {
+        return currentHP;
+    }
+
     public void setCurrentHP(int currentHP) {
         this.currentHP = currentHP;
-        if(this.currentHP < 0) this.currentHP = 0;
+        if (this.currentHP < 0) this.currentHP = 0;
     }
 
     public boolean canBuy() {
-        return this.cooldown == 0 && GameController.getCurrentEnergy() > energyUsage;
+        return this.buyCooldown == 0 && GameController.getCurrentEnergy() > energyUsage;
     }
 
     public void Buy() {
-        if(this.cooldown == 0 && GameController.getCurrentEnergy() > energyUsage) {
+        if (this.buyCooldown == 0 && GameController.getCurrentEnergy() > energyUsage) {
             GameController.useEnergy(energyUsage);
-            setCooldown(this.delayTime);
+            setBuyCooldown(this.buyDelay);
         }
     }
 
@@ -85,9 +103,14 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
         return this.energyUsage;
     }
 
-    public void setCooldown(int cooldown) {
-        this.cooldown = cooldown;
-        if (this.cooldown < 0) this.cooldown = 0;
+    public void setBuyCooldown(double buyCooldown) {
+        this.buyCooldown = buyCooldown;
+        if (this.buyCooldown < 0) this.buyCooldown = 0;
+    }
+
+    public void setAttackCooldown(double attackCooldown) {
+        this.attackCooldown = attackCooldown;
+        if (this.attackCooldown < 0) this.attackCooldown = 0;
     }
 
     @Override
@@ -95,8 +118,59 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
         return this.speed;
     }
 
+    public State getState() {
+        return state;
+    }
+
     @Override
     public void move(double dt) {
-        this.setX(this.getX() + speed*side*dt);
+        this.setX(this.getX() + speed * side * dt);
+    }
+
+    private void updateState() {
+        if (getCurrentHP() == 0) {
+            this.state = State.DEAD;
+            return;
+        }
+        Ranger nearest = nearestTarget();
+        if (nearest == null) {
+            this.state = State.WALK;
+            return;
+        }
+        if (side == 1) {
+            if (this.getX() + attackRange < nearest.getX()) {
+                this.state = State.WALK;
+            } else {
+                this.state = State.ATTACK;
+            }
+        } else if (side == -1) {
+            if (this.getX() - attackRange > nearest.getX()) {
+                this.state = State.WALK;
+            } else {
+                this.state = State.ATTACK;
+            }
+        }
+    }
+
+    public Ranger nearestTarget() {
+        Ranger target = null;
+        if (side == 1) {
+            if (GameController.getEnemy().isEmpty()) return null;
+            target = Collections.min(GameController.getEnemy(),
+                    Comparator.comparing(Ranger::getX));
+
+        } else if (side == -1) {
+            if (GameController.getHero().isEmpty()) return null;
+            target = Collections.max(GameController.getHero(),
+                    Comparator.comparing(Ranger::getX));
+
+        }
+        return target;
+    }
+
+    public void update(double dt) {
+        updateState();
+        setAttackCooldown(attackCooldown - dt);
+        setBuyCooldown(buyCooldown - dt);
     }
 }
