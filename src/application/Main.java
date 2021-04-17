@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import logic.GameController;
+import logic.GameLoop;
 
 public class Main extends Application {
 
@@ -25,8 +25,8 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
-        GameController controller = new GameController(gc, 854, 480);
-        controller.start();
+        GameLoop loop = new GameLoop(gc, 854, 480);
+        loop.start();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
