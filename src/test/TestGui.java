@@ -1,6 +1,6 @@
 package test;
 
-import gui.HeroButton;
+import gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -18,7 +18,7 @@ public class TestGui extends Application {
 	public void start(Stage primaryStage) {
 	// Create a scene and place a button in the scene
 		StackPane root = new StackPane();
-		HeroButton  itemButton = new HeroButton("1");
+		HeroPane  itemButton = new HeroPane();
 		
 		root.getChildren().add(itemButton);
 		Scene scene = new Scene(root);
