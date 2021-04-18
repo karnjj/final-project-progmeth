@@ -34,10 +34,10 @@ public class GameLoop extends Thread {
         framePerSecond = 60;
         updatePerSecond = 60;
         GameController.InitGame();
-        Ranger karn = new Ranger(0,height-30,"Pirate",1);
-        Ranger non = new Ranger(width-25,height-30,"Slime",-1);
-        Ranger karn2 = new Ranger(0,height-40,"Slime",1);
-        Ranger non2 = new Ranger(width-25,height-40,"Pirate",-1);
+        Ranger karn = new Ranger(0,height-30,"Pirate",Side.HERO);
+        Ranger non = new Ranger(width-25,height-30,"Slime",Side.ENEMY);
+        Ranger karn2 = new Ranger(0,height-40,"Slime",Side.HERO);
+        Ranger non2 = new Ranger(width-25,height-40,"Pirate",Side.ENEMY);
         GameController.getHero().add(karn);
         GameController.getEnemy().add(non);
         GameController.getHero().add(karn2);
