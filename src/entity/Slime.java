@@ -48,7 +48,8 @@ public class Slime extends Ranger {
         for (int i = 0; i < 4; i++)
             walkImages[i] = new Image( "slime/walk_" + i + ".png" );
         walk.frames = walkImages;
-        walk.duration = 0.100;
+        walk.duration = 20.0/this.getSpeed();
+        ;
     }
 
     public static String getName() {
@@ -58,6 +59,8 @@ public class Slime extends Ranger {
     @Override
     public void draw(GraphicsContext gc, double t) {
         Image ig = walk.getFrame(t);
-        gc.drawImage(ig,this.getX(),this.getY());
+        int flip = 1;
+        if (this.getSide() == Side.HERO) flip = -1;
+        gc.drawImage(ig,this.getX(),this.getY(), flip*ig.getWidth(), ig.getHeight());
     }
 }

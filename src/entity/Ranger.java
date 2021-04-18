@@ -127,8 +127,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
             if (this.getX() + attackRange < nearest.getX()) {
                 return State.WALK;
             } else {
-                if (this.canAttack()) return State.ATTACK;
-                else return State.NONE;
+                return State.ATTACK;
             }
         } else if (side == Side.ENEMY) {
             Ranger nearest = GameController.getFrontRanger(Side.HERO);
@@ -136,8 +135,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
             if (this.getX() - attackRange > nearest.getX()) {
                 return State.WALK;
             } else {
-                if (this.canAttack()) return State.ATTACK;
-                else return State.NONE;
+                return State.ATTACK;
             }
         }
         return State.NONE;

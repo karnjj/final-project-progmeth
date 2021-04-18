@@ -40,8 +40,8 @@ public class GameLoop extends Thread {
         Ranger pirate2 = new Pirate(width-25,height-60,Side.ENEMY);
         Ranger slime = new Slime(0,height-100,Side.HERO);
         Ranger slime2 = new Slime(width-25,height-150,Side.ENEMY);
-        GameController.getHero().add(pirate);
-        GameController.getEnemy().add(pirate2);
+//        GameController.getHero().add(pirate);
+//        GameController.getEnemy().add(pirate2);
         GameController.getHero().add(slime);
         GameController.getEnemy().add(slime2);
     }
@@ -52,7 +52,8 @@ public class GameLoop extends Thread {
             Ranger e = iterator.next();
             e.update(dt);
             if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.ATTACK) e.attack(GameController.getFrontRanger(Side.ENEMY));
+            if(e.getState() == logic.State.ATTACK && e.canAttack())
+                e.attack(GameController.getFrontRanger(Side.ENEMY));
             if(e.getState() == logic.State.WALK) e.move(dt);
             System.out.println(e.getState());
         }
@@ -61,7 +62,8 @@ public class GameLoop extends Thread {
             Ranger e = iterator.next();
             e.update(dt);
             if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.ATTACK) e.attack(GameController.getFrontRanger(Side.HERO));
+            if(e.getState() == logic.State.ATTACK && e.canAttack())
+                e.attack(GameController.getFrontRanger(Side.HERO));
             if(e.getState() == logic.State.WALK) e.move(dt);
         }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
@@ -69,7 +71,7 @@ public class GameLoop extends Thread {
     }
 
     private void draw(double t) {
-        gc.clearRect(0,0,width,height);
+//        gc.clearRect(0,0,width,height);
         for(Ranger e : GameController.getHero()) {
             e.draw(gc,t);
         }
