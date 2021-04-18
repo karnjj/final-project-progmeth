@@ -2,6 +2,7 @@ package entity;
 
 import entity.base.*;
 import logic.GameController;
+import logic.Side;
 import logic.State;
 
 import java.util.Collections;
@@ -17,12 +18,12 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
     private double buyDelay;
     private int energyUsage;
     private int speed;
-    private int side; // 1 is hero, -1 is enemy
+    private Side side; // 1 is hero, -1 is enemy
     private double attackCooldown;
     private double attackDelay;
     private State state;
 
-    public Ranger(int x, int y, String name, int side) {
+    public Ranger(int x, int y, String name, Side side) {
         super(x, y);
         switch (name) {
             case "Pirate" -> {
@@ -124,7 +125,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
 
     @Override
     public void move(double dt) {
-        this.setX(this.getX() + speed * side * dt);
+        this.setX(this.getX() + speed * side.getVal() * dt);
     }
 
     private void updateState() {
@@ -137,13 +138,13 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
             this.state = State.WALK;
             return;
         }
-        if (side == 1) {
+        if (side == Side.HERO) {
             if (this.getX() + attackRange < nearest.getX()) {
                 this.state = State.WALK;
             } else {
                 this.state = State.ATTACK;
             }
-        } else if (side == -1) {
+        } else if (side == Side.ENEMY) {
             if (this.getX() - attackRange > nearest.getX()) {
                 this.state = State.WALK;
             } else {
@@ -154,12 +155,12 @@ public class Ranger extends Entity implements Attackable, Damageable, Buyable, M
 
     public Ranger nearestTarget() {
         Ranger target = null;
-        if (side == 1) {
+        if (side == Side.HERO) {
             if (GameController.getEnemy().isEmpty()) return null;
             target = Collections.min(GameController.getEnemy(),
                     Comparator.comparing(Ranger::getX));
 
-        } else if (side == -1) {
+        } else if (side == Side.ENEMY) {
             if (GameController.getHero().isEmpty()) return null;
             target = Collections.max(GameController.getHero(),
                     Comparator.comparing(Ranger::getX));
