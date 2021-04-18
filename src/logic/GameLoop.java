@@ -1,6 +1,8 @@
 package logic;
 
+import entity.Pirate;
 import entity.Ranger;
+import entity.Slime;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -32,16 +34,16 @@ public class GameLoop extends Thread {
 
     private void init() {
         framePerSecond = 60;
-        updatePerSecond =10000;
+        updatePerSecond = 60;
         GameController.InitGame();
-        Ranger karn = new Ranger(0,height-30,"Pirate",Side.HERO);
-        Ranger non = new Ranger(width-25,height-30,"Slime",Side.ENEMY);
-        Ranger karn2 = new Ranger(0,height-40,"Slime",Side.HERO);
-        Ranger non2 = new Ranger(width-25,height-40,"Pirate",Side.ENEMY);
-        GameController.getHero().add(karn);
-        GameController.getEnemy().add(non);
-        GameController.getHero().add(karn2);
-        GameController.getEnemy().add(non2);
+        Ranger pirate = new Pirate(0,height-30,Side.HERO);
+        Ranger pirate2 = new Pirate(width-25,height-60,Side.ENEMY);
+        Ranger slime = new Slime(0,height-100,Side.HERO);
+        Ranger slime2 = new Slime(width-25,height-150,Side.ENEMY);
+        GameController.getHero().add(pirate);
+        GameController.getEnemy().add(pirate2);
+        GameController.getHero().add(slime);
+        GameController.getEnemy().add(slime2);
     }
 
     private void update(double dt) {
@@ -49,29 +51,30 @@ public class GameLoop extends Thread {
         while (iterator.hasNext()) {
             Ranger e = iterator.next();
             e.update(dt);
+            if(e.getState() == logic.State.DEAD) iterator.remove();
+            if(e.getState() == logic.State.ATTACK) e.attack(GameController.getFrontRanger(Side.ENEMY));
             if(e.getState() == logic.State.WALK) e.move(dt);
-            if(e.getState() == logic.State.ATTACK && e.canAttack()) e.attack(e.nearestTarget());
-            if(e.getState() == logic.State.DEAD ) iterator.remove();
+            System.out.println(e.getState());
         }
         iterator = GameController.getEnemy().iterator();
         while (iterator.hasNext()) {
             Ranger e = iterator.next();
             e.update(dt);
+            if(e.getState() == logic.State.DEAD) iterator.remove();
+            if(e.getState() == logic.State.ATTACK) e.attack(GameController.getFrontRanger(Side.HERO));
             if(e.getState() == logic.State.WALK) e.move(dt);
-            if(e.getState() == logic.State.ATTACK && e.canAttack()) e.attack(e.nearestTarget());
-            if(e.getState() == logic.State.DEAD ) iterator.remove();
         }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
     }
 
-    private void draw() {
+    private void draw(double t) {
         gc.clearRect(0,0,width,height);
         for(Ranger e : GameController.getHero()) {
-            e.draw(gc);
+            e.draw(gc,t);
         }
         for(Ranger e : GameController.getEnemy()) {
-            e.draw(gc);
+            e.draw(gc,t);
         }
         draws++;
     }
@@ -95,7 +98,7 @@ public class GameLoop extends Thread {
                 uDeltaTime -= uOPTIMAL_TIME;
             }
             if (fDeltaTime >= fOPTIMAL_TIME) {
-                draw();
+                draw(currentNanoTime / 1e9);
                 fDeltaTime -= fOPTIMAL_TIME;
             }
 

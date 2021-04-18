@@ -4,6 +4,8 @@ import entity.Ranger;
 import entity.base.Entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GameController {
     private static Energy energy;
@@ -34,9 +36,20 @@ public class GameController {
         return hero;
     }
 
-
     public static ArrayList<Ranger> getEnemy() {
         return enemy;
     }
 
+    public static Ranger getFrontRanger(Side side) {
+        if(side == Side.HERO) {
+            if(hero.isEmpty()) return null;
+            return Collections.max(getHero(),
+                    Comparator.comparing(Ranger::getX));
+        }else if(side == Side.ENEMY) {
+            if(enemy.isEmpty()) return null;
+            return Collections.min(getEnemy(),
+                    Comparator.comparing(Ranger::getX));
+        }
+        return null;
+    }
 }

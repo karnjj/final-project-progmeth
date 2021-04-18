@@ -12,7 +12,7 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public void draw(GraphicsContext gc) {
+    public void draw(GraphicsContext gc,double t) {
         gc.setFill(Color.BLACK);
         gc.fillOval(x,y,25,25);
     }
