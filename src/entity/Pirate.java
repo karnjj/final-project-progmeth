@@ -11,6 +11,7 @@ public class Pirate extends Ranger {
     private static final double buyDelay;
     private static final int energyUsage;
     private static final int speed;
+    private static final int sizeX;
 
     static {
         name = "Pirate";
@@ -21,6 +22,7 @@ public class Pirate extends Ranger {
         buyDelay = 6;
         energyUsage = 80;
         speed = 150;
+        sizeX = 100;
     }
 
     public Pirate(int x, int y, Side side) {
@@ -34,7 +36,8 @@ public class Pirate extends Ranger {
                 speed,
                 x,
                 y,
-                side
+                side,
+                sizeX
         );
     }
 

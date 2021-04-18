@@ -19,6 +19,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private int speed;
     private Side side;
     private State state;
+    private double sizeX;
 
     public Ranger(String name,
                   int mxHP,
@@ -30,9 +31,10 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
                   int speed,
                   int x,
                   int y,
-                  Side side
+                  Side side,
+                  double sizeX
     ) {
-        super(x, y);
+        super(x-side.getVal()*sizeX/2, y);
         this.name = name;
         this.mxHP = mxHP;
         this.currentHP = mxHP;
@@ -45,11 +47,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.side = side;
         this.state = State.NONE;
         this.attackCountdown = this.attackDelay;
-    }
-
-    @Override
-    public double getCenter() {
-        return this.getX() + 100;
+        this.sizeX = sizeX;
     }
 
     @Override
@@ -130,7 +128,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         if (side == Side.HERO) {
             Ranger nearest = GameController.getFrontRanger(Side.ENEMY);
             if (nearest == null) return State.WALK;
-            if (this.getCenter() + attackRange < nearest.getCenter()) {
+            if (this.getX() + attackRange < nearest.getX()) {
                 return State.WALK;
             } else {
                 return State.ATTACK;
@@ -138,7 +136,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         } else if (side == Side.ENEMY) {
             Ranger nearest = GameController.getFrontRanger(Side.HERO);
             if (nearest == null) return State.WALK;
-            if (this.getCenter() - attackRange > nearest.getCenter()) {
+            if (this.getX() - attackRange > nearest.getX()) {
                 return State.WALK;
             } else {
                 return State.ATTACK;

@@ -16,20 +16,29 @@ public class Slime extends Ranger {
     private static final double buyDelay;
     private static final int energyUsage;
     private static final int speed;
+    private static final int sizeX;
 
-    AnimatedImage walk = new AnimatedImage();
+    AnimatedImage walkAnimated = new AnimatedImage();
     Image[] walkImages = new Image[4];
+
+    AnimatedImage atkAnimated = new AnimatedImage();
+    Image[] atkImages = new Image[5];
+
+
+    AnimatedImage idleAnimated = new AnimatedImage();
+    Image[] idleImages = new Image[4];
 
 
     static {
         name = "Slime";
         mxHP = 200;
-        attack = 5;
-        attackRange = 30;
+        attack = 1;
+        attackRange = 0;
         attackDelay = 2;
         buyDelay = 4;
         energyUsage = 60;
         speed = 100;
+        sizeX = 200;
     }
 
     public Slime(int x, int y, Side side) {
@@ -43,12 +52,23 @@ public class Slime extends Ranger {
                 speed,
                 x,
                 y,
-                side
+                side,
+                sizeX
         );
-        for (int i = 0; i < 4; i++)
-            walkImages[i] = new Image( "slime/walk_" + i + ".png" );
-        walk.frames = walkImages;
-        walk.duration = 20.0/this.getSpeed();
+        for (int i = 0; i < walkImages.length; i++)
+            walkImages[i] = new Image( name + "/walk_" + i + ".png" );
+        walkAnimated.frames = walkImages;
+        walkAnimated.duration = 20.0/this.getSpeed();
+
+        for (int i = 0; i < atkImages.length; i++)
+            atkImages[i] = new Image( name + "/attack_" + i + ".png" );
+        atkAnimated.frames = atkImages;
+        atkAnimated.duration = this.getAttackDelay()*0.1/atkImages.length;
+
+        for (int i = 0; i < idleImages.length; i++)
+            idleImages[i] = new Image( name + "/idle_" + i + ".png" );
+        idleAnimated.frames = idleImages;
+        idleAnimated.duration = 20.0/this.getSpeed();
         ;
     }
 
@@ -58,9 +78,18 @@ public class Slime extends Ranger {
 
     @Override
     public void draw(GraphicsContext gc, double t) {
-        Image ig = walk.getFrame(t);
-        int flip = 1;
-        if (this.getSide() == Side.HERO) flip = -1;
-        gc.drawImage(ig,this.getX(),this.getY(), flip*ig.getWidth(), ig.getHeight());
+        Image ig = null;
+        if (this.getState() == State.WALK) {
+            ig = walkAnimated.getFrame(t);
+        }else if(this.getState() == State.ATTACK) {
+            if (this.getAttackDelay()*0.1 <= this.getAttackCountdown()) {
+                ig = idleAnimated.getFrame(t);
+            }else {
+                ig = atkAnimated.getFrame((this.getAttackDelay()-this.getAttackCountdown()));
+            }
+        }
+        if(ig == null) return;
+        gc.drawImage(ig,this.getX(),this.getY(), getSide().getVal()*ig.getWidth(), ig.getHeight());
+
     }
 }

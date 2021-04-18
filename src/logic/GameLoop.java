@@ -36,13 +36,13 @@ public class GameLoop extends Thread {
     }
 
     private void init() {
-        framePerSecond = 144;
+        framePerSecond = 60;
         updatePerSecond = 240;
         GameController.InitGame();
-        Ranger pirate = new Pirate(0,height-30,Side.HERO);
-        Ranger pirate2 = new Pirate(width-25,height-60,Side.ENEMY);
-        Ranger slime = new Inkblue(0,height-100,Side.HERO);
-        Ranger slime2 = new Slime(width-25,height-150,Side.ENEMY);
+//        Ranger pirate = new Inkblue(0,height-80,Side.HERO);
+//        Ranger pirate2 = new Inkblue(width-25,height-120,Side.ENEMY);
+        Ranger slime = new Slime(0,height-100,Side.HERO);
+        Ranger slime2 = new Slime(width,height-150,Side.ENEMY);
 //        GameController.getHero().add(pirate);
 //        GameController.getEnemy().add(pirate2);
         GameController.getHero().add(slime);
@@ -58,6 +58,7 @@ public class GameLoop extends Thread {
             if(e.getState() == logic.State.ATTACK && e.canAttack())
                 e.attack(GameController.getFrontRanger(Side.ENEMY));
             if(e.getState() == logic.State.WALK) e.move(dt);
+            System.out.println(e.getX());
         }
         iterator = GameController.getEnemy().iterator();
         while (iterator.hasNext()) {
@@ -67,6 +68,7 @@ public class GameLoop extends Thread {
             if(e.getState() == logic.State.ATTACK && e.canAttack())
                 e.attack(GameController.getFrontRanger(Side.HERO));
             if(e.getState() == logic.State.WALK) e.move(dt);
+            System.out.println(e.getX());
         }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;

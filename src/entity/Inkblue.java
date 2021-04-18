@@ -16,6 +16,7 @@ public class Inkblue extends Ranger {
     private static final double buyDelay;
     private static final int energyUsage;
     private static final int speed;
+    private static final int sizeX;
 
     AnimatedImage walkAnimated = new AnimatedImage();
     Image[] walkImages = new Image[5];
@@ -37,6 +38,7 @@ public class Inkblue extends Ranger {
         buyDelay = 4;
         energyUsage = 60;
         speed = 200;
+        sizeX = 100;
     }
 
     public Inkblue(int x, int y, Side side) {
@@ -50,20 +52,21 @@ public class Inkblue extends Ranger {
                 speed,
                 x,
                 y,
-                side
+                side,
+                sizeX
         );
         for (int i = 0; i < walkImages.length; i++)
-            walkImages[i] = new Image( "inkblue/walk_" + i + ".png" );
+            walkImages[i] = new Image( name + "/walk_" + i + ".png" );
         walkAnimated.frames = walkImages;
         walkAnimated.duration = 20.0/this.getSpeed();
 
         for (int i = 0; i < atkImages.length; i++)
-            atkImages[i] = new Image( "inkblue/attack_" + i + ".png" );
+            atkImages[i] = new Image( name + "/attack_" + i + ".png" );
         atkAnimated.frames = atkImages;
         atkAnimated.duration = this.getAttackDelay()*0.1/atkImages.length;
 
         for (int i = 0; i < idleImages.length; i++)
-            idleImages[i] = new Image( "inkblue/idle_" + i + ".png" );
+            idleImages[i] = new Image( name + "/idle_" + i + ".png" );
         idleAnimated.frames = idleImages;
         idleAnimated.duration = 20.0/this.getSpeed();
         ;

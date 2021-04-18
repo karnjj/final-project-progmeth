@@ -45,11 +45,11 @@ public class GameController {
         if(side == Side.HERO) {
             if(hero.isEmpty()) return null;
             return Collections.max(getHero(),
-                    Comparator.comparing(Ranger::getCenter));
+                    Comparator.comparing(Ranger::getX));
         }else if(side == Side.ENEMY) {
             if(enemy.isEmpty()) return null;
             return Collections.min(getEnemy(),
-                    Comparator.comparing(Ranger::getCenter));
+                    Comparator.comparing(Ranger::getX));
         }
         return null;
     }
