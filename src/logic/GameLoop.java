@@ -72,17 +72,7 @@ public class GameLoop extends Thread {
         updates++;
     }
 
-    private void draw(double t) {
-        gc.clearRect(0,0,width,height);
-        Drawing.drawBackground(gc);
-        for(Ranger e : GameController.getHero()) {
-            e.draw(gc,t);
-        }
-        for(Ranger e : GameController.getEnemy()) {
-            e.draw(gc,t);
-        }
-        draws++;
-    }
+    
 
     @Override
     public void run() {
@@ -100,10 +90,12 @@ public class GameLoop extends Thread {
             startNanoTime = currentNanoTime;
             if (uDeltaTime >= uOPTIMAL_TIME) {
                 update(uDeltaTime / 1e9);
+                
                 uDeltaTime -= uOPTIMAL_TIME;
             }
             if (fDeltaTime >= fOPTIMAL_TIME) {
-                draw(currentNanoTime / 1e9);
+                Drawing.drawPlayingRangers(gc,currentNanoTime / 1e9);
+                draws++;
                 fDeltaTime -= fOPTIMAL_TIME;
             }
 
