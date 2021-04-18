@@ -17,6 +17,8 @@ public abstract class Entity {
         gc.fillOval(x,y,25,25);
     }
 
+    public double getCenter() {return this.x; }
+
     public double getX() {
         return x;
     }

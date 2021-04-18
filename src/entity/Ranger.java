@@ -44,6 +44,12 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.speed = speed;
         this.side = side;
         this.state = State.NONE;
+        this.attackCountdown = this.attackDelay;
+    }
+
+    @Override
+    public double getCenter() {
+        return this.getX() + 100;
     }
 
     @Override
@@ -124,7 +130,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         if (side == Side.HERO) {
             Ranger nearest = GameController.getFrontRanger(Side.ENEMY);
             if (nearest == null) return State.WALK;
-            if (this.getX() + attackRange < nearest.getX()) {
+            if (this.getCenter() + attackRange < nearest.getCenter()) {
                 return State.WALK;
             } else {
                 return State.ATTACK;
@@ -132,7 +138,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         } else if (side == Side.ENEMY) {
             Ranger nearest = GameController.getFrontRanger(Side.HERO);
             if (nearest == null) return State.WALK;
-            if (this.getX() - attackRange > nearest.getX()) {
+            if (this.getCenter() - attackRange > nearest.getCenter()) {
                 return State.WALK;
             } else {
                 return State.ATTACK;
@@ -145,9 +151,18 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         return side;
     }
 
+    public double getAttackDelay() {
+        return attackDelay;
+    }
+
+    public double getAttackCountdown() {
+        return attackCountdown;
+    }
+
     public void update(double dt) {
         this.state = checkState();
-        setAttackCountdown(attackCountdown - dt);
+        if(this.state == State.ATTACK)
+            setAttackCountdown(attackCountdown - dt);
         setBuyCountdown(buyCountdown - dt);
     }
 }

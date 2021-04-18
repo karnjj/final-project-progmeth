@@ -1,5 +1,6 @@
 package logic;
 
+import entity.Inkblue;
 import entity.Pirate;
 import entity.Ranger;
 import entity.Slime;
@@ -35,12 +36,12 @@ public class GameLoop extends Thread {
     }
 
     private void init() {
-        framePerSecond = 60;
-        updatePerSecond = 60;
+        framePerSecond = 144;
+        updatePerSecond = 240;
         GameController.InitGame();
         Ranger pirate = new Pirate(0,height-30,Side.HERO);
         Ranger pirate2 = new Pirate(width-25,height-60,Side.ENEMY);
-        Ranger slime = new Slime(0,height-100,Side.HERO);
+        Ranger slime = new Inkblue(0,height-100,Side.HERO);
         Ranger slime2 = new Slime(width-25,height-150,Side.ENEMY);
 //        GameController.getHero().add(pirate);
 //        GameController.getEnemy().add(pirate2);
@@ -57,7 +58,6 @@ public class GameLoop extends Thread {
             if(e.getState() == logic.State.ATTACK && e.canAttack())
                 e.attack(GameController.getFrontRanger(Side.ENEMY));
             if(e.getState() == logic.State.WALK) e.move(dt);
-            System.out.println(e.getState());
         }
         iterator = GameController.getEnemy().iterator();
         while (iterator.hasNext()) {
@@ -72,7 +72,10 @@ public class GameLoop extends Thread {
         updates++;
     }
 
-    
+    private void draw(GraphicsContext gc,double t) {
+        Drawing.drawPlayingRangers(gc,t);
+        draws++;
+    }
 
     @Override
     public void run() {
@@ -94,8 +97,8 @@ public class GameLoop extends Thread {
                 uDeltaTime -= uOPTIMAL_TIME;
             }
             if (fDeltaTime >= fOPTIMAL_TIME) {
-                Drawing.drawPlayingRangers(gc,currentNanoTime / 1e9);
-                draws++;
+                draw(gc,currentNanoTime / 1e9);
+
                 fDeltaTime -= fOPTIMAL_TIME;
             }
 
