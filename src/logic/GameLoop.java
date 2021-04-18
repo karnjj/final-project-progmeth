@@ -9,6 +9,8 @@ import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
+import application.Drawing;
+
 public class GameLoop extends Thread {
     int width, height;
     GraphicsContext gc;
@@ -71,7 +73,8 @@ public class GameLoop extends Thread {
     }
 
     private void draw(double t) {
-//        gc.clearRect(0,0,width,height);
+        gc.clearRect(0,0,width,height);
+        Drawing.drawBackground(gc);
         for(Ranger e : GameController.getHero()) {
             e.draw(gc,t);
         }

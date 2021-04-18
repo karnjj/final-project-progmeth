@@ -11,6 +11,7 @@ public class GameController {
     private static Energy energy;
     private static ArrayList<Ranger> hero;
     private static ArrayList<Ranger> enemy;
+    
     public static void InitGame() {
         energy = new Energy();
         hero = new ArrayList<Ranger>();
