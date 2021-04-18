@@ -27,6 +27,7 @@ public class HeroPane extends HBox{
 			x.addEventHandler(MouseEvent.MOUSE_ENTERED, 
 			    new EventHandler<MouseEvent>() {
 			        @Override public void handle(MouseEvent e) {
+			        	// createRanger
 			            x.setEffect(shadow);
 			        }
 			});

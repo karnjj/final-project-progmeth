@@ -25,7 +25,7 @@ public class GameController {
         }
     }
     
-    public static void createRanger(String name) {
+    public static void createRanger(String name,int side) {
     	// create Ranger at start position
     }
     

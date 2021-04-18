@@ -32,7 +32,7 @@ public class GameLoop extends Thread {
 
     private void init() {
         framePerSecond = 60;
-        updatePerSecond = 60;
+        updatePerSecond =10000;
         GameController.InitGame();
         Ranger karn = new Ranger(0,height-30,"Pirate",1);
         Ranger non = new Ranger(width-25,height-30,"Slime",-1);
