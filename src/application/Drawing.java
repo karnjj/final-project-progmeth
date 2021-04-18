@@ -12,8 +12,8 @@ public class Drawing {
 	private static final int window_height = 595;
 	
 	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,434,false,false).getPixelReader(),0,0,window_width,434);
-	private static WritableImage turrentHero = new WritableImage(new Image(ClassLoader.getSystemResource("turrentHero.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
-	private static WritableImage turrentEnemy = new WritableImage(new Image(ClassLoader.getSystemResource("turrentEnemy.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
+	private static WritableImage turretHero = new WritableImage(new Image(ClassLoader.getSystemResource("turretHero.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
+	private static WritableImage turretEnemy = new WritableImage(new Image(ClassLoader.getSystemResource("turretEnemy.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
 	
 	public static void drawPlayingRangers(GraphicsContext gc,double t) {
         gc.clearRect(0,0,window_width,434);
@@ -28,10 +28,9 @@ public class Drawing {
     }
 	
 	public static void drawTurrent(GraphicsContext gc) {
-		gc.drawImage(turrentHero, 0, 0);
-		gc.drawImage(turrentEnemy, 1000, 0);
+		gc.drawImage(turretHero, 0, 0);
+		gc.drawImage(turretEnemy, 1000, 0);
 	}
-	
 	
 	public static void drawBackground(GraphicsContext gc) {
 		gc.drawImage(bg, 0, 0);
