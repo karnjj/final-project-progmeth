@@ -52,8 +52,7 @@ public class Slime extends Ranger {
                 speed,
                 x,
                 y,
-                side,
-                sizeX
+                side
         );
         for (int i = 0; i < walkImages.length; i++)
             walkImages[i] = new Image( name + "/walk_" + i + ".png" );
@@ -89,7 +88,7 @@ public class Slime extends Ranger {
             }
         }
         if(ig == null) return;
-        gc.drawImage(ig,this.getX(),this.getY(), getSide().getVal()*ig.getWidth(), ig.getHeight());
+        gc.drawImage(ig,this.getX() - this.getSide().getVal()*sizeX/2,this.getY(), getSide().getVal()*ig.getWidth(), ig.getHeight());
 
     }
 }

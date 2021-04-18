@@ -52,8 +52,7 @@ public class Inkblue extends Ranger {
                 speed,
                 x,
                 y,
-                side,
-                sizeX
+                side
         );
         for (int i = 0; i < walkImages.length; i++)
             walkImages[i] = new Image( name + "/walk_" + i + ".png" );

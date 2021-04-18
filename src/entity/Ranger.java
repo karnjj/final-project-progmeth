@@ -19,7 +19,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private int speed;
     private Side side;
     private State state;
-    private double sizeX;
 
     public Ranger(String name,
                   int mxHP,
@@ -31,10 +30,9 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
                   int speed,
                   int x,
                   int y,
-                  Side side,
-                  double sizeX
+                  Side side
     ) {
-        super(x-side.getVal()*sizeX/2, y);
+        super(x, y);
         this.name = name;
         this.mxHP = mxHP;
         this.currentHP = mxHP;
@@ -47,7 +45,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.side = side;
         this.state = State.NONE;
         this.attackCountdown = this.attackDelay;
-        this.sizeX = sizeX;
     }
 
     @Override

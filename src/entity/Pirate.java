@@ -36,8 +36,7 @@ public class Pirate extends Ranger {
                 speed,
                 x,
                 y,
-                side,
-                sizeX
+                side
         );
     }
 

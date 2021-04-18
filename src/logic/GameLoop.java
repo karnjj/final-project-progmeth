@@ -58,7 +58,6 @@ public class GameLoop extends Thread {
             if(e.getState() == logic.State.ATTACK && e.canAttack())
                 e.attack(GameController.getFrontRanger(Side.ENEMY));
             if(e.getState() == logic.State.WALK) e.move(dt);
-            System.out.println(e.getX());
         }
         iterator = GameController.getEnemy().iterator();
         while (iterator.hasNext()) {
@@ -68,7 +67,6 @@ public class GameLoop extends Thread {
             if(e.getState() == logic.State.ATTACK && e.canAttack())
                 e.attack(GameController.getFrontRanger(Side.HERO));
             if(e.getState() == logic.State.WALK) e.move(dt);
-            System.out.println(e.getX());
         }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
