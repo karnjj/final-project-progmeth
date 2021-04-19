@@ -2,16 +2,19 @@ package test;
 
 import application.Drawing;
 import gui.ControlPane;
+import gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -23,20 +26,16 @@ public class DemoMain extends Application{
 	public void start(Stage primaryStage) throws Exception{
 		// TODO
 		GameController.InitGame();
-		VBox root = new VBox();
-		root.setSpacing(10);
+		StackPane root = new StackPane();
 		root.setPadding(new Insets(2,2,2,2));
 		
-		// Marker size
-//		Button bn= new Button();
-//		bn.setPrefHeight(434);
-//		bn.setPrefWidth(1289);
-		
-		Canvas canvas = new Canvas(Drawing.getWindowWidth(), 434);
-		ControlPane controlpane = new ControlPane();
+		HomePanel homePanel= new HomePanel();
+		PlayPanel playPanel = new PlayPanel();
+		Canvas canvas = new Canvas(Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
-		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), 434);
+		
+		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		loop.start();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -47,7 +46,10 @@ public class DemoMain extends Application{
 		});
 		
 		root.getChildren().add(canvas);
-		root.getChildren().add(controlpane);
+		root.getChildren().add(playPanel);
+		
+		
+//		root.getChildren().add(controlpane);
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
 		primaryStage.setTitle("Zaa");
 		primaryStage.setResizable(false);

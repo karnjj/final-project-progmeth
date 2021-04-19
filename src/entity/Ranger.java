@@ -1,5 +1,6 @@
 package entity;
 
+import application.Drawing;
 import entity.base.*;
 import logic.GameController;
 import logic.Side;
@@ -32,7 +33,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
                   int y,
                   Side side
     ) {
-        super(x, y);
+        super(x, y-Drawing.getTargetPosiBg());
         this.name = name;
         this.mxHP = mxHP;
         this.currentHP = mxHP;
@@ -116,6 +117,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     @Override
     public void move(double dt) {
         this.setX(this.getX() + speed * side.getVal() * dt);
+        
     }
 
     private State checkState() {

@@ -11,8 +11,17 @@ public class GameController {
     private static Energy energy;
     private static ArrayList<Ranger> hero;
     private static ArrayList<Ranger> enemy;
+    private static int isGameMode = 0; // if isGameMode = 1 else 0;
     
-    public static void InitGame() {
+    public static int getIsGameMode() {
+		return isGameMode;
+	}
+
+	public static void setIsGameMode(int isGameMode) {
+		GameController.isGameMode = isGameMode;
+	}
+
+	public static void InitGame() {
         energy = new Energy();
         hero = new ArrayList<Ranger>();
         enemy = new ArrayList<Ranger>();

@@ -51,6 +51,7 @@ public class GameLoop extends Thread {
 
     private void update(double dt) {
         Iterator<Ranger> iterator = GameController.getHero().iterator();
+        Drawing.updatePosiBg(dt);
         while (iterator.hasNext()) {
             Ranger e = iterator.next();
             e.update(dt);

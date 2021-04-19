@@ -15,9 +15,8 @@ public class HeroPane extends HBox{
 	
 	public HeroPane() {
 		this.setPadding(new Insets(5,5,5,5));
-		this.setAlignment(Pos.CENTER);
 		this.setSpacing(10);;
-		
+		this.setAlignment(Pos.BOTTOM_CENTER);
 		for(int i=0;i<5;i++) {
 			HeroButtonList.add(new HeroButton("1"));
 		}
