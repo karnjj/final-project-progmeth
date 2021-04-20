@@ -31,9 +31,9 @@ public class Inkblue extends Ranger {
 
     static {
         name = "Inkblue";
-        mxHP = 200;
-        attack = 100;
-        attackRange = 30;
+        mxHP = 400;
+        attack = 1;
+        attackRange = 100;
         attackDelay = 2;
         buyDelay = 4;
         energyUsage = 60;
@@ -62,7 +62,7 @@ public class Inkblue extends Ranger {
         for (int i = 0; i < atkImages.length; i++)
             atkImages[i] = new Image( name + "/attack_" + i + ".png" );
         atkAnimated.frames = atkImages;
-        atkAnimated.duration = this.getAttackDelay()*0.1/atkImages.length;
+        atkAnimated.duration = this.getAttackDelay()*(20.0/this.getSpeed())/atkImages.length;
 
         for (int i = 0; i < idleImages.length; i++)
             idleImages[i] = new Image( name + "/idle_" + i + ".png" );
@@ -81,14 +81,14 @@ public class Inkblue extends Ranger {
         if (this.getState() == State.WALK) {
             ig = walkAnimated.getFrame(t);
         }else if(this.getState() == State.ATTACK) {
-            if (this.getAttackDelay()*0.1 <= this.getAttackCountdown()) {
+            if (this.getAttackDelay()*(20.0/this.getSpeed()) < this.getAttackCountdown()) {
                 ig = idleAnimated.getFrame(t);
             }else {
-                ig = atkAnimated.getFrame((this.getAttackDelay()-this.getAttackCountdown()));
+                ig = atkAnimated.getFrame(this.getAttackDelay()*(20.0/this.getSpeed()) - this.getAttackCountdown());
             }
         }
         if(ig == null) return;
-        gc.drawImage(ig,this.getX(),this.getY(), getSide().getVal()*ig.getWidth(), ig.getHeight());
+        gc.drawImage(ig,this.getX()- this.getSide().getVal()*sizeX/2,this.getY(), getSide().getVal()*ig.getWidth(), ig.getHeight());
 
     }
 }

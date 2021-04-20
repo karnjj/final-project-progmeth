@@ -37,38 +37,22 @@ public class GameLoop extends Thread {
 
     private void init() {
         framePerSecond = 60;
-        updatePerSecond = 240;
+        updatePerSecond = 360;
         GameController.InitGame();
-//        Ranger pirate = new Inkblue(0,height-80,Side.HERO);
-//        Ranger pirate2 = new Inkblue(width-25,height-120,Side.ENEMY);
-        Ranger slime = new Slime(0,height-100,Side.HERO);
-        Ranger slime2 = new Slime(width,height-150,Side.ENEMY);
-//        GameController.getHero().add(pirate);
-//        GameController.getEnemy().add(pirate2);
+        Ranger pirate = new Inkblue(0,height-100,Side.HERO);
+        Ranger pirate2 = new Inkblue(width,height-120,Side.ENEMY);
+        Ranger slime = new Slime(0,height-80,Side.HERO);
+        Ranger slime2 = new Slime(width,height-100,Side.ENEMY);
         GameController.getHero().add(slime);
         GameController.getEnemy().add(slime2);
+        GameController.getHero().add(pirate);
+        GameController.getEnemy().add(pirate2);
     }
 
     private void update(double dt) {
-        Iterator<Ranger> iterator = GameController.getHero().iterator();
-        Drawing.updatePosiBg(dt);
-        while (iterator.hasNext()) {
-            Ranger e = iterator.next();
-            e.update(dt);
-            if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.ATTACK && e.canAttack())
-                e.attack(GameController.getFrontRanger(Side.ENEMY));
-            if(e.getState() == logic.State.WALK) e.move(dt);
-        }
-        iterator = GameController.getEnemy().iterator();
-        while (iterator.hasNext()) {
-            Ranger e = iterator.next();
-            e.update(dt);
-            if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.ATTACK && e.canAttack())
-                e.attack(GameController.getFrontRanger(Side.HERO));
-            if(e.getState() == logic.State.WALK) e.move(dt);
-        }
+        GameController.updateHero(dt);
+        GameController.updateEnemy(dt);
+        GameController.updateEnergy(dt);
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
     }

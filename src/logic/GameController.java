@@ -3,9 +3,7 @@ package logic;
 import entity.Ranger;
 import entity.base.Entity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class GameController {
     private static Energy energy;
@@ -34,6 +32,38 @@ public class GameController {
     public static void useEnergy(int energy) {
         if (!GameController.energy.Use(energy)) {
             System.out.println("error");
+        }
+    }
+
+    public static void updateEnergy(double dt) {
+        energy.update(dt);
+    }
+
+    public static void updateHero(double dt) {
+        Iterator<Ranger> iterator = getHero().iterator();
+        while (iterator.hasNext()) {
+            Ranger e = iterator.next();
+            e.update(dt);
+            if(e.getState() == logic.State.DEAD) iterator.remove();
+            if(e.getState() == logic.State.ATTACK && e.canAttack()) {
+                Ranger target = getFrontRanger(Side.ENEMY);
+                if (target != null) e.attack(target);
+            }
+            if(e.getState() == logic.State.WALK) e.move(dt);
+        }
+    }
+
+    public static void updateEnemy(double dt) {
+        Iterator<Ranger> iterator = getEnemy().iterator();
+        while (iterator.hasNext()) {
+            Ranger e = iterator.next();
+            e.update(dt);
+            if(e.getState() == logic.State.DEAD) iterator.remove();
+            if(e.getState() == logic.State.ATTACK && e.canAttack()) {
+                Ranger target = getFrontRanger(Side.HERO);
+                if (target != null) e.attack(target);
+            }
+            if(e.getState() == logic.State.WALK) e.move(dt);
         }
     }
     
