@@ -5,10 +5,14 @@ public class Energy {
     private int currentEnergy;
     private int mxEnergy;
 
+    // this for fix can't parse double to int if value less than one.
+    private double countSecondBeforeUpdate;
+
     public Energy() {
         this.level = 1;
-        this.currentEnergy = 100;
+        this.currentEnergy = 0;
         this.mxEnergy = 100;
+        this.countSecondBeforeUpdate = 0;
     }
 
     public void UpLevel() {
@@ -38,6 +42,7 @@ public class Energy {
     public void setCurrentEnergy(int currentEnergy) {
         this.currentEnergy = currentEnergy;
         if(this.currentEnergy < 0) this.currentEnergy = 0;
+        if(this.currentEnergy > this.mxEnergy) this.currentEnergy = this.mxEnergy;
     }
 
     public int getMxEnergy() {
@@ -46,5 +51,14 @@ public class Energy {
 
     public void setMxEnergy(int mxEnergy) {
         this.mxEnergy = mxEnergy;
+    }
+
+    public void update(double dt) {
+        System.out.println(getCurrentEnergy());
+        countSecondBeforeUpdate += dt;
+        if(countSecondBeforeUpdate > 0.1){
+            setCurrentEnergy((int) (getCurrentEnergy() + countSecondBeforeUpdate*10*this.getLevel()));
+            countSecondBeforeUpdate -= 0.1;
+        }
     }
 }
