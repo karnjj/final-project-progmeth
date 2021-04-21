@@ -24,8 +24,8 @@ public class HeroButton extends Button {
 		this.hero = new Hero(Name);
 		
 		ImageView imageView = new ImageView(hero.getUrl());
-		imageView.setFitWidth(100);
-		imageView.setFitHeight(100);
+		imageView.setFitWidth(70);
+		imageView.setFitHeight(70);
 		this.setGraphic(imageView);
 		this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, 

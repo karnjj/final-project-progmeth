@@ -1,5 +1,6 @@
 package entity;
 
+import application.Drawing;
 import entity.base.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -47,7 +48,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
                   int atkFrame,
                   int idleFrame
     ) {
-        super(x, y);
+        super(x, y-Drawing.getTargetPosiBg());
         this.name = name;
         this.mxHP = mxHP;
         this.currentHP = mxHP;
@@ -145,6 +146,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     @Override
     public void move(double dt) {
         this.setX(this.getX() + speed * side.getVal() * dt);
+        
     }
 
     private State checkState() {

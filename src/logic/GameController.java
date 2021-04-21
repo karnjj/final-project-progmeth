@@ -7,8 +7,11 @@ import entity.base.Entity;
 
 import java.util.*;
 
+import application.Drawing;
+
 public class GameController {
     private static Energy energy;
+    private static GameState gameState;
     private static ArrayList<Ranger> hero;
     private static ArrayList<Ranger> enemy;
     private static ArrayList<Bullet> bullet;
@@ -20,6 +23,12 @@ public class GameController {
         enemy = new ArrayList<Ranger>();
         bullet = new ArrayList<Bullet>();
         smoke = new ArrayList<Smoke>();
+    
+	public static void InitGame() {
+        energy = new Energy();
+        hero = new ArrayList<Ranger>();
+        enemy = new ArrayList<Ranger>();
+        gameState = GameState.Home;
     }
 
     public static int getCurrentEnergy() {
@@ -118,5 +127,16 @@ public class GameController {
                     Comparator.comparing(Ranger::getX));
         }
         return null;
+        
     }
+
+	public static GameState getGameState() {
+		return gameState;
+	}
+
+	public static void setGameState(GameState gameState) {
+		GameController.gameState = gameState;
+		Drawing.updatePanel();
+	}
+    
 }
