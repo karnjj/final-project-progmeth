@@ -16,18 +16,13 @@ public class GameController {
     private static ArrayList<Ranger> enemy;
     private static ArrayList<Bullet> bullet;
     private static ArrayList<Smoke> smoke;
-
-    public static void InitGame() {
-        energy = new Energy();
-        hero = new ArrayList<Ranger>();
-        enemy = new ArrayList<Ranger>();
-        bullet = new ArrayList<Bullet>();
-        smoke = new ArrayList<Smoke>();
     
 	public static void InitGame() {
         energy = new Energy();
         hero = new ArrayList<Ranger>();
         enemy = new ArrayList<Ranger>();
+        bullet = new ArrayList<Bullet>();
+        smoke = new ArrayList<Smoke>();
         gameState = GameState.Home;
     }
 
