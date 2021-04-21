@@ -51,6 +51,8 @@ public class DemoMain extends Application{
 	
 		
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
+		//add style
+		scene.getStylesheets().add(getClass().getClassLoader().getResource("style.css").toExternalForm());
 		primaryStage.setTitle("Zaa");
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
