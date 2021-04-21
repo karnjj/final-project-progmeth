@@ -1,6 +1,8 @@
 package logic;
 
+import entity.Bullet;
 import entity.Ranger;
+import entity.Smoke;
 import entity.base.Entity;
 
 import java.util.*;
@@ -9,11 +11,15 @@ public class GameController {
     private static Energy energy;
     private static ArrayList<Ranger> hero;
     private static ArrayList<Ranger> enemy;
-    
+    private static ArrayList<Bullet> bullet;
+    private static ArrayList<Smoke> smoke;
+
     public static void InitGame() {
         energy = new Energy();
         hero = new ArrayList<Ranger>();
         enemy = new ArrayList<Ranger>();
+        bullet = new ArrayList<Bullet>();
+        smoke = new ArrayList<Smoke>();
     }
 
     public static int getCurrentEnergy() {
@@ -57,6 +63,29 @@ public class GameController {
             if(e.getState() == logic.State.WALK) e.move(dt);
         }
     }
+
+    public static void updateBullet(double dt) {
+        Iterator<Bullet> iterator = getBullet().iterator();
+        while (iterator.hasNext()) {
+            Bullet e = iterator.next();
+            e.update(dt);
+            if(e.getState() == logic.State.ATTACK) {
+                Ranger target = getFrontRanger(e.getSide().getOpposite());
+                if (target != null) e.attack(target);
+            }
+            if(e.getState() == logic.State.DEAD) iterator.remove();
+            if(e.getState() == logic.State.WALK) e.move(dt);
+        }
+    }
+
+    public static void updateSmoke(double dt) {
+        Iterator<Smoke> iterator = getSmoke().iterator();
+        while (iterator.hasNext()) {
+            Smoke e = iterator.next();
+            e.update(dt);
+            if(e.getState() == logic.State.DEAD) iterator.remove();
+        }
+    }
     
     public static void createRanger(String name,int side) {
     	// create Ranger at start position
@@ -69,6 +98,13 @@ public class GameController {
 
     public static ArrayList<Ranger> getEnemy() {
         return enemy;
+    }
+
+    public static ArrayList<Bullet> getBullet() {
+        return bullet;
+    }
+    public static ArrayList<Smoke> getSmoke() {
+        return smoke;
     }
 
     public static Ranger getFrontRanger(Side side) {
