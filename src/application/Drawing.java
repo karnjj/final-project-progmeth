@@ -4,11 +4,11 @@ package application;
 import entity.Bullet;
 import entity.Ranger;
 import entity.Smoke;
-import gui.*;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-
+import gui.*;
 import logic.GameController;
 import logic.GameState;
 
@@ -82,21 +82,6 @@ public class Drawing {
 		Drawing.drawSmoke(gc,t);
 	}
 
-	
-	public static void updatePosiBg(double dt) {
-		targetPosiBg = (GameController.getGameState()== GameState.Home)? 0:-120;
-		if (GameController.getGameState()!= GameState.Home) {
-			if(targetPosiBg<currentPosiBg) {
-				currentPosiBg -= speedPosiBg*dt;
-			}
-		}
-		else {
-			if(targetPosiBg>currentPosiBg) {currentPosiBg += speedPosiBg*dt;}
-		}
-			
-	}
-	
-	
 	public static void drawTurrent(GraphicsContext gc) {
 		int k = 155; //for debug 155
 		gc.drawImage(turretHero, 0, k+currentPosiBg);
@@ -106,6 +91,14 @@ public class Drawing {
 	public static void drawBackground(GraphicsContext gc) {
 		gc.drawImage(bg, 0, currentPosiBg);
 		drawTurrent(gc);
+		if(GameController.getGameState() == GameState.Pause) {
+			gc.setGlobalAlpha(0.1);
+            gc.setEffect(new BoxBlur(2, 2, 3));
+		}
+		else {
+			gc.setGlobalAlpha(1);
+          gc.setEffect(null);
+		}
 	}
 	
 	public static int getWindowWidth() {
