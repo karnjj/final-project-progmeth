@@ -54,7 +54,6 @@ public class Energy {
     }
 
     public void update(double dt) {
-        System.out.println(getCurrentEnergy());
         countSecondBeforeUpdate += dt;
         if(countSecondBeforeUpdate > 0.1){
             setCurrentEnergy((int) (getCurrentEnergy() + countSecondBeforeUpdate*10*this.getLevel()));
