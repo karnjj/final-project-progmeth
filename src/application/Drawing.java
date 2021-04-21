@@ -51,6 +51,19 @@ public class Drawing {
 				break;
 		}
 	}
+
+	public static void updatePosiBg(double dt) {
+		targetPosiBg = (GameController.getGameState()== GameState.Home)? 0:-120;
+		if (GameController.getGameState()!= GameState.Home) {
+			if(targetPosiBg<currentPosiBg) {
+				currentPosiBg -= speedPosiBg*dt;
+			}
+		}
+		else {
+			if(targetPosiBg>currentPosiBg) {currentPosiBg += speedPosiBg*dt;}
+		}
+
+	}
 	
 	
 	public static void drawPlayingRangers(GraphicsContext gc,double t) {
