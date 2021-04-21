@@ -1,11 +1,8 @@
 package entity;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import logic.AnimatedImage;
+import entity.base.Damageable;
+import logic.GameController;
 import logic.Side;
-import logic.State;
 
 public class Inkblue extends Ranger {
     private static final String name;
@@ -16,32 +13,31 @@ public class Inkblue extends Ranger {
     private static final double buyDelay;
     private static final int energyUsage;
     private static final int speed;
-    private static final int sizeX;
+    private static final double sizeX;
 
-    AnimatedImage walkAnimated = new AnimatedImage();
-    Image[] walkImages = new Image[5];
-
-    AnimatedImage atkAnimated = new AnimatedImage();
-    Image[] atkImages = new Image[5];
+    private static final int walkFrame;
+    private static final int atkFrame;
+    private static final int idleFrame;
 
 
-    AnimatedImage idleAnimated = new AnimatedImage();
-    Image[] idleImages = new Image[2];
 
 
     static {
         name = "Inkblue";
-        mxHP = 400;
-        attack = 1;
-        attackRange = 100;
-        attackDelay = 2;
+        mxHP = 100;
+        attack = 10;
+        attackRange = 1000;
+        attackDelay = 3;
         buyDelay = 4;
         energyUsage = 60;
         speed = 200;
         sizeX = 100;
+        walkFrame = 5;
+        atkFrame = 5;
+        idleFrame = 2;
     }
 
-    public Inkblue(int x, int y, Side side) {
+    public Inkblue(double x, double y, Side side) {
         super(name,
                 mxHP,
                 attack,
@@ -52,23 +48,13 @@ public class Inkblue extends Ranger {
                 speed,
                 x,
                 y,
-                side
+                side,
+                sizeX,
+                walkFrame,
+                atkFrame,
+                idleFrame
         );
-        for (int i = 0; i < walkImages.length; i++)
-            walkImages[i] = new Image( name + "/walk_" + i + ".png" );
-        walkAnimated.frames = walkImages;
-        walkAnimated.duration = 20.0/this.getSpeed();
 
-        for (int i = 0; i < atkImages.length; i++)
-            atkImages[i] = new Image( name + "/attack_" + i + ".png" );
-        atkAnimated.frames = atkImages;
-        atkAnimated.duration = this.getAttackDelay()*(20.0/this.getSpeed())/atkImages.length;
-
-        for (int i = 0; i < idleImages.length; i++)
-            idleImages[i] = new Image( name + "/idle_" + i + ".png" );
-        idleAnimated.frames = idleImages;
-        idleAnimated.duration = 20.0/this.getSpeed();
-        ;
     }
 
     public static String getName() {
@@ -76,19 +62,10 @@ public class Inkblue extends Ranger {
     }
 
     @Override
-    public void draw(GraphicsContext gc, double t) {
-        Image ig = null;
-        if (this.getState() == State.WALK) {
-            ig = walkAnimated.getFrame(t);
-        }else if(this.getState() == State.ATTACK) {
-            if (this.getAttackDelay()*(20.0/this.getSpeed()) < this.getAttackCountdown()) {
-                ig = idleAnimated.getFrame(t);
-            }else {
-                ig = atkAnimated.getFrame(this.getAttackDelay()*(20.0/this.getSpeed()) - this.getAttackCountdown());
-            }
-        }
-        if(ig == null) return;
-        gc.drawImage(ig,this.getX()- this.getSide().getVal()*sizeX/2,this.getY(), getSide().getVal()*ig.getWidth(), ig.getHeight());
-
+    public void attack(Damageable e) {
+        GameController.getBullet().add(
+                new Bullet(this.getX(),this.getY(),name,attack,200,this.getSide(),0)
+        );
+        this.setAttackCountdown(attackDelay);
     }
 }
