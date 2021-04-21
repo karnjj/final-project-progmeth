@@ -131,7 +131,6 @@ public class GameController {
 
 	public static void setGameState(GameState gameState) {
 		GameController.gameState = gameState;
-		Drawing.updatePanel();
 	}
     
 }

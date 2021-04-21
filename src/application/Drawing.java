@@ -33,10 +33,10 @@ public class Drawing {
 	private static WritableImage turretEnemy = new WritableImage(new Image(ClassLoader.getSystemResource("turretEnemy.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
 	
 	
-	public static void updatePanel() {
-		switch(GameController.getGameState()) {
+	public static void updatePanel(GameState state) {
+		switch(state) {
 			case Home :
-				System.out.println("dd");
+			
 				homePanel.setVisible(true);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
@@ -48,8 +48,14 @@ public class Drawing {
 				break;
 			case Pause :
 				pausePanel.setVisible(true);
+				playPanel.setVisible(false);
+				break;
+			case BeforePause :
+				pausePanel.setVisible(true);
+				playPanel.setVisible(false);
 				break;
 		}
+		GameController.setGameState(state);
 	}
 	
 	
@@ -90,11 +96,24 @@ public class Drawing {
 	}
 
     public  static void drawEverything(GraphicsContext gc, double t) {
-		gc.clearRect(0,0,window_width,434);
-		Drawing.drawBackground(gc);
-		Drawing.drawPlayingRangers(gc,t);
-		Drawing.drawBullet(gc,t);
-		Drawing.drawSmoke(gc,t);
+    	 if(GameController.getGameState() != GameState.Pause) {
+			gc.clearRect(0,0,window_width,window_height);	
+			if(GameController.getGameState() == GameState.BeforePause) {
+				gc.setGlobalAlpha(0.5);
+				System.out.println("before");
+	            gc.setEffect(new BoxBlur(7, 7, 3));
+	            GameController.setGameState(GameState.Pause);
+			}
+			if(GameController.getGameState() != GameState.Pause) {
+				gc.setGlobalAlpha(1);
+				gc.setEffect(null);
+			}
+			Drawing.drawBackground(gc);
+			Drawing.drawPlayingRangers(gc,t);
+			Drawing.drawBullet(gc,t);
+			Drawing.drawSmoke(gc,t);
+			
+    	 }
 	}
 
 	public static void drawTurrent(GraphicsContext gc) {
@@ -106,14 +125,7 @@ public class Drawing {
 	public static void drawBackground(GraphicsContext gc) {
 		gc.drawImage(bg, 0, currentPosiBg);
 		drawTurrent(gc);
-		if(GameController.getGameState() == GameState.Pause) {
-			gc.setGlobalAlpha(0.1);
-            gc.setEffect(new BoxBlur(2, 2, 3));
-		}
-		else {
-			gc.setGlobalAlpha(1);
-          gc.setEffect(null);
-		}
+		
 	}
 	
 	public static int getWindowWidth() {
