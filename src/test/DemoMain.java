@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import logic.GameController;
 import logic.GameLoop;
+import logic.GameState;
 
 public class DemoMain extends Application{
 	@Override
@@ -31,12 +32,30 @@ public class DemoMain extends Application{
 		
 		HomePanel homePanel= new HomePanel();
 		PlayPanel playPanel = new PlayPanel();
+		PausePanel pausePanel = new  PausePanel();
+		Drawing.setHomePanel(homePanel);
+		Drawing.setPlayPanel(playPanel);
+		Drawing.setPausePanel(pausePanel);
+		Drawing.updatePanel();
+		
 		Canvas canvas = new Canvas(Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		
 		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		loop.start();
+		
+		
+		root.getChildren().addAll(canvas,homePanel,playPanel,pausePanel);
+//		root.getChildren().add(playPanel);
+	
+		
+		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
+		primaryStage.setTitle("Zaa");
+		primaryStage.setResizable(false);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
@@ -44,18 +63,6 @@ public class DemoMain extends Application{
 				System.exit(0);
 			}
 		});
-		
-		root.getChildren().add(canvas);
-		root.getChildren().add(playPanel);
-		
-		
-//		root.getChildren().add(controlpane);
-		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
-		primaryStage.setTitle("Zaa");
-		primaryStage.setResizable(false);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
 		
 		
 	}

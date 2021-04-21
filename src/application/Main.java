@@ -45,7 +45,6 @@ public class Main extends Application{
 				System.exit(0);
 			}
 		});
-		
 		root.getChildren().add(canvas);
 		root.getChildren().add(controlpane);
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());

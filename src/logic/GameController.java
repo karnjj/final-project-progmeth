@@ -5,24 +5,19 @@ import entity.base.Entity;
 
 import java.util.*;
 
+import application.Drawing;
+
 public class GameController {
     private static Energy energy;
     private static ArrayList<Ranger> hero;
     private static ArrayList<Ranger> enemy;
-    private static int isGameMode = 0; // if isGameMode = 1 else 0;
+    private static GameState gameState;
     
-    public static int getIsGameMode() {
-		return isGameMode;
-	}
-
-	public static void setIsGameMode(int isGameMode) {
-		GameController.isGameMode = isGameMode;
-	}
-
 	public static void InitGame() {
         energy = new Energy();
         hero = new ArrayList<Ranger>();
         enemy = new ArrayList<Ranger>();
+        gameState = GameState.Home;
     }
 
     public static int getCurrentEnergy() {
@@ -91,5 +86,16 @@ public class GameController {
                     Comparator.comparing(Ranger::getX));
         }
         return null;
+        
     }
+
+	public static GameState getGameState() {
+		return gameState;
+	}
+
+	public static void setGameState(GameState gameState) {
+		GameController.gameState = gameState;
+		Drawing.updatePanel();
+	}
+    
 }

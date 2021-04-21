@@ -6,7 +6,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -15,7 +21,8 @@ public class HeroPane extends HBox{
 	
 	public HeroPane() {
 		this.setPadding(new Insets(5,5,5,5));
-		this.setSpacing(10);;
+		this.setSpacing(10);
+		this.setMaxHeight(20);
 		this.setAlignment(Pos.BOTTOM_CENTER);
 		for(int i=0;i<5;i++) {
 			HeroButtonList.add(new HeroButton("1"));
@@ -38,6 +45,9 @@ public class HeroPane extends HBox{
 			});
 			
 		}
+		
+		this.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, 
+				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		
 		for(int i=0;i<5;i++) {
 			this.getChildren().add(HeroButtonList.get(i));

@@ -1,5 +1,6 @@
 package gui;
 
+import application.Drawing;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -7,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import logic.GameController;
+import logic.GameState;
 
 public class HomePanel extends VBox {
 	
@@ -19,8 +21,8 @@ public class HomePanel extends VBox {
 //		this.setPrefSize(50,50);
 		Button playButton = new Button("Play");
 		playButton.setOnMouseClicked(e ->{
-			GameController.setIsGameMode(1);
-			this.setVisible(false);
+			GameController.setGameState(GameState.Play);
+			Drawing.updatePanel();
 		});
 		
 		Button nameOfGame = new Button("nameOfGame");

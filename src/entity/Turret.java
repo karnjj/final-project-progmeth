@@ -34,4 +34,34 @@ public class Turret extends Entity implements Attackable, Damageable{
         this.attackRange = attackRange;
         this.attackCountdown = this.attackDelay;
     }
+
+	@Override
+	public void takeDamage(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void attack(Damageable e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean canAttack() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getAttackRange() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

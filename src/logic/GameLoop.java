@@ -50,6 +50,7 @@ public class GameLoop extends Thread {
     }
 
     private void update(double dt) {
+    	Drawing.updatePosiBg(dt);
         GameController.updateHero(dt);
         GameController.updateEnemy(dt);
         GameController.updateEnergy(dt);
