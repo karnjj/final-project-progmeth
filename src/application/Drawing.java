@@ -5,9 +5,10 @@ import entity.Bullet;
 import entity.Ranger;
 import entity.Smoke;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-
+import gui.*;
 import logic.GameController;
 import logic.GameState;
 
@@ -105,6 +106,14 @@ public class Drawing {
 	public static void drawBackground(GraphicsContext gc) {
 		gc.drawImage(bg, 0, currentPosiBg);
 		drawTurrent(gc);
+		if(GameController.getGameState() == GameState.Pause) {
+			gc.setGlobalAlpha(0.1);
+            gc.setEffect(new BoxBlur(2, 2, 3));
+		}
+		else {
+			gc.setGlobalAlpha(1);
+          gc.setEffect(null);
+		}
 	}
 	
 	public static int getWindowWidth() {

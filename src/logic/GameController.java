@@ -13,6 +13,8 @@ public class GameController {
     private static Energy energy;
     private static ArrayList<Ranger> hero;
     private static ArrayList<Ranger> enemy;
+    private static ArrayList<Bullet> bullet;
+    private static ArrayList<Smoke> smoke;
     private static GameState gameState;
     
     public static void InitGame() {
