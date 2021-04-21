@@ -2,9 +2,15 @@ package entity;
 
 import application.Drawing;
 import entity.base.*;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import logic.AnimatedImage;
 import logic.GameController;
 import logic.Side;
 import logic.State;
+
+import java.util.ArrayList;
 
 public abstract class Ranger extends Entity implements Attackable, Damageable, Buyable, Movable {
     private String name;
@@ -20,6 +26,11 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private int speed;
     private Side side;
     private State state;
+    private double sizeX;
+
+    AnimatedImage walkAnimated = new AnimatedImage();
+    AnimatedImage atkAnimated = new AnimatedImage();
+    AnimatedImage idleAnimated = new AnimatedImage();
 
     public Ranger(String name,
                   int mxHP,
@@ -29,9 +40,13 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
                   double buyDelay,
                   int energyUsage,
                   int speed,
-                  int x,
-                  int y,
-                  Side side
+                  double x,
+                  double y,
+                  Side side,
+                  double sizeX,
+                  int walkFrame,
+                  int atkFrame,
+                  int idleFrame
     ) {
         super(x, y-Drawing.getTargetPosiBg());
         this.name = name;
@@ -44,8 +59,21 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.energyUsage = energyUsage;
         this.speed = speed;
         this.side = side;
+        this.sizeX = sizeX;
         this.state = State.NONE;
         this.attackCountdown = this.attackDelay;
+
+        for (int i = 0; i < walkFrame; i++)
+            walkAnimated.frames.add(new Image( name + "/walk_" + i + ".png" ));
+        walkAnimated.duration = 20.0/this.getSpeed();
+
+        for (int i = 0; i < atkFrame; i++)
+            atkAnimated.frames.add(new Image( name + "/attack_" + i + ".png" ));
+        atkAnimated.duration = this.getAttackDelay()*(20.0/this.getSpeed())/atkFrame;
+
+        for (int i = 0; i < idleFrame; i++)
+            idleAnimated.frames.add(new Image( name + "/idle_" + i + ".png" ));
+        idleAnimated.duration = 20.0/this.getSpeed();
     }
 
     @Override
@@ -67,6 +95,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
+        GameController.getSmoke().add(new Smoke(this.getX(),this.getY()));
     }
 
     @Override
@@ -161,5 +190,31 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         if(this.state == State.ATTACK)
             setAttackCountdown(attackCountdown - dt);
         setBuyCountdown(buyCountdown - dt);
+    }
+
+    @Override
+    public void draw(GraphicsContext gc, double t) {
+        Image ig = null;
+        if (this.getState() == State.WALK) {
+            ig = walkAnimated.getFrame(t);
+        }else if(this.getState() == State.ATTACK) {
+            if (this.getAttackDelay() * (20.0/this.getSpeed()) < this.getAttackCountdown()) {
+                ig = idleAnimated.getFrame(t);
+            }else {
+                ig = atkAnimated.getFrame(
+                        this.getAttackDelay() * (20.0/this.getSpeed()) - this.getAttackCountdown()
+                );
+            }
+        }
+        if(ig == null) return;
+        gc.drawImage(
+                ig,
+                this.getX() - (this.getSide().getVal() * sizeX/2),
+                this.getY(),
+                getSide().getVal() * ig.getWidth(),
+                ig.getHeight()
+        );
+        gc.setFill(Color.RED);
+        gc.fillText(String.valueOf(this.currentHP),this.getX(),this.getY());
     }
 }

@@ -54,12 +54,14 @@ public class GameLoop extends Thread {
         GameController.updateHero(dt);
         GameController.updateEnemy(dt);
         GameController.updateEnergy(dt);
+        GameController.updateBullet(dt);
+        GameController.updateSmoke(dt);
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
     }
 
     private void draw(GraphicsContext gc,double t) {
-        Drawing.drawPlayingRangers(gc,t);
+        Drawing.drawEverything(gc,t);
         draws++;
     }
 

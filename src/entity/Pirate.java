@@ -11,7 +11,11 @@ public class Pirate extends Ranger {
     private static final double buyDelay;
     private static final int energyUsage;
     private static final int speed;
-    private static final int sizeX;
+    private static final double sizeX;
+
+    private static final int walkFrame;
+    private static final int atkFrame;
+    private static final int idleFrame;
 
     static {
         name = "Pirate";
@@ -23,9 +27,12 @@ public class Pirate extends Ranger {
         energyUsage = 80;
         speed = 150;
         sizeX = 100;
+        walkFrame = 0;
+        atkFrame = 0;
+        idleFrame = 0;
     }
 
-    public Pirate(int x, int y, Side side) {
+    public Pirate(double x, double y, Side side) {
         super(name,
                 mxHP,
                 attack,
@@ -36,7 +43,11 @@ public class Pirate extends Ranger {
                 speed,
                 x,
                 y,
-                side
+                side,
+                sizeX,
+                walkFrame,
+                atkFrame,
+                idleFrame
         );
     }
 
