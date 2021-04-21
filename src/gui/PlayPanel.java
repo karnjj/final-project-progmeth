@@ -28,7 +28,7 @@ public class PlayPanel extends StackPane{
 		Button quit = new Button("pause");
 		quit.setOnMouseClicked(e ->{
 			System.out.println("pause");
-			GameController.setGameState(GameState.Pause);
+			Drawing.updatePanel(GameState.BeforePause);
 		});
 		StackPane.setMargin(quit, new Insets(10, 0, 0, 0));
 		StackPane.setAlignment(quit, Pos.TOP_CENTER);
