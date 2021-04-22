@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public abstract class Ranger extends Entity implements Attackable, Damageable, Buyable, Movable {
     private String name;
-    private int mxHP;
+    private int maxHP;
     private int currentHP;
     private int attack;
     private int attackRange;
@@ -28,12 +28,14 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private State state;
     private double sizeX;
 
+    private final double startTime = System.nanoTime() / 1e9;
+
     AnimatedImage walkAnimated = new AnimatedImage();
     AnimatedImage atkAnimated = new AnimatedImage();
     AnimatedImage idleAnimated = new AnimatedImage();
 
     public Ranger(String name,
-                  int mxHP,
+                  int maxHP,
                   int attack,
                   int attackRange,
                   double attackDelay,
@@ -50,8 +52,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     ) {
         super(x, y-Drawing.getTargetPosiBg());
         this.name = name;
-        this.mxHP = mxHP;
-        this.currentHP = mxHP;
+        this.maxHP = maxHP;
+        this.currentHP = maxHP;
         this.attack = attack;
         this.attackDelay = attackDelay;
         this.attackRange = attackRange;
@@ -119,10 +121,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         }
     }
 
-    @Override
-    public int getEnergyUsage() {
-        return this.energyUsage;
-    }
 
     public void setBuyCountdown(double buyCountdown) {
         this.buyCountdown = buyCountdown;
@@ -196,10 +194,10 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     public void draw(GraphicsContext gc, double t) {
         Image ig = null;
         if (this.getState() == State.WALK) {
-            ig = walkAnimated.getFrame(t);
+            ig = walkAnimated.getFrame(t+startTime);
         }else if(this.getState() == State.ATTACK) {
             if (this.getAttackDelay() * (20.0/this.getSpeed()) < this.getAttackCountdown()) {
-                ig = idleAnimated.getFrame(t);
+                ig = idleAnimated.getFrame(t+startTime);
             }else {
                 ig = atkAnimated.getFrame(
                         this.getAttackDelay() * (20.0/this.getSpeed()) - this.getAttackCountdown()

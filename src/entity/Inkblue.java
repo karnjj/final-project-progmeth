@@ -6,7 +6,7 @@ import logic.Side;
 
 public class Inkblue extends Ranger {
     private static final String name;
-    private static final int mxHP;
+    private static final int maxHP;
     private static final int attack;
     private static final int attackRange;
     private static final double attackDelay;
@@ -24,7 +24,7 @@ public class Inkblue extends Ranger {
 
     static {
         name = "Inkblue";
-        mxHP = 100;
+        maxHP = 100;
         attack = 10;
         attackRange = 1000;
         attackDelay = 3;
@@ -39,7 +39,7 @@ public class Inkblue extends Ranger {
 
     public Inkblue(double x, double y, Side side) {
         super(name,
-                mxHP,
+                maxHP,
                 attack,
                 attackRange,
                 attackDelay,
@@ -57,10 +57,6 @@ public class Inkblue extends Ranger {
 
     }
 
-    public static String getName() {
-        return name;
-    }
-
     @Override
     public void attack(Damageable e) {
         GameController.getBullet().add(
@@ -68,4 +64,25 @@ public class Inkblue extends Ranger {
         );
         this.setAttackCountdown(attackDelay);
     }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static int getMaxHP() {
+        return maxHP;
+    }
+
+    public static int getAttack() {
+        return attack;
+    }
+
+    public static int getEnergyUsage() {
+        return energyUsage;
+    }
+
+    public static String getUrl() {
+        return name + "/idle_0.png";
+    }
+
 }

@@ -9,7 +9,7 @@ import logic.State;
 
 public class Turret extends Entity implements Attackable, Damageable{
 	private String name;
-    private int mxHP;
+    private int maxHP;
     private int currentHP;
     private int attack;
     private int attackRange;
@@ -17,7 +17,7 @@ public class Turret extends Entity implements Attackable, Damageable{
     private double attackCountdown;
 
     public Turret(String name,
-                  int mxHP,
+                  int maxHP,
                   int attack,
                   int attackRange,
                   double attackDelay,
@@ -27,8 +27,8 @@ public class Turret extends Entity implements Attackable, Damageable{
     ) {
         super(x, y);
         this.name = name;
-        this.mxHP = mxHP;
-        this.currentHP = mxHP;
+        this.maxHP = maxHP;
+        this.currentHP = maxHP;
         this.attack = attack;
         this.attackDelay = attackDelay;
         this.attackRange = attackRange;
