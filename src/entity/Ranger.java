@@ -24,8 +24,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private double buyDelay;
     private int energyUsage;
     private int speed;
-    private Side side;
-    private State state;
     private double sizeX;
 
     private final double startTime = System.nanoTime() / 1e9;
@@ -60,10 +58,9 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.buyDelay = buyDelay;
         this.energyUsage = energyUsage;
         this.speed = speed;
-        this.side = side;
         this.sizeX = sizeX;
-        this.state = State.NONE;
         this.attackCountdown = this.attackDelay;
+        this.setSide(side);
 
         for (int i = 0; i < walkFrame; i++)
             walkAnimated.frames.add(new Image( name + "/walk_" + i + ".png" ));
@@ -97,7 +94,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        GameController.getSmoke().add(new Smoke(this.getX(),this.getY()));
+        GameController.getEntityManager().addEntities(new Smoke(this.getX(),this.getY()));
     }
 
     @Override
@@ -137,42 +134,24 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         return this.speed;
     }
 
-    public State getState() {
-        return state;
-    }
-
     @Override
     public void move(double dt) {
-        this.setX(this.getX() + speed * side.getVal() * dt);
+        this.setX(this.getX() + speed * this.getSide().getVal() * dt);
         
     }
 
     private State checkState() {
+        if (this.getState() == State.DEAD) return State.DEAD;
         if (this.isDead()) {
             return State.DEAD;
         }
-        if (side == Side.HERO) {
-            Ranger nearest = GameController.getFrontRanger(Side.ENEMY);
-            if (nearest == null) return State.WALK;
-            if (this.getX() + attackRange < nearest.getX()) {
-                return State.WALK;
-            } else {
-                return State.ATTACK;
-            }
-        } else if (side == Side.ENEMY) {
-            Ranger nearest = GameController.getFrontRanger(Side.HERO);
-            if (nearest == null) return State.WALK;
-            if (this.getX() - attackRange > nearest.getX()) {
-                return State.WALK;
-            } else {
-                return State.ATTACK;
-            }
+        Ranger nearest = GameController.getFrontRanger(this.getSide().getOpposite());
+        if (nearest == null) return State.WALK;
+        if (this.getSide().getVal()*(nearest.getX() - this.getX()) > attackRange) {
+            return State.WALK;
+        } else {
+            return State.ATTACK;
         }
-        return State.NONE;
-    }
-
-    public Side getSide() {
-        return side;
     }
 
     public double getAttackDelay() {
@@ -184,8 +163,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     }
 
     public void update(double dt) {
-        this.state = checkState();
-        if(this.state == State.ATTACK)
+        this.setState(checkState());
+        if(this.getState() == State.ATTACK)
             setAttackCountdown(attackCountdown - dt);
         setBuyCountdown(buyCountdown - dt);
     }
@@ -194,12 +173,12 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     public void draw(GraphicsContext gc, double t) {
         Image ig = null;
         if (this.getState() == State.WALK) {
-            ig = walkAnimated.getFrame(t+startTime);
+            ig = this.walkAnimated.getFrame(t+this.startTime);
         }else if(this.getState() == State.ATTACK) {
             if (this.getAttackDelay() * (20.0/this.getSpeed()) < this.getAttackCountdown()) {
-                ig = idleAnimated.getFrame(t+startTime);
+                ig = this.idleAnimated.getFrame(t+this.startTime);
             }else {
-                ig = atkAnimated.getFrame(
+                ig = this.atkAnimated.getFrame(
                         this.getAttackDelay() * (20.0/this.getSpeed()) - this.getAttackCountdown()
                 );
             }
@@ -207,9 +186,9 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         if(ig == null) return;
         gc.drawImage(
                 ig,
-                this.getX() - (this.getSide().getVal() * sizeX/2),
+                this.getX() - (this.getSide().getVal() * this.sizeX/2),
                 this.getY(),
-                getSide().getVal() * ig.getWidth(),
+                this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );
         gc.setFill(Color.RED);

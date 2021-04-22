@@ -16,7 +16,6 @@ public class Bullet extends Entity implements Attackable, Movable {
     private final int attackRange = 0;
     private int speed;
     private Side side;
-    private State state;
     private double sizeX;
     public Bullet(double x,
                   double y,
@@ -32,14 +31,12 @@ public class Bullet extends Entity implements Attackable, Movable {
         this.speed = speed;
         this.side = side;
         this.sizeX = sizeX;
-
-        this.state = State.NONE;
     }
 
     @Override
     public void attack(Damageable e) {
         e.takeDamage(this.attack);
-        this.state = State.DEAD;
+        this.setState(State.DEAD);
     }
 
     @Override
@@ -61,38 +58,25 @@ public class Bullet extends Entity implements Attackable, Movable {
         return side;
     }
 
-    public State getState() {
-        return state;
-    }
-
     @Override
     public void move(double dt) {
         this.setX(this.getX() + speed * side.getVal() * dt);
     }
 
     private State checkState() {
-        if (side == Side.HERO) {
-            Ranger nearest = GameController.getFrontRanger(Side.ENEMY);
-            if (nearest == null) return State.WALK;
-            if (this.getX() + attackRange < nearest.getX()) {
-                return State.WALK;
-            } else {
-                return State.ATTACK;
-            }
-        } else if (side == Side.ENEMY) {
-            Ranger nearest = GameController.getFrontRanger(Side.HERO);
-            if (nearest == null) return State.WALK;
-            if (this.getX() - attackRange > nearest.getX()) {
-                return State.WALK;
-            } else {
-                return State.ATTACK;
-            }
+        if (this.getState() == State.DEAD) return State.DEAD;
+        Ranger nearest = GameController.getFrontRanger(this.getSide().getOpposite());
+        if (nearest == null) return State.WALK;
+        if (this.getSide().getVal()*(nearest.getX() - this.getX()) > attackRange) {
+            return State.WALK;
+        } else {
+            return State.ATTACK;
         }
-        return State.NONE;
     }
 
+    @Override
     public void update(double dt) {
-        this.state = checkState();
+        this.setState(checkState());
     }
 
     @Override

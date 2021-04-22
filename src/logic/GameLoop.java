@@ -37,25 +37,24 @@ public class GameLoop extends Thread {
 
     private void init() {
         framePerSecond = 60;
-        updatePerSecond = 360;
+        updatePerSecond = 120;
         GameController.InitGame();
         Ranger pirate = new Inkblue(0,height-100,Side.HERO);
         Ranger pirate2 = new Inkblue(width,height-120,Side.ENEMY);
         Ranger slime = new Slime(0,height-80,Side.HERO);
         Ranger slime2 = new Slime(width,height-100,Side.ENEMY);
-        GameController.getHero().add(slime);
-        GameController.getEnemy().add(slime2);
-        GameController.getHero().add(pirate);
-        GameController.getEnemy().add(pirate2);
+//        GameController.getHero().add(slime);
+//        GameController.getEnemy().add(slime2);
+//        GameController.getHero().add(pirate);
+//        GameController.getEnemy().add(pirate2);
     }
 
     private void update(double dt) {
     	Drawing.updatePosiBg(dt);
-        GameController.updateHero(dt);
-        GameController.updateEnemy(dt);
-        GameController.updateEnergy(dt);
-        GameController.updateBullet(dt);
-        GameController.updateSmoke(dt);
+    	if (GameController.getGameState() != GameState.Pause) {
+            GameController.updateEntities(dt);
+            GameController.updateEnergy(dt);
+        }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
     }
@@ -81,7 +80,7 @@ public class GameLoop extends Thread {
             startNanoTime = currentNanoTime;
             if (uDeltaTime >= uOPTIMAL_TIME) {
                 update(uDeltaTime / 1e9);
-                
+
                 uDeltaTime -= uOPTIMAL_TIME;
             }
             if (fDeltaTime >= fOPTIMAL_TIME) {

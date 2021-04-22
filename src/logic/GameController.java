@@ -1,27 +1,23 @@
 package logic;
 
 import entity.*;
+import entity.base.Attackable;
 import entity.base.Entity;
 
-import java.util.*;
-
 import application.Drawing;
+import entity.base.Movable;
 
 public class GameController {
     private static Energy energy;
     private static GameState gameState;
-    private static ArrayList<Ranger> hero;
-    private static ArrayList<Ranger> enemy;
-    private static ArrayList<Bullet> bullet;
-    private static ArrayList<Smoke> smoke;
-    
-	public static void InitGame() {
+    private static EntityManager entityManager;
+
+
+    public static void InitGame() {
         energy = new Energy();
-        hero = new ArrayList<Ranger>();
-        enemy = new ArrayList<Ranger>();
-        bullet = new ArrayList<Bullet>();
-        smoke = new ArrayList<Smoke>();
+        entityManager = new EntityManager();
         gameState = GameState.Home;
+
     }
 
     public static int getCurrentEnergy() {
@@ -38,99 +34,57 @@ public class GameController {
         energy.update(dt);
     }
 
-    public static void updateHero(double dt) {
-        Iterator<Ranger> iterator = getHero().iterator();
-        while (iterator.hasNext()) {
-            Ranger e = iterator.next();
+    public static void updateEntities(double dt) {
+        entityManager.cleanupEntities();
+        for (Entity e : entityManager.getAllEntity()) {
             e.update(dt);
-            if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.ATTACK && e.canAttack()) {
-                Ranger target = getFrontRanger(Side.ENEMY);
-                if (target != null) e.attack(target);
+            if(e.getState() == logic.State.DEAD) entityManager.addEntitiesToBeRemoved(e);
+            if (e instanceof Movable) {
+                if(e.getState() == logic.State.WALK) ((Movable) e).move(dt);
             }
-            if(e.getState() == logic.State.WALK) e.move(dt);
-        }
-    }
-
-    public static void updateEnemy(double dt) {
-        Iterator<Ranger> iterator = getEnemy().iterator();
-        while (iterator.hasNext()) {
-            Ranger e = iterator.next();
-            e.update(dt);
-            if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.ATTACK && e.canAttack()) {
-                Ranger target = getFrontRanger(Side.HERO);
-                if (target != null) e.attack(target);
-            }
-            if(e.getState() == logic.State.WALK) e.move(dt);
-        }
-    }
-
-    public static void updateBullet(double dt) {
-        Iterator<Bullet> iterator = getBullet().iterator();
-        while (iterator.hasNext()) {
-            Bullet e = iterator.next();
-            e.update(dt);
-            if(e.getState() == logic.State.ATTACK) {
+            if (e instanceof Attackable) {
+                if(e.getState() == logic.State.ATTACK && ((Attackable) e).canAttack()) {
                 Ranger target = getFrontRanger(e.getSide().getOpposite());
-                if (target != null) e.attack(target);
+                if (target != null) ((Attackable) e).attack(target);
             }
-            if(e.getState() == logic.State.DEAD) iterator.remove();
-            if(e.getState() == logic.State.WALK) e.move(dt);
-        }
-    }
-
-    public static void updateSmoke(double dt) {
-        Iterator<Smoke> iterator = getSmoke().iterator();
-        while (iterator.hasNext()) {
-            Smoke e = iterator.next();
-            e.update(dt);
-            if(e.getState() == logic.State.DEAD) iterator.remove();
+            }
         }
     }
     
     public static void createRanger(String name,Side side) {
     	Ranger ranger;
-	    double x = 0;
+	    double x = side == Side.HERO ? 0 : 1100;
 	    double y = Drawing.getWindowHeight() - 350;
     	switch (name) {
     	    case "Inkblue" -> ranger = new Inkblue(x,y,side);
     	    case "Slime" -> ranger = new Slime(x,y,side);
             default -> throw new IllegalStateException("Unexpected value: " + name);
         }
-        if (side == Side.HERO) {
-            getHero().add(ranger);
-        } else getEnemy().add(ranger);
-    }
-    
-
-    public static ArrayList<Ranger> getHero() {
-        return hero;
-    }
-
-    public static ArrayList<Ranger> getEnemy() {
-        return enemy;
-    }
-
-    public static ArrayList<Bullet> getBullet() {
-        return bullet;
-    }
-    public static ArrayList<Smoke> getSmoke() {
-        return smoke;
+        entityManager.addEntities(ranger);
     }
 
     public static Ranger getFrontRanger(Side side) {
-        if(side == Side.HERO) {
-            if(hero.isEmpty()) return null;
-            return Collections.max(getHero(),
-                    Comparator.comparing(Ranger::getX));
-        }else if(side == Side.ENEMY) {
-            if(enemy.isEmpty()) return null;
-            return Collections.min(getEnemy(),
-                    Comparator.comparing(Ranger::getX));
+        Ranger frontHero = null;
+        Ranger frontEnemy = null;
+        double maxX = 0;
+        double minX = Double.MAX_VALUE;
+        for (Entity e : entityManager.getAllEntity()) {
+            if (e instanceof Ranger) {
+                if (((Ranger) e).getSide() == Side.HERO) {
+                    if (maxX < e.getX()) {
+                        maxX = e.getX();
+                        frontHero = (Ranger) e;
+                    }
+                }
+                if (((Ranger) e).getSide() == Side.ENEMY) {
+                    if (minX > e.getX()) {
+                        minX = e.getX();
+                        frontEnemy = (Ranger) e;
+                    }
+                }
+            }
         }
-        return null;
-        
+        return side == Side.HERO ? frontHero : frontEnemy;
     }
 
 	public static GameState getGameState() {
@@ -140,5 +94,8 @@ public class GameController {
 	public static void setGameState(GameState gameState) {
 		GameController.gameState = gameState;
 	}
-    
+
+    public static EntityManager getEntityManager() {
+        return entityManager;
+    }
 }

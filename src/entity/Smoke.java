@@ -9,14 +9,11 @@ import logic.State;
 public class Smoke extends Entity {
 
     private double timeLeft = 0.4;
-    private State state;
 
     AnimatedImage animated = new AnimatedImage();
 
     public Smoke(double x, double y) {
         super(x, y);
-
-        this.state = State.NONE;
 
         for (int i = 0; i < 4; i++)
             animated.frames.add(new Image( "Smoke/smoke_" + i + ".png" ));
@@ -35,10 +32,7 @@ public class Smoke extends Entity {
 
     public void update(double t){
         setTimeLeft(this.timeLeft - t);
-        if (this.timeLeft == 0) this.state = State.DEAD;
+        if (this.timeLeft == 0) this.setState(State.DEAD);
     }
 
-    public State getState() {
-        return state;
-    }
 }

@@ -37,6 +37,7 @@ public class HeroPane extends HBox{
 			    new EventHandler<MouseEvent>() {
 			        @Override public void handle(MouseEvent e) {
 			        	// createRanger
+						GameController.createRanger(x.hero.getName(), Side.ENEMY);
 						GameController.createRanger(x.hero.getName(), Side.HERO);
 			            x.setEffect(shadow);
 						System.out.println("Click");

@@ -59,7 +59,7 @@ public class Inkblue extends Ranger {
 
     @Override
     public void attack(Damageable e) {
-        GameController.getBullet().add(
+        GameController.getEntityManager().addEntities(
                 new Bullet(this.getX(),this.getY(),name,attack,200,this.getSide(),0)
         );
         this.setAttackCountdown(attackDelay);

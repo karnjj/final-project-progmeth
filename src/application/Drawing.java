@@ -4,6 +4,7 @@ package application;
 import entity.Bullet;
 import entity.Ranger;
 import entity.Smoke;
+import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
@@ -70,26 +71,10 @@ public class Drawing {
 		}
 
 	}
-	
-	
-	public static void drawPlayingRangers(GraphicsContext gc,double t) {
-        for(Ranger e : GameController.getHero()) {
-            e.draw(gc,t);
-        }
-        for(Ranger e : GameController.getEnemy()) {
-            e.draw(gc,t);
-        }
-        
-    }
 
-    public static void drawBullet(GraphicsContext gc,double t) {
-		for(Bullet e : GameController.getBullet()) {
-			e.draw(gc,t);
-		}
-	}
-	public static void drawSmoke(GraphicsContext gc,double t) {
-		for(Smoke e : GameController.getSmoke()) {
-			e.draw(gc,t);
+	public static void drawEntities(GraphicsContext gc, double t){
+		for (Entity e : GameController.getEntityManager().getAllEntity()) {
+			e.draw(gc, t);
 		}
 	}
 
@@ -107,10 +92,7 @@ public class Drawing {
 				gc.setEffect(null);
 			}
 			Drawing.drawBackground(gc);
-			Drawing.drawPlayingRangers(gc,t);
-			Drawing.drawBullet(gc,t);
-			Drawing.drawSmoke(gc,t);
-			
+			Drawing.drawEntities(gc,t);
     	 }
 	}
 
