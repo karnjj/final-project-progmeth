@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import logic.GameController;
+import logic.Side;
 
 public class HeroPane extends HBox{
 	private ObservableList<HeroButton> HeroButtonList = FXCollections.observableArrayList();
@@ -26,16 +28,18 @@ public class HeroPane extends HBox{
 		this.setMaxWidth(20);
 		this.setAlignment(Pos.BOTTOM_CENTER);
 		for(int i=0;i<5;i++) {
-			HeroButtonList.add(new HeroButton("1"));
+			HeroButtonList.add(new HeroButton("Inkblue"));
 		}
 		
 		for(HeroButton x:HeroButtonList) {
 			DropShadow shadow = new DropShadow();
-			x.addEventHandler(MouseEvent.MOUSE_ENTERED, 
+			x.addEventHandler(MouseEvent.MOUSE_CLICKED,
 			    new EventHandler<MouseEvent>() {
 			        @Override public void handle(MouseEvent e) {
 			        	// createRanger
+						GameController.createRanger(x.hero.getName(), Side.HERO);
 			            x.setEffect(shadow);
+						System.out.println("Click");
 			        }
 			});
 			x.addEventHandler(MouseEvent.MOUSE_EXITED, 

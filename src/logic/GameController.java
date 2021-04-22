@@ -1,8 +1,6 @@
 package logic;
 
-import entity.Bullet;
-import entity.Ranger;
-import entity.Smoke;
+import entity.*;
 import entity.base.Entity;
 
 import java.util.*;
@@ -91,8 +89,18 @@ public class GameController {
         }
     }
     
-    public static void createRanger(String name,int side) {
-    	// create Ranger at start position
+    public static void createRanger(String name,Side side) {
+    	Ranger ranger;
+	    double x = 0;
+	    double y = Drawing.getWindowHeight() - 350;
+    	switch (name) {
+    	    case "Inkblue" -> ranger = new Inkblue(x,y,side);
+    	    case "Slime" -> ranger = new Slime(x,y,side);
+            default -> throw new IllegalStateException("Unexpected value: " + name);
+        }
+        if (side == Side.HERO) {
+            getHero().add(ranger);
+        } else getEnemy().add(ranger);
     }
     
 

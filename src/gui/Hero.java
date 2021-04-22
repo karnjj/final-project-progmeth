@@ -1,5 +1,9 @@
 package gui;
 
+import entity.Inkblue;
+import entity.Ranger;
+import entity.Slime;
+
 public class Hero {
 	private String name;
 	private String url;
@@ -11,7 +15,18 @@ public class Hero {
 	Hero(String name){
 		this.name = name;
 		switch(name) {
-			case "1" : url="walk1.png"; maxHp=100; energy=10; attack=20; break;
+			case "Inkblue" -> {
+				url = Inkblue.getUrl();
+				maxHp = Inkblue.getMaxHP();
+				energy = Inkblue.getEnergyUsage();
+				attack = Inkblue.getAttack();
+			}
+			case "Slime" -> {
+				url = Slime.getUrl();
+				maxHp = Slime.getMaxHP();
+				energy = Slime.getEnergyUsage();
+				attack = Slime.getAttack();
+			}
 		}
 	}
 	
