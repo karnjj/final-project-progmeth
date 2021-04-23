@@ -8,7 +8,7 @@ public class EntityManager {
 
     private static List<Entity> allEntity = new ArrayList<>();
 
-    private static List<Entity> addEntity = new ArrayList<>();
+    private static Set<Entity> addEntity = new HashSet<>();
 
     private static Set<Entity> removeEntity = new HashSet<>();
 
@@ -17,7 +17,11 @@ public class EntityManager {
     }
 
     public void addEntities(Entity... entities) {
-        addEntity.addAll(Arrays.asList(entities));
+        if (entities.length > 1) {
+            addEntity.addAll(Arrays.asList((Entity[]) entities));
+        } else {
+            addEntity.add(entities[0]);
+        }
     }
 
     public void removeEntities(Entity... entities) {
@@ -41,5 +45,6 @@ public class EntityManager {
         allEntity.addAll(addEntity);
         removeEntity.clear();
         addEntity.clear();
+        allEntity.sort(Comparator.comparing(Entity::getY));
     }
 }
