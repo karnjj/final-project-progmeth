@@ -5,14 +5,19 @@ import entity.Pirate;
 import entity.Ranger;
 import entity.Slime;
 import entity.base.Entity;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
 import application.Drawing;
+import javafx.util.Duration;
 
-public class GameLoop extends Thread {
+public class GameLoop{
     int width, height;
     GraphicsContext gc;
 
@@ -29,15 +34,14 @@ public class GameLoop extends Thread {
         this.gc = gc;
     }
 
-    @Override
     public void start() {
-        super.start();
         running = true;
+        this.run();
     }
 
     private void init() {
         framePerSecond = 60;
-        updatePerSecond = 120;
+        updatePerSecond = 60;
         GameController.InitGame();
         Ranger pirate = new Inkblue(0,height-100,Side.HERO);
         Ranger pirate2 = new Inkblue(width,height-120,Side.ENEMY);
@@ -59,43 +63,63 @@ public class GameLoop extends Thread {
         updates++;
     }
 
-    private void draw(GraphicsContext gc,double t) {
+    private void draw(double t) {
         Drawing.drawEverything(gc,t);
         draws++;
     }
 
-    @Override
     public void run() {
         this.init();
         final double uOPTIMAL_TIME = 1e9 / updatePerSecond;
-        final double fOPTIMAL_TIME = 1e9 / framePerSecond;
-        long startNanoTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
-        double uDeltaTime = 0, fDeltaTime = 0;
+        final double fOPTIMAL_TIME = 1e9/ framePerSecond;
 
-        while (running) {
-            long currentNanoTime = System.nanoTime();
-            uDeltaTime += (currentNanoTime - startNanoTime);
-            fDeltaTime += (currentNanoTime - startNanoTime);
-            startNanoTime = currentNanoTime;
-            if (uDeltaTime >= uOPTIMAL_TIME) {
-                update(uDeltaTime / 1e9);
+//        while (running) {
+//            long currentNanoTime = System.nanoTime();
+//            uDeltaTime += (currentNanoTime - startNanoTime);
+//            fDeltaTime += (currentNanoTime - startNanoTime);
+//            startNanoTime = currentNanoTime;
+//            if (uDeltaTime >= uOPTIMAL_TIME) {
+//                update(uDeltaTime / 1e9);
+//
+//                uDeltaTime -= uOPTIMAL_TIME;
+//            }
+//            if (fDeltaTime >= fOPTIMAL_TIME) {
+//                draw(gc,currentNanoTime / 1e9);
+//
+//                fDeltaTime -= fOPTIMAL_TIME;
+//            }
+//
+//            //check UPS and FPS
+//            if (System.currentTimeMillis() - timer >= 1000) {
+//                System.out.println("UPS: " + updates + ", FPS: " + draws);
+//                updates = 0;
+//                draws = 0;
+//                timer += 1000;
+//            }
+//        }
+        new AnimationTimer() {
+            double delta = 0;
+            double pastTick = System.nanoTime();
+            double timer = System.currentTimeMillis();
+            @Override
+            public void handle(long now) {
+                delta = (now - pastTick) / 1e9;
 
-                uDeltaTime -= uOPTIMAL_TIME;
+                update(delta);
+
+                draw(now / 1e9);
+
+                pastTick = now;
+
+
+//                check UPS and FPS
+                if (System.currentTimeMillis() - timer >= 1000) {
+                    System.out.println("UPS: " + updates + ", FPS: " + draws);
+                    updates = 0;
+                    draws = 0;
+                    timer += 1000;
+                }
             }
-            if (fDeltaTime >= fOPTIMAL_TIME) {
-                draw(gc,currentNanoTime / 1e9);
-
-                fDeltaTime -= fOPTIMAL_TIME;
-            }
-
-            //check UPS and FPS
-            if (System.currentTimeMillis() - timer >= 1000) {
-                System.out.println("UPS: " + updates + ", FPS: " + draws);
-                updates = 0;
-                draws = 0;
-                timer += 1000;
-            }
-        }
+        }.start();
     }
 }
