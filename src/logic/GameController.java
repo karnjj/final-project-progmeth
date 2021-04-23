@@ -7,6 +7,8 @@ import entity.base.Entity;
 import application.Drawing;
 import entity.base.Movable;
 
+import java.util.Random;
+
 public class GameController {
     private static Energy energy;
     private static GameState gameState;
@@ -53,8 +55,11 @@ public class GameController {
     
     public static void createRanger(String name,Side side) {
     	Ranger ranger;
-	    double x = side == Side.HERO ? 0 : 1100;
-	    double y = Drawing.getWindowHeight() - 350;
+	    double x = side == Side.HERO ? 100 : Drawing.getWindowWidth() - 100;
+	    double y = (double) getRandomNumber(
+	            Drawing.getWindowHeight() - 380,
+                Drawing.getWindowHeight() - 330
+                );
     	switch (name) {
     	    case "Inkblue" -> ranger = new Inkblue(x,y,side);
     	    case "Slime" -> ranger = new Slime(x,y,side);
@@ -94,6 +99,11 @@ public class GameController {
 	public static void setGameState(GameState gameState) {
 		GameController.gameState = gameState;
 	}
+
+    public static int getRandomNumber(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
 
     public static EntityManager getEntityManager() {
         return entityManager;
