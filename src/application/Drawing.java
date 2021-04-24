@@ -16,6 +16,11 @@ import logic.GameState;
 public class Drawing {
 	private static final int window_width = 1289;
 	private static final int window_height = 595;
+
+	private static final int game_width = 1289*2;
+	private static final int game_height = 595;
+
+	private static double startDraw = 0;
 	
 	// backGround moving
 	private static double currentPosiBg = 0;
@@ -155,8 +160,12 @@ public class Drawing {
 	public static void setPausePanel(PausePanel pausePanel) {
 		Drawing.pausePanel = pausePanel;
 	}
-	
-	
-	
-	
+
+	public static double getStartDraw() {
+		return startDraw;
+	}
+
+	public static void setStartDraw(double startDraw) {
+		Drawing.startDraw = startDraw;
+	}
 }
