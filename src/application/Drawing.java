@@ -35,12 +35,13 @@ public class Drawing {
 	
 	
 	public static void updatePanel(GameState state) {
+		SoundUtils.playBackgroundMusic();
 		switch(state) {
 			case Home :
-			
 				homePanel.setVisible(true);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
+				GameController.getEntityManager().clear();
 				break;
 			case Play :
 				homePanel.setVisible(false);
@@ -79,13 +80,13 @@ public class Drawing {
 	}
 
     public  static void drawEverything(GraphicsContext gc, double t) {
+    	
     	 if(GameController.getGameState() != GameState.Pause) {
 			gc.clearRect(0,0,window_width,window_height);	
 			if(GameController.getGameState() == GameState.BeforePause) {
 				gc.setGlobalAlpha(0.9);
-				System.out.println("before");
 	            gc.setEffect(new BoxBlur(7, 7, 3));
-	            GameController.setGameState(GameState.Pause);
+	            updatePanel(GameState.Pause);
 			}
 			if(GameController.getGameState() != GameState.Pause) {
 				gc.setGlobalAlpha(1);

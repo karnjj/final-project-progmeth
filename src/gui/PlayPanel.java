@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import logic.GameController;
 import logic.GameState;
 import application.Drawing;
+import application.SoundUtils;
 import javafx.geometry.Insets;
 
 public class PlayPanel extends StackPane{
@@ -14,6 +15,7 @@ public class PlayPanel extends StackPane{
 		Button HBbar2 = new Button("HBbar");
 		HBbar2.setOnMouseClicked(e ->{
 			System.out.println("hp2");
+			SoundUtils.clickedSound();
 		});
 		StackPane.setMargin(HBbar2, new Insets(10, 10, 0, 0));
 		StackPane.setAlignment(HBbar2, Pos.TOP_RIGHT);

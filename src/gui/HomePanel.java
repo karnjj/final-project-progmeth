@@ -1,6 +1,7 @@
 package gui;
 
 import application.Drawing;
+import application.SoundUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
@@ -22,17 +23,6 @@ import logic.GameState;
 
 public class HomePanel extends VBox {
 	public HomePanel() {
-//		this.setSpacing(5);
-//		playButton.setPickOnBounds(true); // allows click on transparent areas
-//		playButton.setOnMouseExited(e ->{
-//			playButton.setImage(imagePlayButtonClicked);
-//		});
-//		playButton.setOnMouseClicked((MouseEvent e) -> {
-//	        System.out.println("Clicked!"); // change functionalit
-//	        Drawing.updatePanel(GameState.Play);
-//	        playButton.setImage(imagePlayButton);
-//	    });
-		
 		Image bg = new Image("homePane.png");
 		setBackground(bg);
 		
@@ -41,9 +31,10 @@ public class HomePanel extends VBox {
 		playButton.getStyleClass().add("playButton");
 		playButton.setOnMouseClicked(e ->{
 			Drawing.updatePanel(GameState.Play);
+			SoundUtils.clickedSound();
 		});
 //		
-		Canvas empty = new Canvas(10,14);
+		Canvas empty = new Canvas(20,50);
 		
 		this.setMaxHeight(500);
 		this.setMaxWidth(550);

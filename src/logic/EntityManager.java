@@ -47,4 +47,10 @@ public class EntityManager {
         addEntity.clear();
         allEntity.sort(Comparator.comparing(Entity::getY));
     }
+    
+    public void clear() {
+    	allEntity.clear();
+    	addEntity.clear();
+    	removeEntity.clear();
+    }
 }

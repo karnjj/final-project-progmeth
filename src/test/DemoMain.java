@@ -1,6 +1,7 @@
 package test;
 
 import application.Drawing;
+import application.SoundUtils;
 import gui.ControlPane;
 import gui.*;
 import javafx.application.Application;
@@ -37,7 +38,6 @@ public class DemoMain extends Application{
 		Drawing.setPlayPanel(playPanel);
 		Drawing.setPausePanel(pausePanel);
 		Drawing.updatePanel(GameState.Home);
-		
 		Canvas canvas = new Canvas(Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
