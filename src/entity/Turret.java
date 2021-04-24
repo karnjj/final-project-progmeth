@@ -4,6 +4,8 @@ import entity.base.Attackable;
 import entity.base.Buyable;
 import entity.base.Damageable;
 import entity.base.Entity;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import logic.Side;
 import logic.State;
 
@@ -16,13 +18,15 @@ public class Turret extends Entity implements Attackable, Damageable{
     private double attackDelay;
     private double attackCountdown;
 
+    private Image image;
+
     public Turret(String name,
                   int maxHP,
                   int attack,
                   int attackRange,
                   double attackDelay,
-                  int x,
-                  int y,
+                  double x,
+                  double y,
                   Side side
     ) {
         super(x, y);
@@ -33,6 +37,10 @@ public class Turret extends Entity implements Attackable, Damageable{
         this.attackDelay = attackDelay;
         this.attackRange = attackRange;
         this.attackCountdown = this.attackDelay;
+
+        this.setSide(side);
+
+        image = new Image(this.getUrl());
     }
 
     @Override
@@ -59,4 +67,19 @@ public class Turret extends Entity implements Attackable, Damageable{
     public boolean isDead() {
         return false;
     }
+
+    public String getUrl() {
+        return name + ".png";
+    }
+
+    public void update(double x,double y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
+    public void draw(GraphicsContext gc) {
+        gc.drawImage(image, this.getX(), this.getY());
+    }
+
+
 }
