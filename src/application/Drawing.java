@@ -95,21 +95,15 @@ public class Drawing {
 			}
 			Drawing.drawBackground(gc);
 			Drawing.drawEntities(gc,t);
+			PlayPanel.hpEnemy.draw();
+			PlayPanel.hpHero.draw();
     	 }
 	}
 
-	public static void drawTurrent(GraphicsContext gc) {
-		int k = 155; //for debug 155
-		GameController.getHeroTurret().update(0 + startDraw,k+currentPosiBg);
-		GameController.getEnemyTurret().update(2711 + startDraw,k+currentPosiBg);
-		GameController.getHeroTurret().draw(gc);
-		GameController.getEnemyTurret().draw(gc);
-	}
 	
 	public static void drawBackground(GraphicsContext gc) {
 		gc.drawImage(bg, 0 + startDraw, currentPosiBg,bg.getWidth(),bg.getHeight());
-		drawTurrent(gc);
-		
+
 	}
 	
 	public static int getWindowWidth() {

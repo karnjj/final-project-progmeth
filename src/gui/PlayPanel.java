@@ -15,23 +15,23 @@ import javafx.geometry.Insets;
 
 public class PlayPanel extends StackPane{
 
+	public static HpBar hpHero = new HpBar(Side.HERO);
+	public static HpBar hpEnemy = new HpBar(Side.ENEMY);
+
 	public PlayPanel() {
-		HpBar hpHero = new HpBar();
-		hpHero.setSide(Side.HERO);
+
 		StackPane.setMargin(hpHero, new Insets(10, 10, 0, 0));
 		StackPane.setAlignment(hpHero, Pos.TOP_LEFT);
-		
-		HpBar hpEnemy = new HpBar();
-		hpEnemy.setSide(Side.ENEMY);
+
 		StackPane.setMargin(hpEnemy, new Insets(10, 0, 0, 10));
 		StackPane.setAlignment(hpEnemy, Pos.TOP_RIGHT);
 		
 		Button bn = new Button("debugButton");
 		bn.setOnMouseClicked(e ->{
-			System.out.println("Button on PlayPanel");
-			GameController.getHeroTurret().setCurrentHP(10);
-			System.out.println(GameController.getHeroTurret().getCurrentHP());
-			hpHero.update();
+//			System.out.println("Button on PlayPanel");
+//			GameController.getHeroTurret().setCurrentHP(10);
+//			System.out.println(GameController.getHeroTurret().getCurrentHP());
+//			hpHero.update();
 		});
 		StackPane.setAlignment(bn, Pos.TOP_LEFT);
 		

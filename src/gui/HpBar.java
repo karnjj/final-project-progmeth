@@ -19,21 +19,18 @@ public class HpBar extends Canvas {
 	private Side side;
 	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("hpbar.png").toString(),width,height,false,false).getPixelReader(),0,0,width,height);
 	
-	public HpBar() {
+	public HpBar(Side side) {
 		this.setHeight(height);
 		this.setWidth(width);
 		this.gc = this.getGraphicsContext2D();
         gc.setStroke(Color.valueOf("#0000ff"));
         gc.strokeRect(200, 200, 200, 200);
         this.getStyleClass().add("canvas");
+
+        this.side = side;
 	}
-	
-	public void setSide(Side s) {
-		this.side = s;
-		update();
-	}
-	
-	public void update() {
+
+	public void draw() {
 		this.gc.clearRect(0,0,width,height);
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0,0,width, height);

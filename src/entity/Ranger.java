@@ -10,8 +10,6 @@ import logic.GameController;
 import logic.Side;
 import logic.State;
 
-import java.util.ArrayList;
-
 public abstract class Ranger extends Entity implements Attackable, Damageable, Buyable, Movable {
     private String name;
     private int maxHP;
@@ -62,9 +60,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.attackCountdown = this.attackDelay;
         this.setSide(side);
 
-        for (int i = 0; i < walkFrame; i++) {
+        for (int i = 0; i < walkFrame; i++)
             walkAnimated.frames.add(new Image(name + "/walk_" + i + ".png"));
-        }
         walkAnimated.duration = 20.0/this.getSpeed();
 
         for (int i = 0; i < atkFrame; i++)
@@ -144,7 +141,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private State checkState() {
         if (this.getState() == State.DEAD || this.isDead()) return State.DEAD;
 
-        Ranger nearest = GameController.getFrontRanger(this.getSide().getOpposite());
+        Entity nearest = GameController.getFrontmost(this.getSide().getOpposite());
         if (nearest != null) {
             if (this.getSide().getVal()*(nearest.getX() - this.getX()) <= attackRange) {
                 return State.ATTACK;

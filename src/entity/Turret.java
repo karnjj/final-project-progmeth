@@ -1,11 +1,13 @@
 package entity;
 
+import application.Drawing;
 import entity.base.Attackable;
 import entity.base.Buyable;
 import entity.base.Damageable;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.GameController;
 import logic.Side;
 import logic.State;
 
@@ -17,6 +19,7 @@ public class Turret extends Entity implements Attackable, Damageable{
     private int attackRange;
     private double attackDelay;
     private double attackCountdown;
+    private double sizeX;
 
     private Image image;
 
@@ -27,6 +30,7 @@ public class Turret extends Entity implements Attackable, Damageable{
                   double attackDelay,
                   double x,
                   double y,
+                  double sizeX,
                   Side side
     ) {
         super(x, y);
@@ -37,6 +41,7 @@ public class Turret extends Entity implements Attackable, Damageable{
         this.attackDelay = attackDelay;
         this.attackRange = attackRange;
         this.attackCountdown = this.attackDelay;
+        this.sizeX = sizeX;
 
         this.setSide(side);
 
@@ -60,7 +65,8 @@ public class Turret extends Entity implements Attackable, Damageable{
 
     @Override
     public void takeDamage(int i) {
-
+        setCurrentHP(currentHP - i);
+        GameController.getEntityManager().addEntities(new Smoke(this.getX(),this.getY()+100));
     }
 
     @Override
@@ -72,13 +78,14 @@ public class Turret extends Entity implements Attackable, Damageable{
         return name + ".png";
     }
 
-    public void update(double x,double y) {
-        this.setX(x);
-        this.setY(y);
-    }
-
-    public void draw(GraphicsContext gc) {
-        gc.drawImage(image, this.getX(), this.getY());
+    @Override
+    public void draw(GraphicsContext gc, double t) {
+        gc.drawImage(
+                image,
+                this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
+                this.getY() + Drawing.getCurrentPosiBg(),
+                this.getSide().getVal()*image.getWidth(),
+                image.getHeight());
     }
 
 	public static double getMaxHP() {
@@ -89,9 +96,9 @@ public class Turret extends Entity implements Attackable, Damageable{
 		return currentHP;
 	}
 
-	public void setCurrentHP(double d) {
-		System.out.println("in");
-		this.currentHP = d;
+	public void setCurrentHP(double currentHP) {
+        this.currentHP = currentHP;
+        if (this.currentHP < 0) this.currentHP = 0;
 	}
     
     

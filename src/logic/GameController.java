@@ -2,6 +2,7 @@ package logic;
 
 import entity.*;
 import entity.base.Attackable;
+import entity.base.Damageable;
 import entity.base.Entity;
 
 import application.Drawing;
@@ -14,16 +15,18 @@ public class GameController {
     private static GameState gameState;
     private static EntityManager entityManager;
 
-    private static HeroTurret heroTurret;
-    private static EnemyTurret enemyTurret;
+    private static Turret heroTurret;
+    private static Turret enemyTurret;
 
     public static void InitGame() {
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
 
-        heroTurret = new HeroTurret(0,155);
-        enemyTurret = new EnemyTurret(2711,155);
+        heroTurret = new HeroTurret(150,155);
+        enemyTurret = new EnemyTurret(2850,155);
+
+        entityManager.addEntities(heroTurret,enemyTurret);
 
     }
 
@@ -51,8 +54,8 @@ public class GameController {
             }
             if (e instanceof Attackable) {
                 if(e.getState() == logic.State.ATTACK && ((Attackable) e).canAttack()) {
-                Ranger target = getFrontRanger(e.getSide().getOpposite());
-                if (target != null) ((Attackable) e).attack(target);
+                Entity target = getFrontmost(e.getSide().getOpposite());
+                if (target != null) ((Attackable) e).attack((Damageable) target);
             }
             }
         }
@@ -73,23 +76,23 @@ public class GameController {
         entityManager.addEntities(ranger);
     }
 
-    public static Ranger getFrontRanger(Side side) {
-        Ranger frontHero = null;
-        Ranger frontEnemy = null;
+    public static Entity getFrontmost(Side side) {
+        Entity frontHero = null;
+        Entity frontEnemy = null;
         double maxX = 0;
         double minX = Double.MAX_VALUE;
         for (Entity e : entityManager.getAllEntity()) {
-            if (e instanceof Ranger) {
-                if (((Ranger) e).getSide() == Side.HERO) {
+            if (e instanceof Damageable) {
+                if ( e.getSide() == Side.HERO) {
                     if (maxX < e.getX()) {
                         maxX = e.getX();
-                        frontHero = (Ranger) e;
+                        frontHero = e;
                     }
                 }
-                if (((Ranger) e).getSide() == Side.ENEMY) {
+                if ( e.getSide() == Side.ENEMY) {
                     if (minX > e.getX()) {
                         minX = e.getX();
-                        frontEnemy = (Ranger) e;
+                        frontEnemy = e;
                     }
                 }
             }
@@ -114,11 +117,11 @@ public class GameController {
         return entityManager;
     }
 
-    public static HeroTurret getHeroTurret() {
+    public static Turret getHeroTurret() {
         return heroTurret;
     }
 
-    public static EnemyTurret getEnemyTurret() {
+    public static Turret getEnemyTurret() {
         return enemyTurret;
     }
 }

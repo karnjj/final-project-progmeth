@@ -66,7 +66,7 @@ public class Bullet extends Entity implements Attackable, Movable {
 
     private State checkState() {
         if (this.getState() == State.DEAD) return State.DEAD;
-        Ranger nearest = GameController.getFrontRanger(this.getSide().getOpposite());
+        Entity nearest = GameController.getFrontmost(this.getSide().getOpposite());
         if (nearest == null) return State.WALK;
         if (this.getSide().getVal()*(nearest.getX() - this.getX()) > attackRange) {
             return State.WALK;

@@ -11,13 +11,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import logic.GameLoop;
+import logic.Side;
 
 public class TestGui extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
 		StackPane root = new StackPane();
-		HpBar  itemButton = new HpBar();
+		HpBar  itemButton = new HpBar(Side.HERO);
 		
 		root.getChildren().add(itemButton);
 		Scene scene = new Scene(root);
