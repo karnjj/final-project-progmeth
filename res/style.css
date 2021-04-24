@@ -26,3 +26,9 @@
     -fx-background-image: url("Button/playButtonClicked.png");
     /* -fx-background-color: brown; */
 }
+
+.canvas {
+	fx-background-color: antiquewhite, white ;
+    -fx-background-insets: 0, 20 ;
+    -fx-padding: 20 ;
+}

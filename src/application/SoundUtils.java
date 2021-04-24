@@ -47,7 +47,7 @@ public class SoundUtils {
 	
 	public static void stopBackgroundMusic() {
 		if(backgroundMusic != null) {
-			System.out.println("in playbackgroundMusic");
+//			System.out.println("in playbackgroundMusic");
 			backgroundMusic.stop();
 		}
 	}

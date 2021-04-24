@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import logic.GameController;
 import logic.GameState;
+import logic.Side;
 import application.Drawing;
 import application.SoundUtils;
 import javafx.geometry.Insets;
@@ -15,28 +16,32 @@ import javafx.geometry.Insets;
 public class PlayPanel extends StackPane{
 
 	public PlayPanel() {
-		Button HBbar2 = new Button("HBbar");
-		HBbar2.setOnMouseClicked(e ->{
-			System.out.println("hp2");
-			SoundUtils.clickedSound();
-		});
-		StackPane.setMargin(HBbar2, new Insets(10, 10, 0, 0));
-		StackPane.setAlignment(HBbar2, Pos.TOP_RIGHT);
+		HpBar hpHero = new HpBar();
+		hpHero.setSide(Side.HERO);
+		StackPane.setMargin(hpHero, new Insets(10, 10, 0, 0));
+		StackPane.setAlignment(hpHero, Pos.TOP_LEFT);
 		
-		Button HBbar1 = new Button("HBbar");
-		HBbar1.setOnMouseClicked(e ->{
-			System.out.println("hp1");
-		});
-		StackPane.setMargin(HBbar1, new Insets(10, 0, 0, 10));
-		StackPane.setAlignment(HBbar1, Pos.TOP_LEFT);
+		HpBar hpEnemy = new HpBar();
+		hpEnemy.setSide(Side.ENEMY);
+		StackPane.setMargin(hpEnemy, new Insets(10, 0, 0, 10));
+		StackPane.setAlignment(hpEnemy, Pos.TOP_RIGHT);
 		
-		Button quit = new Button("pause");
-		quit.setOnMouseClicked(e ->{
+		Button bn = new Button("debugButton");
+		bn.setOnMouseClicked(e ->{
+			System.out.println("Button on PlayPanel");
+			GameController.getHeroTurret().setCurrentHP(10);
+			System.out.println(GameController.getHeroTurret().getCurrentHP());
+			hpHero.update();
+		});
+		StackPane.setAlignment(bn, Pos.TOP_LEFT);
+		
+		Button pauseButton = new Button("pause");
+		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("pause");
 			Drawing.updatePanel(GameState.BeforePause);
 		});
-		StackPane.setMargin(quit, new Insets(10, 0, 0, 0));
-		StackPane.setAlignment(quit, Pos.TOP_CENTER);
+		StackPane.setMargin(pauseButton, new Insets(10, 0, 0, 0));
+		StackPane.setAlignment(pauseButton, Pos.TOP_CENTER);
 //		
 		
 		HeroPane heroPane = new HeroPane();
@@ -61,7 +66,7 @@ public class PlayPanel extends StackPane{
 						}
 					}
 				});
-		this.getChildren().addAll(detectMouse,HBbar2,HBbar1,quit,heroPane);
+		this.getChildren().addAll(detectMouse,hpHero,hpEnemy,pauseButton,heroPane,bn);
 //		this.getChildren().add(HBbar2);
 //		this.getChildren().add(HBbar1);
 //		this.getChildren().addAll(HBbar2,HBbar1,quit);

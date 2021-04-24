@@ -17,7 +17,7 @@ public class TestGui extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		StackPane root = new StackPane();
-		HeroPane  itemButton = new HeroPane();
+		HpBar  itemButton = new HpBar();
 		
 		root.getChildren().add(itemButton);
 		Scene scene = new Scene(root);

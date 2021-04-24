@@ -11,8 +11,8 @@ import logic.State;
 
 public class Turret extends Entity implements Attackable, Damageable{
 	private String name;
-    private int maxHP;
-    private int currentHP;
+    private static double maxHP;
+    private double currentHP;
     private int attack;
     private int attackRange;
     private double attackDelay;
@@ -21,7 +21,7 @@ public class Turret extends Entity implements Attackable, Damageable{
     private Image image;
 
     public Turret(String name,
-                  int maxHP,
+                  double maxHP,
                   int attack,
                   int attackRange,
                   double attackDelay,
@@ -80,6 +80,21 @@ public class Turret extends Entity implements Attackable, Damageable{
     public void draw(GraphicsContext gc) {
         gc.drawImage(image, this.getX(), this.getY());
     }
+
+	public static double getMaxHP() {
+		return maxHP;
+	}
+
+	public double getCurrentHP() {
+		return currentHP;
+	}
+
+	public void setCurrentHP(double d) {
+		System.out.println("in");
+		this.currentHP = d;
+	}
+    
+    
 
 
 }

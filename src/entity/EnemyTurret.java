@@ -4,7 +4,7 @@ import logic.Side;
 
 public class EnemyTurret extends Turret{
     private static final String name;
-    private static final int maxHP;
+    private static final double maxHP;
     private static final int attack;
     private static final int attackRange;
     private static final double attackDelay;
@@ -20,5 +20,6 @@ public class EnemyTurret extends Turret{
     public EnemyTurret(double x,double y) {
         super(name, maxHP, attack, attackRange, attackDelay, x, y,Side.ENEMY);
     }
+    
 
 }
