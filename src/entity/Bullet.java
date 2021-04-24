@@ -1,5 +1,6 @@
 package entity;
 
+import application.Drawing;
 import entity.base.Attackable;
 import entity.base.Damageable;
 import entity.base.Entity;
@@ -82,6 +83,6 @@ public class Bullet extends Entity implements Attackable, Movable {
     @Override
     public void draw(GraphicsContext gc, double t) {
         gc.setFill(Color.RED);
-        gc.fillOval(this.getX(),this.getY()+50,25,25);
+        gc.fillOval(this.getX()+ Drawing.getStartDraw(),this.getY()+50,25,25);
     }
 }

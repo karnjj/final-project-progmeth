@@ -14,11 +14,16 @@ public class GameController {
     private static GameState gameState;
     private static EntityManager entityManager;
 
+    private static HeroTurret heroTurret;
+    private static EnemyTurret enemyTurret;
 
     public static void InitGame() {
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
+
+        heroTurret = new HeroTurret(0,155);
+        enemyTurret = new EnemyTurret(2711,155);
 
     }
 
@@ -55,7 +60,7 @@ public class GameController {
     
     public static void createRanger(String name,Side side) {
     	Ranger ranger;
-	    double x = side == Side.HERO ? 100 : Drawing.getWindowWidth() - 100;
+	    double x = side == Side.HERO ? 100 : Drawing.getGameWidth() - 100;
 	    double y = (double) getRandomNumber(
 	            Drawing.getWindowHeight() - 380,
                 Drawing.getWindowHeight() - 330
@@ -107,5 +112,13 @@ public class GameController {
 
     public static EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    public static HeroTurret getHeroTurret() {
+        return heroTurret;
+    }
+
+    public static EnemyTurret getEnemyTurret() {
+        return enemyTurret;
     }
 }

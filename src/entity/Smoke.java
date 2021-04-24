@@ -1,5 +1,6 @@
 package entity;
 
+import application.Drawing;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -22,7 +23,11 @@ public class Smoke extends Entity {
 
     @Override
     public void draw(GraphicsContext gc, double t) {
-        gc.drawImage(animated.getFrame(0.4-this.timeLeft),this.getX()-50,this.getY());
+        gc.drawImage(
+                animated.getFrame(0.4-this.timeLeft),
+                this.getX()-50 + Drawing.getStartDraw(),
+                this.getY()
+        );
     }
 
     public void setTimeLeft(double timeLeft) {

@@ -1,9 +1,8 @@
 package application;
 
 
-import entity.Bullet;
-import entity.Ranger;
-import entity.Smoke;
+import entity.EnemyTurret;
+import entity.HeroTurret;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BoxBlur;
@@ -17,7 +16,7 @@ public class Drawing {
 	private static final int window_width = 1289;
 	private static final int window_height = 595;
 
-	private static final int game_width = 1289*2;
+	private static final int game_width = 3000;
 	private static final int game_height = 595;
 
 	private static double startDraw = 0;
@@ -33,11 +32,8 @@ public class Drawing {
 	
 	// posi Draw Ranger =  window_height - current.y + currentPosiBg;
 	
-	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap2.png").toString(),window_width,715,false,false).getPixelReader(),0,0,window_width,715);
+	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
 //	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,435,false,false).getPixelReader(),0,0,window_width,435);
-	private static WritableImage turretHero = new WritableImage(new Image(ClassLoader.getSystemResource("turretHero.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
-	private static WritableImage turretEnemy = new WritableImage(new Image(ClassLoader.getSystemResource("turretEnemy.png").toString(),300,434,false,false).getPixelReader(),0,0,300,434);
-	
 	
 	public static void updatePanel(GameState state) {
 		SoundUtils.playBackgroundMusic();
@@ -104,12 +100,14 @@ public class Drawing {
 
 	public static void drawTurrent(GraphicsContext gc) {
 		int k = 155; //for debug 155
-		gc.drawImage(turretHero, 0, k+currentPosiBg);
-		gc.drawImage(turretEnemy, 1000, k+currentPosiBg);
+		GameController.getHeroTurret().update(0 + startDraw,k+currentPosiBg);
+		GameController.getEnemyTurret().update(2711 + startDraw,k+currentPosiBg);
+		GameController.getHeroTurret().draw(gc);
+		GameController.getEnemyTurret().draw(gc);
 	}
 	
 	public static void drawBackground(GraphicsContext gc) {
-		gc.drawImage(bg, 0, currentPosiBg);
+		gc.drawImage(bg, 0 + startDraw, currentPosiBg,bg.getWidth(),bg.getHeight());
 		drawTurrent(gc);
 		
 	}
@@ -161,11 +159,21 @@ public class Drawing {
 		Drawing.pausePanel = pausePanel;
 	}
 
+	public static int getGameWidth() {
+		return game_width;
+	}
+
+	public static int getGameHeight() {
+		return game_height;
+	}
+
 	public static double getStartDraw() {
 		return startDraw;
 	}
 
 	public static void setStartDraw(double startDraw) {
 		Drawing.startDraw = startDraw;
+		if (Drawing.startDraw > 0) Drawing.startDraw = 0;
+		if (Drawing.startDraw < -(Drawing.game_width - Drawing.window_width)) Drawing.startDraw = -(Drawing.game_width - Drawing.window_width);
 	}
 }

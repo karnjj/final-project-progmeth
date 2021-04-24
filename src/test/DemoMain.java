@@ -14,6 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,8 @@ import javafx.stage.WindowEvent;
 import logic.GameController;
 import logic.GameLoop;
 import logic.GameState;
+
+import java.util.Objects;
 
 public class DemoMain extends Application{
 	@Override
@@ -40,19 +43,19 @@ public class DemoMain extends Application{
 		Drawing.updatePanel(GameState.Home);
 		Canvas canvas = new Canvas(Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
-		
+
+
 		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		loop.start();
-		
-		
+
+
+
 		root.getChildren().addAll(canvas,homePanel,playPanel,pausePanel);
 //		root.getChildren().add(playPanel);
-	
-		
+
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
 		//add style
-		scene.getStylesheets().add(getClass().getClassLoader().getResource("style.css").toExternalForm());
+		scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
 		primaryStage.setTitle("Zaa");
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);

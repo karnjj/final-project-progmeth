@@ -62,8 +62,9 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.attackCountdown = this.attackDelay;
         this.setSide(side);
 
-        for (int i = 0; i < walkFrame; i++)
-            walkAnimated.frames.add(new Image( name + "/walk_" + i + ".png" ));
+        for (int i = 0; i < walkFrame; i++) {
+            walkAnimated.frames.add(new Image(name + "/walk_" + i + ".png"));
+        }
         walkAnimated.duration = 20.0/this.getSpeed();
 
         for (int i = 0; i < atkFrame; i++)
@@ -141,17 +142,16 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     }
 
     private State checkState() {
-        if (this.getState() == State.DEAD) return State.DEAD;
-        if (this.isDead()) {
-            return State.DEAD;
-        }
+        if (this.getState() == State.DEAD || this.isDead()) return State.DEAD;
+
         Ranger nearest = GameController.getFrontRanger(this.getSide().getOpposite());
-        if (nearest == null) return State.WALK;
-        if (this.getSide().getVal()*(nearest.getX() - this.getX()) > attackRange) {
-            return State.WALK;
-        } else {
-            return State.ATTACK;
+        if (nearest != null) {
+            if (this.getSide().getVal()*(nearest.getX() - this.getX()) <= attackRange) {
+                return State.ATTACK;
+            }
         }
+
+        return State.WALK;
     }
 
     public double getAttackDelay() {
@@ -186,12 +186,12 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         if(ig == null) return;
         gc.drawImage(
                 ig,
-                this.getX() - (this.getSide().getVal() * this.sizeX/2),
+                this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
                 this.getY(),
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );
         gc.setFill(Color.RED);
-        gc.fillText(String.valueOf(this.currentHP),this.getX(),this.getY());
+        gc.fillText(String.valueOf(this.currentHP),this.getX() + Drawing.getStartDraw(),this.getY());
     }
 }
