@@ -14,10 +14,12 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import logic.GameController;
 import javafx.geometry.Insets;
 
 public class HeroButton extends Button {
 	public Hero hero;
+	private boolean enoughEnergy;
 	
 	public HeroButton(String Name){
 		this.setPadding(new Insets(5,5,5,5));
@@ -31,6 +33,26 @@ public class HeroButton extends Button {
 		this.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, 
 				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.setTooltip();
+		update();
+	}
+	
+	private void setBackGround() {
+		if(enoughEnergy) {
+			this.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+		}
+		else {
+			this.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+		}
+	}
+	
+	public void update() {
+		if(GameController.getCurrentEnergy() >= hero.getEnergyUsage()) {
+			this.enoughEnergy = true;
+		}
+		else {
+			this.enoughEnergy = false;
+		}
+		setBackGround();
 	}
 	
 	private void setTooltip() {
@@ -44,5 +66,9 @@ public class HeroButton extends Button {
 		this.setOnMouseExited((MouseEvent e) -> {
 			tooltip.hide();
 		});		
+	}
+	
+	public Boolean haveEnoughEnergy() {
+		return enoughEnergy;
 	}
 }

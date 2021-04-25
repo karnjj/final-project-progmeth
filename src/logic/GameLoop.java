@@ -58,6 +58,7 @@ public class GameLoop{
     	if (GameController.getGameState() != GameState.Pause) {
             GameController.updateEntities(dt);
             GameController.updateEnergy(dt);
+            
         }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;

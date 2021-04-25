@@ -19,7 +19,7 @@ import logic.GameController;
 import logic.Side;
 
 public class HeroPane extends HBox{
-	private ObservableList<HeroButton> HeroButtonList = FXCollections.observableArrayList();
+	private static ObservableList<HeroButton> HeroButtonList = FXCollections.observableArrayList();
 	
 	public HeroPane() {
 		this.setPadding(new Insets(5,5,5,5));
@@ -38,7 +38,7 @@ public class HeroPane extends HBox{
 			        @Override public void handle(MouseEvent e) {
 			        	// createRanger
 //						GameController.createRanger(x.hero.getName(), Side.ENEMY);
-						GameController.createRanger(x.hero.getName(), Side.HERO);
+			        	mouseClickHandler(x);
 			            x.setEffect(shadow);
 						System.out.println("Click");
 			        }
@@ -59,5 +59,17 @@ public class HeroPane extends HBox{
 			this.getChildren().add(HeroButtonList.get(i));
 		}
 		
+	}
+	
+	private void mouseClickHandler(HeroButton x) {
+		if(x.haveEnoughEnergy()) {
+			GameController.createRanger(x.hero.getName(), Side.HERO);
+		}
+	}
+	
+	public static void update() {
+		for(HeroButton x:HeroButtonList) {
+			x.update();
+		}
 	}
 }

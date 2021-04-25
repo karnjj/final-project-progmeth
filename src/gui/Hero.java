@@ -8,7 +8,7 @@ public class Hero {
 	private String name;
 	private String url;
 	private int maxHp;
-	private int energy;
+	private int energyUsage;
 	private int attack;
 
 	
@@ -18,20 +18,20 @@ public class Hero {
 			case "Inkblue" -> {
 				url = Inkblue.getUrl();
 				maxHp = Inkblue.getMaxHP();
-				energy = Inkblue.getEnergyUsage();
+				energyUsage = Inkblue.getEnergyUsage();
 				attack = Inkblue.getAttack();
 			}
 			case "Slime" -> {
 				url = Slime.getUrl();
 				maxHp = Slime.getMaxHP();
-				energy = Slime.getEnergyUsage();
+				energyUsage = Slime.getEnergyUsage();
 				attack = Slime.getAttack();
 			}
 		}
 	}
 	
 	public String tooltipMassage() {
-		return "name: "+ name + "\nmaxHp: " + maxHp + "\nattack: " + attack +"\nEnergy: " + energy;
+		return "name: "+ name + "\nmaxHp: " + maxHp + "\nattack: " + attack +"\nEnergy: " + energyUsage;
 	}
 
 	public String getName() {
@@ -58,12 +58,12 @@ public class Hero {
 		this.maxHp = maxHp;
 	}
 
-	public int getEnergy() {
-		return energy;
+	public int getEnergyUsage() {
+		return energyUsage;
 	}
 
-	public void setEnergy(int energy) {
-		this.energy = energy;
+	public void setEnergyUsage(int energy) {
+		this.energyUsage = energy;
 	}
 
 	public int getAttack() {

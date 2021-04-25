@@ -71,6 +71,9 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         for (int i = 0; i < idleFrame; i++)
             idleAnimated.frames.add(new Image( name + "/idle_" + i + ".png" ));
         idleAnimated.duration = 20.0/this.getSpeed();
+        
+        //after Created
+        GameController.useEnergy(energyUsage);
     }
 
     @Override
