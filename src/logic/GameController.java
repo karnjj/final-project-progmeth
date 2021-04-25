@@ -15,19 +15,22 @@ public class GameController {
     private static GameState gameState;
     private static EntityManager entityManager;
 
-    private static Turret heroTurret;
-    private static Turret enemyTurret;
+    private static Turret heroTurret = new HeroTurret(150,155);
+    private static Turret enemyTurret = new EnemyTurret(2850,155);
 
     public static void InitGame() {
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
 
-        heroTurret = new HeroTurret(150,155);
-        enemyTurret = new EnemyTurret(2850,155);
-
         entityManager.addEntities(heroTurret,enemyTurret);
 
+    }
+
+    public static void clear() {
+        entityManager.clear();
+        heroTurret = new HeroTurret(150,155);
+        enemyTurret = new EnemyTurret(2850,155);
     }
 
     public static int getCurrentEnergy() {
@@ -118,10 +121,10 @@ public class GameController {
     }
 
     public static Turret getHeroTurret() {
-        return heroTurret;
+        return GameController.heroTurret;
     }
 
     public static Turret getEnemyTurret() {
-        return enemyTurret;
+        return GameController.enemyTurret;
     }
 }

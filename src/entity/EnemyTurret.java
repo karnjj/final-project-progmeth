@@ -3,12 +3,12 @@ package entity;
 import logic.Side;
 
 public class EnemyTurret extends Turret{
-    private static final String name;
-    private static final double maxHP;
-    private static final int attack;
-    private static final int attackRange;
-    private static final double attackDelay;
-    private static final double sizeX;
+    public static final String name;
+    public static final double maxHP;
+    public static final int attack;
+    public static final int attackRange;
+    public static final double attackDelay;
+    public static final double sizeX;
 
     static {
         name = "EnemyTurret";

@@ -42,7 +42,8 @@ public class Drawing {
 				homePanel.setVisible(true);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
-				GameController.getEntityManager().clear();
+				GameController.clear();
+				GameController.InitGame();
 				break;
 			case Play :
 				homePanel.setVisible(false);
