@@ -44,8 +44,12 @@ public class PlayPanel extends StackPane{
 		StackPane.setAlignment(pauseButton, Pos.TOP_CENTER);
 //		
 		
+		EnergyPane energyPane = new EnergyPane();
+		StackPane.setMargin(energyPane, new Insets(0, 0, 10, 100));
+		StackPane.setAlignment(energyPane, Pos.BOTTOM_LEFT);
+		
 		HeroPane heroPane = new HeroPane();
-		StackPane.setMargin(heroPane, new Insets(0, 0, 0, 0));
+		StackPane.setMargin(heroPane, new Insets(0, 0, 10, 0));
 		StackPane.setAlignment(heroPane, Pos.BOTTOM_CENTER);
 
 		VBox detectMouse = new VBox();
@@ -66,10 +70,7 @@ public class PlayPanel extends StackPane{
 						}
 					}
 				});
-		this.getChildren().addAll(detectMouse,hpHero,hpEnemy,pauseButton,heroPane,bn);
-//		this.getChildren().add(HBbar2);
-//		this.getChildren().add(HBbar1);
-//		this.getChildren().addAll(HBbar2,HBbar1,quit);
+		this.getChildren().addAll(detectMouse,hpHero,hpEnemy,pauseButton,heroPane,bn,energyPane);
 	}
 
 }

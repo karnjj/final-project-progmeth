@@ -84,6 +84,7 @@ public class Drawing {
     public  static void drawEverything(GraphicsContext gc, double t) {
     	
     	 if(GameController.getGameState() != GameState.Pause) {
+    		EnergyPane.update();
 			gc.clearRect(0,0,window_width,window_height);	
 			if(GameController.getGameState() == GameState.BeforePause) {
 				gc.setGlobalAlpha(0.9);
