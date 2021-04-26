@@ -27,10 +27,9 @@ public class HeroPane extends HBox{
 		this.setMaxHeight(20);
 		this.setMaxWidth(20);
 		this.setAlignment(Pos.BOTTOM_CENTER);
-		for(int i=0;i<5;i++) {
-			HeroButtonList.add(new HeroButton("Inkblue"));
-		}
-		
+		HeroButtonList.add(new HeroButton("Inkblue"));
+		HeroButtonList.add(new HeroButton("Slime"));
+
 		for(HeroButton x:HeroButtonList) {
 			DropShadow shadow = new DropShadow();
 			x.addEventHandler(MouseEvent.MOUSE_CLICKED,
@@ -54,9 +53,9 @@ public class HeroPane extends HBox{
 		
 		this.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, 
 				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		
-		for(int i=0;i<5;i++) {
-			this.getChildren().add(HeroButtonList.get(i));
+
+		for (HeroButton heroButton : HeroButtonList) {
+			this.getChildren().add(heroButton);
 		}
 		
 	}
