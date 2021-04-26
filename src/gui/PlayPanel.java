@@ -6,11 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import logic.GameController;
 import logic.GameState;
 import logic.Side;
 import application.Drawing;
-import application.SoundUtils;
 import javafx.geometry.Insets;
 
 public class PlayPanel extends StackPane{
@@ -58,15 +56,28 @@ public class PlayPanel extends StackPane{
 		detectMouse.addEventFilter(MouseEvent.ANY,
 				new EventHandler<MouseEvent>()
 				{
-					double startPosition = 0;
-					double dMove = 0;
+					double startDraw = 0;
+					double startPos = 0;
+					double lastTime = 0;
+					double lastPos = 0;
 					public void handle(MouseEvent e)
 					{
+						double now = System.currentTimeMillis();
 						if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
-							startPosition = Drawing.getStartDraw();
-							dMove = e.getX();
+							Drawing.setInertia(0);
+							startDraw = Drawing.getStartDraw();
+							lastTime = System.currentTimeMillis();
+							startPos = e.getX();
+							lastPos = e.getX();
 						}else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-							Drawing.setStartDraw(startPosition-(dMove-e.getX()));
+							Drawing.setStartDraw(startDraw -(startPos -e.getX()));
+							if (now - lastTime > 100) {
+								lastPos = e.getX();
+								lastTime = System.currentTimeMillis();
+							}
+						}else if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
+							double inertia = (e.getX() - lastPos) / (now - lastTime)*8;
+							Drawing.setInertia(inertia);
 						}
 					}
 				});
