@@ -71,7 +71,7 @@ public class PlayPanel extends StackPane{
 							lastPos = e.getX();
 						}else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
 							Drawing.setStartDraw(startDraw -(startPos -e.getX()));
-							if (now - lastTime > 100) {
+							if (now - lastTime > 50) {
 								lastPos = e.getX();
 								lastTime = System.currentTimeMillis();
 							}
