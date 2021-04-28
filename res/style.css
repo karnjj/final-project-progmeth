@@ -32,3 +32,13 @@
     -fx-background-insets: 0, 20 ;
     -fx-padding: 20 ;
 }
+
+.MuteButton
+{
+	-fx-min-height: 65px;
+	-fx-min-width: 65px;
+	-fx-background-size: 100% 100%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center 0px;
+	-fx-background-color: transparent;
+}

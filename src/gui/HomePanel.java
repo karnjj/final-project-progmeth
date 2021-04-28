@@ -33,6 +33,12 @@ public class HomePanel extends VBox {
 			Drawing.updatePanel(GameState.Play);
 			SoundUtils.clickedSound();
 		});
+		
+		MuteButton muteButton = new MuteButton();
+		muteButton.setOnMouseClicked(e ->{
+			muteButton.update();
+		});
+		
 //		
 		Canvas empty = new Canvas(20,50);
 		
@@ -41,6 +47,7 @@ public class HomePanel extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.getChildren().add(empty);
 		this.getChildren().add(playButton);
+		this.getChildren().add(muteButton);
 	}
 	
 	private void setBackground(Image image) {

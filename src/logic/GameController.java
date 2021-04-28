@@ -14,6 +14,7 @@ public class GameController {
     private static Energy energy;
     private static GameState gameState;
     private static EntityManager entityManager;
+    private static boolean isMuteSound;
 
     private static Turret heroTurret = new HeroTurret(150,155);
     private static Turret enemyTurret = new EnemyTurret(2850,155);
@@ -22,7 +23,7 @@ public class GameController {
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
-
+        isMuteSound = false;
         entityManager.addEntities(heroTurret,enemyTurret);
 
     }
@@ -39,7 +40,7 @@ public class GameController {
     
     public static void useEnergy(int energy) {
         if (!GameController.energy.Use(energy)) {
-            System.out.println("error");
+            System.out.println("error not enought");
         }
     }
 
@@ -127,4 +128,14 @@ public class GameController {
     public static Turret getEnemyTurret() {
         return GameController.enemyTurret;
     }
+
+	public static boolean isMuteSound() {
+		return isMuteSound;
+	}
+
+	public static void setMuteSound(boolean isMuteSound) {
+		GameController.isMuteSound = isMuteSound;
+	}
+    
+    
 }

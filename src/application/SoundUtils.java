@@ -37,6 +37,7 @@ public class SoundUtils {
             	backgroundMusic.setVolume(0.5);
             	backgroundMusic.play();
             	if(GameController.getGameState() == GameState.Pause) {
+            		System.out.println("out");
             		stopBackgroundMusic();
             	}
             }
