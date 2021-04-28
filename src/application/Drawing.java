@@ -20,7 +20,8 @@ public class Drawing {
 	private static final int game_height = 595;
 
 	private static double startDraw = 0;
-	
+	private static double inertia = 0;
+
 	// backGround moving
 	private static double currentPosiBg = 0;
 	private static double targetPosiBg = 0;
@@ -72,7 +73,7 @@ public class Drawing {
 		else {
 			if(targetPosiBg>currentPosiBg) {currentPosiBg += speedPosiBg*dt;}
 		}
-
+		setStartDraw(getStartDraw() + getInertia());
 	}
 
 	public static void drawEntities(GraphicsContext gc, double t){
@@ -172,5 +173,13 @@ public class Drawing {
 		Drawing.startDraw = startDraw;
 		if (Drawing.startDraw > 0) Drawing.startDraw = 0;
 		if (Drawing.startDraw < -(Drawing.game_width - Drawing.window_width)) Drawing.startDraw = -(Drawing.game_width - Drawing.window_width);
+	}
+
+	public static double getInertia() {
+		return inertia;
+	}
+
+	public static void setInertia(double inertia) {
+		Drawing.inertia = (int)(inertia);
 	}
 }

@@ -68,7 +68,7 @@ public class Slime extends Ranger {
     }
 
     public static String getUrl() {
-        return name + "/idle_0.png";
+        return name + "/default.png";
     }
 
 }
