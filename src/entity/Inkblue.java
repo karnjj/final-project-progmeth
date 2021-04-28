@@ -1,5 +1,6 @@
 package entity;
 
+import application.SoundUtils;
 import entity.base.Damageable;
 import logic.GameController;
 import logic.Side;
@@ -59,6 +60,7 @@ public class Inkblue extends Ranger {
 
     @Override
     public void attack(Damageable e) {
+    	SoundUtils.attrack();
         GameController.getEntityManager().addEntities(
                 new Bullet(this.getX(),this.getY(),name,attack,1000,this.getSide(),0)
         );

@@ -21,8 +21,9 @@ public class SoundUtils {
 //	private static Thread effectSound;
 	private static Media homeBackgroudSound = new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm()); 
 	private static Media playBackgroudSound = new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm());
-	private static Media createdSound = new Media(ClassLoader.getSystemResource("sound/createdRanger.wav").toExternalForm());
+	private static Media createdSound = new Media(ClassLoader.getSystemResource("sound/createdRanger.mp3").toExternalForm());
 	private static Media hitSound = new Media(ClassLoader.getSystemResource("sound/hit.wav").toExternalForm());
+	private static Media attrackSound = new Media(ClassLoader.getSystemResource("sound/attrackSound.wav").toExternalForm());
 	
 	public static void playBackgroundMusic() {
 		if(isSoundOn()) {
@@ -87,6 +88,27 @@ public class SoundUtils {
 	}
 	
 	
+	public static void attrack() {
+		Thread hitThread;
+		if(SoundUtils.isSoundOn()) {
+			Runnable efSound = new Runnable()
+			{
+				public void run()
+	            {
+					
+	            	Media media = attrackSound; 
+	            	effect = new MediaPlayer(media); 
+	            	effect.setStartTime(Duration.millis(150));
+	            	effect.setStopTime(Duration.millis(1200));
+	            	//Random valume
+	            	effect.setVolume(0.2);
+	            	effect.play(); 
+	            }
+			};
+			hitThread = new Thread(efSound);
+			hitThread.run(); 
+		}
+	}
 	
 	
 	

@@ -21,8 +21,8 @@ public class PausePanel extends VBox {
 		Button quitButton = new Button("Home");
 		quitButton .setOnMouseClicked(e ->{
 			System.out.println("OutToHome");
-//			Drawing.updatePanel(GameState.Home);
-			SoundUtils.hitSound();
+			Drawing.updatePanel(GameState.Home);
+//			SoundUtils.attrack();
 		});
 		
 		Button pauseImage = new Button("PauseImage");
