@@ -1,6 +1,7 @@
 package gui;
 
 import application.Drawing;
+import application.SoundUtils;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -20,7 +21,8 @@ public class PausePanel extends VBox {
 		Button quitButton = new Button("Home");
 		quitButton .setOnMouseClicked(e ->{
 			System.out.println("OutToHome");
-			Drawing.updatePanel(GameState.Home);
+//			Drawing.updatePanel(GameState.Home);
+			SoundUtils.hitSound();
 		});
 		
 		Button pauseImage = new Button("PauseImage");

@@ -6,7 +6,9 @@ import entity.base.Damageable;
 import entity.base.Entity;
 
 import application.Drawing;
+import application.SoundUtils;
 import entity.base.Movable;
+import gui.MuteButton;
 
 import java.util.Random;
 
@@ -14,8 +16,7 @@ public class GameController {
     private static Energy energy;
     private static GameState gameState;
     private static EntityManager entityManager;
-    private static boolean isMuteSound;
-
+   
     private static Turret heroTurret = new HeroTurret(150,155);
     private static Turret enemyTurret = new EnemyTurret(2850,155);
 
@@ -23,7 +24,7 @@ public class GameController {
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
-        isMuteSound = false;
+    
         entityManager.addEntities(heroTurret,enemyTurret);
 
     }
@@ -67,6 +68,7 @@ public class GameController {
     
     public static void createRanger(String name,Side side) {
     	Ranger ranger;
+    	SoundUtils.createdRanger();
 	    double x = side == Side.HERO ? 100 : Drawing.getGameWidth() - 100;
 	    double y = (double) getRandomNumber(
 	            Drawing.getWindowHeight() - 380,
@@ -129,13 +131,9 @@ public class GameController {
         return GameController.enemyTurret;
     }
 
-	public static boolean isMuteSound() {
-		return isMuteSound;
-	}
-
-	public static void setMuteSound(boolean isMuteSound) {
-		GameController.isMuteSound = isMuteSound;
-	}
+	
+	
+	
     
     
 }

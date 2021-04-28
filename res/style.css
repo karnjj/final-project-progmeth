@@ -33,7 +33,7 @@
     -fx-padding: 20 ;
 }
 
-.MuteButton
+.muteButton
 {
 	-fx-min-height: 65px;
 	-fx-min-width: 65px;

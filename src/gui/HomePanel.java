@@ -35,12 +35,13 @@ public class HomePanel extends VBox {
 		});
 		
 		MuteButton muteButton = new MuteButton();
+		SoundUtils.setMuteButton(muteButton);
 		muteButton.setOnMouseClicked(e ->{
 			muteButton.update();
 		});
 		
 //		
-		Canvas empty = new Canvas(20,50);
+		Canvas empty = new Canvas(20,80);
 		
 		this.setMaxHeight(500);
 		this.setMaxWidth(550);
