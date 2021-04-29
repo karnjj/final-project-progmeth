@@ -5,6 +5,8 @@ import application.SoundUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -44,6 +46,11 @@ public class HomePanel extends VBox {
 		creditButton.getStyleClass().add("creditButton");
 		creditButton.setOnMouseClicked(e ->{
 			System.out.println("credit click");
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setTitle("Credit");
+			a.setContentText("This is Final-Project-Progmeth\nMember\n6332003721 Khunanon Rattanagoses\n6332002021 Karn Jaroenporn");
+			a.setHeaderText("Credit information");
+			a.show();
 		});
 		this.getChildren().add(creditButton);
 		
