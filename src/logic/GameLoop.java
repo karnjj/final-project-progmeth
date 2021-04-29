@@ -1,21 +1,12 @@
 package logic;
 
-import entity.Inkblue;
-import entity.Pirate;
-import entity.Ranger;
-import entity.Slime;
-import entity.base.Entity;
+import entity.ranger.Inkblue;
+import entity.ranger.Ranger;
+import entity.ranger.Slime;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-
-import java.util.Iterator;
 
 import application.Drawing;
-import javafx.util.Duration;
 
 public class GameLoop{
     int width, height;

@@ -15,7 +15,7 @@ public class SoundUtils {
 	private static MediaPlayer effect;
 	private static Thread musicplay;
 	
-	 private static boolean soundOn = true;
+	private static boolean soundOn = true;
     private static MuteButton muteButton ;
 
 //	private static Thread effectSound;

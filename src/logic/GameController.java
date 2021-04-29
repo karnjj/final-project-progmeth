@@ -8,7 +8,7 @@ import entity.base.Entity;
 import application.Drawing;
 import application.SoundUtils;
 import entity.base.Movable;
-import gui.MuteButton;
+import entity.ranger.*;
 
 import java.util.Random;
 
@@ -77,6 +77,9 @@ public class GameController {
     	switch (name) {
     	    case "Inkblue" -> ranger = new Inkblue(x,y,side);
     	    case "Slime" -> ranger = new Slime(x,y,side);
+    	    case "Minotaur" -> ranger = new Minotaur(x,y,side);
+    	    case "Alien" -> ranger = new Alien(x,y,side);
+    	    case "Inkred" -> ranger = new Inkred(x,y,side);
             default -> throw new IllegalStateException("Unexpected value: " + name);
         }
         entityManager.addEntities(ranger);

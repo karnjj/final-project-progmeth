@@ -1,8 +1,8 @@
-package entity;
+package entity.ranger;
 
 import logic.Side;
 
-public class Slime extends Ranger {
+public class Minotaur extends Ranger {
     private static final String name;
     private static final int maxHP;
     private static final int attack;
@@ -18,21 +18,21 @@ public class Slime extends Ranger {
     private static final int idleFrame;
 
     static {
-        name = "Slime";
+        name = "Minotaur";
         maxHP = 200;
         attack = 5;
         attackRange = 100;
         attackDelay = 2;
         buyDelay = 4;
-        energyUsage = 60;
+        energyUsage = 5;
         speed = 100;
         sizeX = 100;
-        walkFrame = 4;
-        atkFrame = 5;
-        idleFrame = 4;
+        walkFrame = 7;
+        atkFrame = 0;
+        idleFrame = 0;
     }
 
-    public Slime(double x, double y, Side side) {
+    public Minotaur(double x, double y, Side side) {
         super(name,
                 maxHP,
                 attack,

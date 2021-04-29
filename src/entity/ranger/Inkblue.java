@@ -1,6 +1,7 @@
-package entity;
+package entity.ranger;
 
 import application.SoundUtils;
+import entity.Bullet;
 import entity.base.Damageable;
 import logic.GameController;
 import logic.Side;
@@ -30,7 +31,7 @@ public class Inkblue extends Ranger {
         attackRange = 1000;
         attackDelay = 3;
         buyDelay = 4;
-        energyUsage = 60;
+        energyUsage = 5;
         speed = 200;
         sizeX = 100;
         walkFrame = 5;
@@ -62,7 +63,7 @@ public class Inkblue extends Ranger {
     public void attack(Damageable e) {
     	SoundUtils.attrack();
         GameController.getEntityManager().addEntities(
-                new Bullet(this.getX(),this.getY(),name,attack,1000,this.getSide(),0)
+                new Bullet(this.getX()+40,this.getY()+10,name,attack,1000,this.getSide(),100,2)
         );
         this.setAttackCountdown(attackDelay);
     }

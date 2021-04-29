@@ -1,8 +1,6 @@
 package gui;
 
-import entity.Inkblue;
-import entity.Ranger;
-import entity.Slime;
+import entity.ranger.*;
 
 public class Hero {
 	private String name;
@@ -26,6 +24,24 @@ public class Hero {
 				maxHp = Slime.getMaxHP();
 				energyUsage = Slime.getEnergyUsage();
 				attack = Slime.getAttack();
+			}
+			case "Minotaur" -> {
+				url = Minotaur.getUrl();
+				maxHp = Minotaur.getMaxHP();
+				energyUsage = Minotaur.getEnergyUsage();
+				attack = Minotaur.getAttack();
+			}
+			case "Alien" -> {
+				url = Alien.getUrl();
+				maxHp = Alien.getMaxHP();
+				energyUsage = Alien.getEnergyUsage();
+				attack = Alien.getAttack();
+			}
+			case "Inkred" -> {
+				url = Inkred.getUrl();
+				maxHp = Inkred.getMaxHP();
+				energyUsage = Inkred.getEnergyUsage();
+				attack = Inkred.getAttack();
 			}
 		}
 	}

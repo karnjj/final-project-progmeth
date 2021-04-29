@@ -27,8 +27,11 @@ public class HeroPane extends HBox{
 		this.setMaxHeight(20);
 		this.setMaxWidth(20);
 		this.setAlignment(Pos.BOTTOM_CENTER);
-		HeroButtonList.add(new HeroButton("Inkblue"));
 		HeroButtonList.add(new HeroButton("Slime"));
+		HeroButtonList.add(new HeroButton("Alien"));
+		HeroButtonList.add(new HeroButton("Minotaur"));
+		HeroButtonList.add(new HeroButton("Inkblue"));
+		HeroButtonList.add(new HeroButton("Inkred"));
 
 		for(HeroButton x:HeroButtonList) {
 			DropShadow shadow = new DropShadow();

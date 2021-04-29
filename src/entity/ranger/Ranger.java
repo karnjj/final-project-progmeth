@@ -1,6 +1,7 @@
-package entity;
+package entity.ranger;
 
 import application.Drawing;
+import entity.Smoke;
 import entity.base.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

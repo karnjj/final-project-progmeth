@@ -1,8 +1,8 @@
-package entity;
+package entity.ranger;
 
 import logic.Side;
 
-public class Pirate extends Ranger {
+public class Alien extends Ranger {
     private static final String name;
     private static final int maxHP;
     private static final int attack;
@@ -18,21 +18,21 @@ public class Pirate extends Ranger {
     private static final int idleFrame;
 
     static {
-        name = "Pirate";
-        maxHP = 100;
-        attack = 200;
-        attackRange = 50;
-        attackDelay = 3;
-        buyDelay = 6;
-        energyUsage = 80;
-        speed = 150;
+        name = "Alien";
+        maxHP = 200;
+        attack = 5;
+        attackRange = 100;
+        attackDelay = 2;
+        buyDelay = 4;
+        energyUsage = 5;
+        speed = 100;
         sizeX = 100;
-        walkFrame = 0;
-        atkFrame = 0;
-        idleFrame = 0;
+        walkFrame = 7;
+        atkFrame = 8;
+        idleFrame = 4;
     }
 
-    public Pirate(double x, double y, Side side) {
+    public Alien(double x, double y, Side side) {
         super(name,
                 maxHP,
                 attack,
@@ -54,4 +54,21 @@ public class Pirate extends Ranger {
     public static String getName() {
         return name;
     }
+
+    public static int getMaxHP() {
+        return maxHP;
+    }
+
+    public static int getAttack() {
+        return attack;
+    }
+
+    public static int getEnergyUsage() {
+        return energyUsage;
+    }
+
+    public static String getUrl() {
+        return name + "/default.png";
+    }
+
 }

@@ -6,10 +6,14 @@ import entity.base.Damageable;
 import entity.base.Entity;
 import entity.base.Movable;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import logic.AnimatedImage;
 import logic.GameController;
 import logic.Side;
 import logic.State;
+
+import java.awt.font.ImageGraphicAttribute;
 
 public class Bullet extends Entity implements Attackable, Movable {
     private String name;
@@ -18,13 +22,19 @@ public class Bullet extends Entity implements Attackable, Movable {
     private int speed;
     private Side side;
     private double sizeX;
+    private int frame;
+
+    private final double startTime = System.nanoTime() / 1e9;
+
+    AnimatedImage animated = new AnimatedImage();
     public Bullet(double x,
                   double y,
                   String name,
                   int attack,
                   int speed,
                   Side side,
-                  double sizeX
+                  double sizeX,
+                  int frame
     ) {
         super(x, y);
         this.name = name;
@@ -32,6 +42,11 @@ public class Bullet extends Entity implements Attackable, Movable {
         this.speed = speed;
         this.side = side;
         this.sizeX = sizeX;
+        this.frame = frame;
+
+        for (int i = 0; i < frame; i++)
+            animated.frames.add(new Image(name + "/bullet_" + i + ".png"));
+        animated.duration = 20.0/this.getSpeed();
     }
 
     @Override
@@ -82,7 +97,13 @@ public class Bullet extends Entity implements Attackable, Movable {
 
     @Override
     public void draw(GraphicsContext gc, double t) {
-        gc.setFill(Color.RED);
-        gc.fillOval(this.getX()+ Drawing.getStartDraw(),this.getY()+50,25,25);
+        Image ig = animated.getFrame(t + startTime);
+        gc.drawImage(
+                ig,
+                this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
+                this.getY(),
+                this.getSide().getVal()*ig.getWidth(),
+                ig.getHeight()
+        );
     }
 }
