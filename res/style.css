@@ -77,3 +77,42 @@
 {
     -fx-background-image: url("Button/exitButtonPress.png");
 }
+
+.pauseButton
+{
+    -fx-min-height:80px;
+	-fx-min-width: 80px;
+	-fx-background-image: url("Button/pauseButton.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center 0px;
+	-fx-background-color: transparent;
+}
+
+.pauseButton:hover
+{
+	fx-background-color: transparent;
+}
+
+.pauseButton:pressed
+{
+    -fx-background-image: url("Button/pauseButtonPress.png");
+}
+
+
+.levelupButton
+{
+    -fx-min-height: 122px;
+	-fx-min-width: 190px;
+	-fx-background-image: url("Button/levelupButton.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center 0px;
+	-fx-background-color: transparent;
+}
+
+
+.levelupButton:pressed
+{
+    -fx-background-image: url("Button/levelupButtonPress.png");
+}

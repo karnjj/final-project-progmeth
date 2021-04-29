@@ -108,6 +108,10 @@ public class GameController {
         }
         return side == Side.HERO ? frontHero : frontEnemy;
     }
+    
+    public static void levelup() {
+    	//update levelup
+    }
 
 	public static GameState getGameState() {
 		return gameState;

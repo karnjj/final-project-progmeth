@@ -4,6 +4,8 @@ import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -13,6 +15,8 @@ public class EnergyPane extends Canvas{
 	private static GraphicsContext gc;
 	private static int width = 190;
 	private static int height = 122;
+	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("energyPane.png").toString(),width,height,false,false).getPixelReader(),0,0,width,height);
+	
 	public EnergyPane() {
 		this.setHeight(height);
 		this.setWidth(width);
@@ -23,10 +27,9 @@ public class EnergyPane extends Canvas{
 	}
 	
 	public static void update() {
+		gc.drawImage(bg,0,0);
+		gc.setFont(new Font(30));
 		gc.setFill(Color.WHITE);
-		gc.fillRect(0,0,width, height);
-		gc.setFill(Color.BLACK);
-		gc.setFont(new Font(20));
-		gc.fillText("Energy: " + GameController.getCurrentEnergy(),Math.round(width / 2),Math.round(height / 2));
+		gc.fillText("" + GameController.getCurrentEnergy(),Math.round(width / 2),Math.round(height / 2)+10);
 	}
 }

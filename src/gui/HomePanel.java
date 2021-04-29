@@ -51,6 +51,7 @@ public class HomePanel extends VBox {
 			a.setContentText("This is Final-Project-Progmeth\nMember\n6332003721 Khunanon Rattanagoses\n6332002021 Karn Jaroenporn");
 			a.setHeaderText("Credit information");
 			a.show();
+			SoundUtils.clickedSound();
 		});
 		this.getChildren().add(creditButton);
 		
@@ -60,6 +61,7 @@ public class HomePanel extends VBox {
 		exitButton.setOnMouseClicked(e ->{
 			System.out.println("Exit");
 			SoundUtils.terminate();
+			SoundUtils.clickedSound();
 			System.exit(0);
 		});
 		this.getChildren().add(exitButton);

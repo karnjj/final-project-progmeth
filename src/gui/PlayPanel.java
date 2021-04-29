@@ -24,16 +24,17 @@ public class PlayPanel extends StackPane{
 		StackPane.setMargin(hpEnemy, new Insets(10, 0, 0, 10));
 		StackPane.setAlignment(hpEnemy, Pos.TOP_RIGHT);
 		
-		Button bn = new Button("debugButton");
-		bn.setOnMouseClicked(e ->{
-//			System.out.println("Button on PlayPanel");
-//			GameController.getHeroTurret().setCurrentHP(10);
-//			System.out.println(GameController.getHeroTurret().getCurrentHP());
-//			hpHero.update();
-		});
-		StackPane.setAlignment(bn, Pos.TOP_LEFT);
+//		Button bn = new Button("debugButton");
+//		bn.setOnMouseClicked(e ->{
+////			System.out.println("Button on PlayPanel");
+////			GameController.getHeroTurret().setCurrentHP(10);
+////			System.out.println(GameController.getHeroTurret().getCurrentHP());
+////			hpHero.update();
+//		});
+//		StackPane.setAlignment(bn, Pos.TOP_LEFT);
 		
-		Button pauseButton = new Button("pause");
+		Button pauseButton = new Button();
+		pauseButton.getStyleClass().add("pauseButton");
 		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("pause");
 			Drawing.updatePanel(GameState.BeforePause);
@@ -45,6 +46,10 @@ public class PlayPanel extends StackPane{
 		EnergyPane energyPane = new EnergyPane();
 		StackPane.setMargin(energyPane, new Insets(0, 0, 10, 100));
 		StackPane.setAlignment(energyPane, Pos.BOTTOM_LEFT);
+		
+		LevelupButton levelupButton = new LevelupButton();
+		StackPane.setMargin(levelupButton, new Insets(0,100, 10, 0));
+		StackPane.setAlignment(levelupButton, Pos.BOTTOM_RIGHT);
 		
 		HeroPane heroPane = new HeroPane();
 		StackPane.setMargin(heroPane, new Insets(0, 0, 10, 0));
@@ -81,7 +86,7 @@ public class PlayPanel extends StackPane{
 						}
 					}
 				});
-		this.getChildren().addAll(detectMouse,hpHero,hpEnemy,pauseButton,heroPane,bn,energyPane);
+		this.getChildren().addAll(detectMouse,hpHero,hpEnemy,pauseButton,heroPane,energyPane,levelupButton);
 	}
 
 }
