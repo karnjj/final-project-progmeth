@@ -16,6 +16,7 @@ public class Inkred extends Ranger {
     private static final int energyUsage;
     private static final int speed;
     private static final double sizeX;
+    private static final double sizeY;
 
     private static final int walkFrame;
     private static final int atkFrame;
@@ -34,6 +35,7 @@ public class Inkred extends Ranger {
         energyUsage = 5;
         speed = 150;
         sizeX = 100;
+        sizeY = 100;
         walkFrame = 5;
         atkFrame = 5;
         idleFrame = 2;
@@ -52,6 +54,7 @@ public class Inkred extends Ranger {
                 y,
                 side,
                 sizeX,
+                sizeY,
                 walkFrame,
                 atkFrame,
                 idleFrame

@@ -12,6 +12,7 @@ public class Slime extends Ranger {
     private static final int energyUsage;
     private static final int speed;
     private static final double sizeX;
+    private static final double sizeY;
 
     private static final int walkFrame;
     private static final int atkFrame;
@@ -27,6 +28,7 @@ public class Slime extends Ranger {
         energyUsage = 5;
         speed = 100;
         sizeX = 100;
+        sizeY = 100;
         walkFrame = 4;
         atkFrame = 5;
         idleFrame = 4;
@@ -45,6 +47,7 @@ public class Slime extends Ranger {
                 y,
                 side,
                 sizeX,
+                sizeY,
                 walkFrame,
                 atkFrame,
                 idleFrame

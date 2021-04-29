@@ -16,7 +16,8 @@ public class Inkblue extends Ranger {
     private static final int energyUsage;
     private static final int speed;
     private static final double sizeX;
-
+    private static final double sizeY;
+    
     private static final int walkFrame;
     private static final int atkFrame;
     private static final int idleFrame;
@@ -34,6 +35,7 @@ public class Inkblue extends Ranger {
         energyUsage = 5;
         speed = 200;
         sizeX = 100;
+        sizeY = 100;
         walkFrame = 5;
         atkFrame = 5;
         idleFrame = 2;
@@ -52,6 +54,7 @@ public class Inkblue extends Ranger {
                 y,
                 side,
                 sizeX,
+                sizeY,
                 walkFrame,
                 atkFrame,
                 idleFrame
@@ -63,7 +66,7 @@ public class Inkblue extends Ranger {
     public void attack(Damageable e) {
     	SoundUtils.attrack();
         GameController.getEntityManager().addEntities(
-                new Bullet(this.getX()+40,this.getY()+10,name,attack,1000,this.getSide(),100,2)
+                new Bullet(this.getX()+40,this.getY()+10,name,attack,100,this.getSide(),100,2)
         );
         this.setAttackCountdown(attackDelay);
     }

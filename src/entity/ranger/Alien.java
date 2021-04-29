@@ -12,6 +12,7 @@ public class Alien extends Ranger {
     private static final int energyUsage;
     private static final int speed;
     private static final double sizeX;
+    private static final double sizeY;
 
     private static final int walkFrame;
     private static final int atkFrame;
@@ -27,6 +28,7 @@ public class Alien extends Ranger {
         energyUsage = 5;
         speed = 100;
         sizeX = 100;
+        sizeY = 100;
         walkFrame = 7;
         atkFrame = 8;
         idleFrame = 4;
@@ -45,6 +47,7 @@ public class Alien extends Ranger {
                 y,
                 side,
                 sizeX,
+                sizeY,
                 walkFrame,
                 atkFrame,
                 idleFrame
