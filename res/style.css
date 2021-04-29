@@ -5,7 +5,7 @@
 } 
 .button:pressed
 {
-  -fx-background-color: rgb(0, 0, 0);
+  -fx-background-color: transparent;
 }
 
 .playButton
@@ -24,7 +24,6 @@
 .playButton:pressed
 {
     -fx-background-image: url("Button/playButtonClicked.png");
-    /* -fx-background-color: brown; */
 }
 
 .canvas {
@@ -35,10 +34,46 @@
 
 .muteButton
 {
-	-fx-min-height: 65px;
-	-fx-min-width: 65px;
+	-fx-min-height: 10px;
+	-fx-min-width: 10px;
+	-fx-pref-height:45px;
+	-fx-pref-width:45px;
 	-fx-background-size: 100% 100%;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center 0px;
 	-fx-background-color: transparent;
+}
+
+.creditButton
+{
+    -fx-min-height: 45px;
+	-fx-min-width: 160px;
+	-fx-background-image: url("Button/creditButton.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center 0px;
+	-fx-background-color: transparent;
+}
+
+
+.creditButton:pressed
+{
+    -fx-background-image: url("Button/creditButtonPress.png");
+}
+
+.exitButton
+{
+    -fx-min-height: 45px;
+	-fx-min-width: 160px;
+	-fx-background-image: url("Button/exitButton.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center 0px;
+	-fx-background-color: transparent;
+}
+
+
+.exitButton:pressed
+{
+    -fx-background-image: url("Button/exitButtonPress.png");
 }

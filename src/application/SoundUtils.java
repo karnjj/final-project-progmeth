@@ -173,6 +173,10 @@ public class SoundUtils {
 		}
 	}
 
+	public static void terminate() {
+		musicplay.interrupt();
+	}
+	
 	public static MuteButton getMuteButton() {
 		return muteButton;
 	}
