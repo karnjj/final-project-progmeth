@@ -37,7 +37,6 @@ public class Drawing {
 //	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,435,false,false).getPixelReader(),0,0,window_width,435);
 	
 	public static void updatePanel(GameState state) {
-		SoundUtils.playBackgroundMusic();
 		switch(state) {
 			case Home :
 				homePanel.setVisible(true);
@@ -60,6 +59,7 @@ public class Drawing {
 				playPanel.setVisible(false);
 				break;
 		}
+		SoundUtils.playBackgroundMusic();
 		GameController.setGameState(state);
 	}
 

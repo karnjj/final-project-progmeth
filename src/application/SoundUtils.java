@@ -36,14 +36,13 @@ public class SoundUtils {
 	            	if(GameController.getGameState()==GameState.Play) {
 	            		media=playBackgroudSound;
 	            	}
-	            	backgroundMusic = new MediaPlayer(media);  
-	            	backgroundMusic.setVolume(0.5);
+	            	backgroundMusic = new MediaPlayer(media);
 	            	backgroundMusic.setOnEndOfMedia(new Runnable() {
 					       public void run() {
 					    	   backgroundMusic.seek(Duration.ZERO);
 					       }
 					   });
-	            	backgroundMusic.setVolume(0.5);
+	            	backgroundMusic.setVolume(0.3);
 	            	backgroundMusic.play();
 	            	if(GameController.getGameState() == GameState.Pause) {
 	            		stopBackgroundMusic();
