@@ -12,6 +12,7 @@ public class Minotaur extends Ranger {
     private static final int energyUsage;
     private static final int speed;
     private static final double sizeX;
+    private static final double sizeY;
 
     private static final int walkFrame;
     private static final int atkFrame;
@@ -25,11 +26,12 @@ public class Minotaur extends Ranger {
         attackDelay = 2;
         buyDelay = 4;
         energyUsage = 5;
-        speed = 100;
-        sizeX = 100;
+        speed = 300;
+        sizeX = 0;
+        sizeY = 100;
         walkFrame = 7;
-        atkFrame = 0;
-        idleFrame = 0;
+        atkFrame = 10;
+        idleFrame = 2;
     }
 
     public Minotaur(double x, double y, Side side) {
@@ -45,6 +47,7 @@ public class Minotaur extends Ranger {
                 y,
                 side,
                 sizeX,
+                sizeY,
                 walkFrame,
                 atkFrame,
                 idleFrame
