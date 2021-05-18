@@ -30,7 +30,7 @@ public class Drawing {
 	private static HomePanel homePanel;
 	private static PlayPanel playPanel;
 	private static PausePanel pausePanel;
-	
+	private static EndgamePanel endgamePanel;
 	// posi Draw Ranger =  window_height - current.y + currentPosiBg;
 	
 	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
@@ -42,6 +42,7 @@ public class Drawing {
 				homePanel.setVisible(true);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
+				endgamePanel.setVisible(false);
 				GameController.clear();
 				GameController.InitGame();
 				break;
@@ -49,15 +50,25 @@ public class Drawing {
 				homePanel.setVisible(false);
 				playPanel.setVisible(true);
 				pausePanel.setVisible(false);
+				endgamePanel.setVisible(false);
 				break;
 			case Pause :
 				pausePanel.setVisible(true);
 				playPanel.setVisible(false);
+				endgamePanel.setVisible(false);
 				break;
 			case BeforePause :
 				pausePanel.setVisible(true);
 				playPanel.setVisible(false);
+				endgamePanel.setVisible(false);
 				break;
+			case End:
+				homePanel.setVisible(false);
+				playPanel.setVisible(false);
+				pausePanel.setVisible(false);
+				GameController.clear();
+				endgamePanel.update();
+				endgamePanel.setVisible(true);
 		}
 		SoundUtils.playBackgroundMusic();
 		GameController.setGameState(state);
@@ -84,7 +95,7 @@ public class Drawing {
 
     public  static void drawEverything(GraphicsContext gc, double t) {
     	
-    	 if(GameController.getGameState() != GameState.Pause) {
+    	 if(GameController.getGameState() != GameState.Pause && !GameController.isGameOver()) {
     		EnergyPane.update();
     		HeroPane.update();
 			gc.clearRect(0,0,window_width,window_height);	
@@ -167,6 +178,15 @@ public class Drawing {
 
 	public static double getStartDraw() {
 		return startDraw;
+	}
+	
+
+	public static EndgamePanel getEndgamePanel() {
+		return endgamePanel;
+	}
+
+	public static void setEndgamePanel(EndgamePanel endgamePanel) {
+		Drawing.endgamePanel = endgamePanel;
 	}
 
 	public static void setStartDraw(double startDraw) {

@@ -36,6 +36,8 @@ public class DemoMain extends Application{
 		HomePanel homePanel= new HomePanel();
 		PlayPanel playPanel = new PlayPanel();
 		PausePanel pausePanel = new  PausePanel();
+		EndgamePanel endgamePanel = new EndgamePanel();
+		Drawing.setEndgamePanel(endgamePanel);
 		Drawing.setHomePanel(homePanel);
 		Drawing.setPlayPanel(playPanel);
 		Drawing.setPausePanel(pausePanel);
@@ -57,7 +59,7 @@ public class DemoMain extends Application{
 //		this.getChildren().add(muteButton);
 
 
-		root.getChildren().addAll(canvas,homePanel,playPanel,pausePanel,muteButton);
+		root.getChildren().addAll(canvas,homePanel,playPanel,pausePanel,muteButton,endgamePanel);
 //		root.getChildren().add(playPanel);
 
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());

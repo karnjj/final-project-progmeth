@@ -4,5 +4,6 @@ public enum GameState {
 	Home,
 	Play,
 	Pause,
-	BeforePause
+	BeforePause,
+	End
 }

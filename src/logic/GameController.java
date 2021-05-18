@@ -16,6 +16,7 @@ public class GameController {
     private static Energy energy;
     private static GameState gameState;
     private static EntityManager entityManager;
+    private static boolean isWin;
    
     private static Turret heroTurret = new HeroTurret(150,155);
     private static Turret enemyTurret = new EnemyTurret(2850,155);
@@ -24,7 +25,7 @@ public class GameController {
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
-    
+        isWin = false;
         entityManager.addEntities(heroTurret,enemyTurret);
 
     }
@@ -137,6 +138,30 @@ public class GameController {
     public static Turret getEnemyTurret() {
         return GameController.enemyTurret;
     }
+
+	public static boolean isWin() {
+		return isWin;
+	}
+	
+	public static boolean isGameOver() {
+		if(getHeroTurret().getCurrentHP()<=0) {
+			setWin(false);
+			Drawing.updatePanel(GameState.End);
+			return true;
+		}
+		if(getEnemyTurret().getCurrentHP()<=0) {
+			setWin(true);
+			Drawing.updatePanel(GameState.End);
+			return true;
+		}
+		return false;
+	}
+
+	public static void setWin(boolean isWin) {
+		GameController.isWin = isWin;
+	}
+    
+    
 
 	
 	

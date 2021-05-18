@@ -21,7 +21,7 @@ public class Minotaur extends Ranger {
     static {
         name = "Minotaur";
         maxHP = 200;
-        attack = 5;
+        attack = 500;
         attackRange = 100;
         attackDelay = 2;
         buyDelay = 4;

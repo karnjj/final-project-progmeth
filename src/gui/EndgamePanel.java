@@ -17,14 +17,14 @@ import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameState;
 
-public class EndgamePane extends VBox {
-	private static Image Overbg = new Image("gameoverPane.png");
+public class EndgamePanel extends VBox {
+	private static Image losebg = new Image("gameoverPane.png");
 	private static Image Winbg = new Image("winPane.png");
 	
-	public EndgamePane() {
+	public EndgamePanel() {
 		this.setSpacing(10);
 		
-		Canvas empty = new Canvas(20,170);
+		Canvas empty = new Canvas(20,120);
 		this.getChildren().add(empty);
 		this.setSpacing(5);
 		
@@ -48,11 +48,20 @@ public class EndgamePane extends VBox {
 		});
 		
 		
-		
+		update();
 		this.setAlignment(Pos.CENTER);
 		this.setMaxHeight(500);
 		this.setMaxWidth(550);
 		this.getChildren().addAll(restartButton,quitButton);
+	}
+	
+	public void update() {
+		if(GameController.isWin()) {
+			setBackground(Winbg);
+		}
+		else {
+			setBackground(losebg);
+		}
 	}
 	
 	private void setBackground(Image image) {
