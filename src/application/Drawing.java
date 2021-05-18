@@ -107,7 +107,7 @@ public class Drawing {
 	
 	public static void drawBackground(GraphicsContext gc) {
 		gc.drawImage(bg, 0 + startDraw, currentPosiBg,bg.getWidth(),bg.getHeight());
-
+		
 	}
 	
 	public static int getWindowWidth() {

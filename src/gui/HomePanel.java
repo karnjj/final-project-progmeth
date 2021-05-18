@@ -29,7 +29,7 @@ public class HomePanel extends VBox {
 		setBackground(bg);
 		this.setSpacing(10);
 		
-		Canvas empty = new Canvas(20,190);
+		Canvas empty = new Canvas(20,170);
 		this.getChildren().add(empty);
 
 		Button playButton = new Button();
@@ -66,12 +66,7 @@ public class HomePanel extends VBox {
 		});
 		this.getChildren().add(exitButton);
 		
-		MuteButton muteButton = new MuteButton();
-		SoundUtils.setMuteButton(muteButton);
-		muteButton.setOnMouseClicked(e ->{
-			muteButton.update();
-		});
-		this.getChildren().add(muteButton);
+		
 		
 //		
 		

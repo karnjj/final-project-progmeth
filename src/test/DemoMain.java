@@ -2,7 +2,6 @@ package test;
 
 import application.Drawing;
 import application.SoundUtils;
-import gui.ControlPane;
 import gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,7 +31,7 @@ public class DemoMain extends Application{
 		// TODO
 		GameController.InitGame();
 		StackPane root = new StackPane();
-		root.setPadding(new Insets(2,2,2,2));
+		root.setPadding(new Insets(10,10,10,10));
 		
 		HomePanel homePanel= new HomePanel();
 		PlayPanel playPanel = new PlayPanel();
@@ -47,10 +46,18 @@ public class DemoMain extends Application{
 
 		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		loop.start();
+		
+		MuteButton muteButton = new MuteButton();
+		SoundUtils.setMuteButton(muteButton);
+		muteButton.setOnMouseClicked(e ->{
+			System.out.println("Log: muteButton(DemoMain)");
+			muteButton.update();
+		});
+		root.setAlignment(muteButton, Pos.BOTTOM_RIGHT);
+//		this.getChildren().add(muteButton);
 
 
-
-		root.getChildren().addAll(canvas,homePanel,playPanel,pausePanel);
+		root.getChildren().addAll(canvas,homePanel,playPanel,pausePanel,muteButton);
 //		root.getChildren().add(playPanel);
 
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());

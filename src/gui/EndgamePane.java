@@ -17,24 +17,16 @@ import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.GameState;
 
-public class PausePanel extends VBox {
+public class EndgamePane extends VBox {
+	private static Image Overbg = new Image("gameoverPane.png");
+	private static Image Winbg = new Image("winPane.png");
 	
-	public PausePanel() {
-		Image bg = new Image("pausePane.png");
-		setBackground(bg);
+	public EndgamePane() {
 		this.setSpacing(10);
 		
 		Canvas empty = new Canvas(20,170);
 		this.getChildren().add(empty);
-		
 		this.setSpacing(5);
-		Button resumeButton = new Button();
-		resumeButton.getStyleClass().add("resumeButton");
-		resumeButton .setOnMouseClicked(e ->{
-			System.out.println("Log: Continue Game(pausePanel)");
-			Drawing.updatePanel(GameState.Play);
-			SoundUtils.clickedSound();
-		});
 		
 		Button restartButton = new Button();
 		restartButton.getStyleClass().add("restartButton");
@@ -60,7 +52,7 @@ public class PausePanel extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.setMaxHeight(500);
 		this.setMaxWidth(550);
-		this.getChildren().addAll(resumeButton,restartButton,quitButton);
+		this.getChildren().addAll(restartButton,quitButton);
 	}
 	
 	private void setBackground(Image image) {
@@ -72,4 +64,3 @@ public class PausePanel extends VBox {
 		this.setBackground(new Background(bgFillA,bgImgA));
 	}
 }
-

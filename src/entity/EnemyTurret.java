@@ -12,7 +12,7 @@ public class EnemyTurret extends Turret{
 
     static {
         name = "EnemyTurret";
-        maxHP = 3000;
+        maxHP = 500;
         attack = 10;
         attackRange = 1000;
         attackDelay = 120;
