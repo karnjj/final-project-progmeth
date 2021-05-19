@@ -54,24 +54,4 @@ public class Alien extends Ranger {
         );
     }
 
-    public static String getName() {
-        return name;
-    }
-
-    public static int getMaxHP() {
-        return maxHP;
-    }
-
-    public static int getAttack() {
-        return attack;
-    }
-
-    public static int getEnergyUsage() {
-        return energyUsage;
-    }
-
-    public static String getUrl() {
-        return name + "/default.png";
-    }
-
 }

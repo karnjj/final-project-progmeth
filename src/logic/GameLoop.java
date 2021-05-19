@@ -3,6 +3,7 @@ package logic;
 import entity.ranger.Inkblue;
 import entity.ranger.Ranger;
 import entity.ranger.Slime;
+import gui.HeroPane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -33,15 +34,6 @@ public class GameLoop{
     private void init() {
         framePerSecond = 60;
         updatePerSecond = 60;
-        GameController.InitGame();
-        Ranger pirate = new Inkblue(0,height-100,Side.HERO);
-        Ranger pirate2 = new Inkblue(width,height-120,Side.ENEMY);
-        Ranger slime = new Slime(0,height-80,Side.HERO);
-        Ranger slime2 = new Slime(width,height-100,Side.ENEMY);
-//        GameController.getHero().add(slime);
-//        GameController.getEnemy().add(slime2);
-//        GameController.getHero().add(pirate);
-//        GameController.getEnemy().add(pirate2);
     }
 
     private void update(double dt) {
@@ -50,7 +42,10 @@ public class GameLoop{
     		GameController.isGameOver();
             GameController.updateEntities(dt);
             GameController.updateEnergy(dt);
-            
+            HeroPane.update(dt);
+    	}
+    	if(GameController.getGameState() == GameState.Play) {
+    	    GameController.updateBot(dt);
         }
 //        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
@@ -63,33 +58,6 @@ public class GameLoop{
 
     public void run() {
         this.init();
-        final double uOPTIMAL_TIME = 1e9 / updatePerSecond;
-        final double fOPTIMAL_TIME = 1e9/ framePerSecond;
-
-//        while (running) {
-//            long currentNanoTime = System.nanoTime();
-//            uDeltaTime += (currentNanoTime - startNanoTime);
-//            fDeltaTime += (currentNanoTime - startNanoTime);
-//            startNanoTime = currentNanoTime;
-//            if (uDeltaTime >= uOPTIMAL_TIME) {
-//                update(uDeltaTime / 1e9);
-//
-//                uDeltaTime -= uOPTIMAL_TIME;
-//            }
-//            if (fDeltaTime >= fOPTIMAL_TIME) {
-//                draw(gc,currentNanoTime / 1e9);
-//
-//                fDeltaTime -= fOPTIMAL_TIME;
-//            }
-//
-//            //check UPS and FPS
-//            if (System.currentTimeMillis() - timer >= 1000) {
-//                System.out.println("UPS: " + updates + ", FPS: " + draws);
-//                updates = 0;
-//                draws = 0;
-//                timer += 1000;
-//            }
-//        }
         new AnimationTimer() {
             double delta = 0;
             double pastTick = System.nanoTime();

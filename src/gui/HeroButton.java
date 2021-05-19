@@ -18,14 +18,13 @@ import logic.GameController;
 import javafx.geometry.Insets;
 
 public class HeroButton extends Button {
-	public Hero hero;
-	private boolean enoughEnergy;
+	private Hero hero;
+	private boolean enoughEnergy = false;
 	
-	public HeroButton(String Name){
+	public HeroButton(String name){
 		this.setPadding(new Insets(5,5,5,5));
-		this.hero = new Hero(Name);
-		
-		ImageView imageView = new ImageView(hero.getUrl());
+		this.hero = new Hero(name);
+		ImageView imageView = new ImageView(this.hero.getRanger().getUrl());
 		imageView.setFitWidth(70);
 		imageView.setFitHeight(70);
 		this.setGraphic(imageView);
@@ -33,7 +32,7 @@ public class HeroButton extends Button {
 		this.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, 
 				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.setTooltip();
-		update();
+		this.draw();
 	}
 	
 	private void setBackGround() {
@@ -45,14 +44,13 @@ public class HeroButton extends Button {
 		}
 	}
 	
-	public void update() {
-		if(GameController.getCurrentEnergy() >= hero.getEnergyUsage()) {
-			this.enoughEnergy = true;
-		}
-		else {
-			this.enoughEnergy = false;
-		}
-		setBackGround();
+	public void update(double dt) {
+		hero.update(dt);
+		this.enoughEnergy = hero.canBuy();
+	}
+
+	public void draw() {
+		this.setBackGround();
 	}
 	
 	private void setTooltip() {
@@ -70,5 +68,9 @@ public class HeroButton extends Button {
 	
 	public Boolean haveEnoughEnergy() {
 		return enoughEnergy;
+	}
+
+	public Hero getHero() {
+		return this.hero;
 	}
 }

@@ -1,95 +1,57 @@
 package gui;
 
+import entity.base.Buyable;
 import entity.ranger.*;
+import logic.GameController;
+import logic.Side;
 
-public class Hero {
-	private String name;
-	private String url;
-	private int maxHp;
-	private int energyUsage;
-	private int attack;
+public class Hero implements Buyable {
+	Ranger ranger;
+	private double buyCountdown;
 
-	
-	Hero(String name){
-		this.name = name;
+	Hero(String name) {
 		switch(name) {
-			case "Inkblue" -> {
-				url = Inkblue.getUrl();
-				maxHp = Inkblue.getMaxHP();
-				energyUsage = Inkblue.getEnergyUsage();
-				attack = Inkblue.getAttack();
-			}
-			case "Slime" -> {
-				url = Slime.getUrl();
-				maxHp = Slime.getMaxHP();
-				energyUsage = Slime.getEnergyUsage();
-				attack = Slime.getAttack();
-			}
-			case "Minotaur" -> {
-				url = Minotaur.getUrl();
-				maxHp = Minotaur.getMaxHP();
-				energyUsage = Minotaur.getEnergyUsage();
-				attack = Minotaur.getAttack();
-			}
-			case "Alien" -> {
-				url = Alien.getUrl();
-				maxHp = Alien.getMaxHP();
-				energyUsage = Alien.getEnergyUsage();
-				attack = Alien.getAttack();
-			}
-			case "Inkred" -> {
-				url = Inkred.getUrl();
-				maxHp = Inkred.getMaxHP();
-				energyUsage = Inkred.getEnergyUsage();
-				attack = Inkred.getAttack();
-			}
+			case "Inkblue" ->
+					ranger = new Inkblue(-1,-1, Side.HERO);
+			case "Slime" ->
+					ranger = new Slime(-1,-1, Side.HERO);
+			case "Minotaur" ->
+					ranger = new Minotaur(-1,-1, Side.HERO);
+			case "Alien" ->
+					ranger = new Alien(-1,-1, Side.HERO);
+			case "Inkred" ->
+					ranger = new Inkred(-1,-1, Side.HERO);
 		}
 	}
 	
 	public String tooltipMassage() {
-		return "name: "+ name + "\nmaxHp: " + maxHp + "\nattack: " + attack +"\nEnergy: " + energyUsage;
+		return "name: "+ ranger.getName() + "\nmaxHp: " + ranger.getMaxHP() + "\nattack: " + ranger.getAttack() +"\nEnergy: " + ranger.getEnergyUsage();
 	}
 
-	public String getName() {
-		return name;
+	public Ranger getRanger() {
+		return this.ranger;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	@Override
+	public boolean canBuy() {
+		return this.buyCountdown == 0 && GameController.getCurrentEnergy() > ranger.getEnergyUsage();
 	}
 
-	public String getUrl() {
-		return url;
+	public void Buy() {
+		if (this.buyCountdown == 0 && GameController.getCurrentEnergy() > ranger.getEnergyUsage()) {
+			GameController.useEnergy(ranger.getEnergyUsage());
+			GameController.createRanger(ranger.getName(), ranger.getSide());
+			setBuyCountdown(ranger.getBuyDelay());
+		}
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setBuyCountdown(double buyCountdown) {
+		this.buyCountdown = buyCountdown;
+		if (this.buyCountdown < 0) this.buyCountdown = 0;
 	}
 
-	public int getMaxHp() {
-		return maxHp;
+	public void update(double dt) {
+		if(this.buyCountdown != 0)
+			setBuyCountdown(this.buyCountdown - dt);
 	}
-
-	public void setMaxHp(int maxHp) {
-		this.maxHp = maxHp;
-	}
-
-	public int getEnergyUsage() {
-		return energyUsage;
-	}
-
-	public void setEnergyUsage(int energy) {
-		this.energyUsage = energy;
-	}
-
-	public int getAttack() {
-		return attack;
-	}
-
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
-	
-	
-	
 }

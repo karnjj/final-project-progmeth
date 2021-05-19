@@ -18,8 +18,10 @@ import javafx.event.EventHandler;
 import logic.GameController;
 import logic.Side;
 
+import java.util.ArrayList;
+
 public class HeroPane extends HBox{
-	private static ObservableList<HeroButton> HeroButtonList = FXCollections.observableArrayList();
+	private static ArrayList<HeroButton> HeroButtonList = new ArrayList<HeroButton>();
 	
 	public HeroPane() {
 		this.setPadding(new Insets(5,5,5,5));
@@ -65,13 +67,19 @@ public class HeroPane extends HBox{
 	
 	private void mouseClickHandler(HeroButton x) {
 		if(x.haveEnoughEnergy()) {
-			GameController.createRanger(x.hero.getName(), Side.HERO);
+			x.getHero().Buy();
 		}
 	}
 	
-	public static void update() {
+	public static void draw() {
 		for(HeroButton x:HeroButtonList) {
-			x.update();
+			x.draw();
+		}
+	}
+
+	public static void update(double dt) {
+		for(HeroButton x:HeroButtonList) {
+			x.update(dt);
 		}
 	}
 }

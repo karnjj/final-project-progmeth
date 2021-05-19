@@ -11,7 +11,7 @@ import logic.GameController;
 import logic.Side;
 import logic.State;
 
-public abstract class Ranger extends Entity implements Attackable, Damageable, Buyable, Movable {
+public abstract class Ranger extends Entity implements Attackable, Damageable, Movable {
     private String name;
     private int maxHP;
     private int currentHP;
@@ -19,7 +19,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     private int attackRange;
     private double attackDelay;
     private double attackCountdown;
-    private double buyCountdown;
     private double buyDelay;
     private int energyUsage;
     private int speed;
@@ -99,7 +98,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        GameController.getEntityManager().addEntities(new Smoke(this.getX(),this.getY()));
+        GameController.getEntityManager().addEntities(new Smoke(this.getX(),this.getY()-50));
     }
 
     @Override
@@ -112,22 +111,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         if (this.currentHP < 0) this.currentHP = 0;
     }
 
-    public boolean canBuy() {
-        return this.buyCountdown == 0 && GameController.getCurrentEnergy() > energyUsage;
-    }
-
-    public void Buy() {
-        if (this.buyCountdown == 0 && GameController.getCurrentEnergy() > energyUsage) {
-            GameController.useEnergy(energyUsage);
-            setBuyCountdown(this.buyDelay);
-        }
-    }
-
-
-    public void setBuyCountdown(double buyCountdown) {
-        this.buyCountdown = buyCountdown;
-        if (this.buyCountdown < 0) this.buyCountdown = 0;
-    }
 
     public void setAttackCountdown(double attackCountdown) {
         this.attackCountdown = attackCountdown;
@@ -170,7 +153,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         this.setState(checkState());
         if(this.getState() == State.ATTACK)
             setAttackCountdown(attackCountdown - dt);
-        setBuyCountdown(buyCountdown - dt);
     }
 
     @Override
@@ -191,11 +173,35 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, B
         gc.drawImage(
                 ig,
                 this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
-                this.getY() - (this.sizeY/2),
+                this.getY() - this.sizeY,
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );
         gc.setFill(Color.RED);
         gc.fillText(String.valueOf(this.currentHP),this.getX() + Drawing.getStartDraw(),this.getY());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public int getEnergyUsage() {
+        return energyUsage;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public String getUrl() {
+        return name + "/default.png";
+    }
+
+    public double getBuyDelay() {
+        return buyDelay;
     }
 }

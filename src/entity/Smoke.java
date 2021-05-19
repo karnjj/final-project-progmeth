@@ -25,8 +25,8 @@ public class Smoke extends Entity {
     public void draw(GraphicsContext gc, double t) {
         gc.drawImage(
                 animated.getFrame(0.4-this.timeLeft),
-                this.getX()-50 + Drawing.getStartDraw(),
-                this.getY()
+                this.getX() - 50 + Drawing.getStartDraw(),
+                this.getY() - 50
         );
     }
 

@@ -20,7 +20,7 @@ public class LevelupButton extends Button {
 		this.getStyleClass().add("levelupButton");
 		this.setOnMouseClicked(e ->{
 			System.out.println("LevelUp");
-			GameController.levelup();
+			GameController.UpLevelEnergy();
 		});
 		canvas = new Canvas(width,height);
 		gc = canvas.getGraphicsContext2D();

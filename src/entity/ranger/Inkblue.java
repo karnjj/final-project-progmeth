@@ -66,29 +66,8 @@ public class Inkblue extends Ranger {
     public void attack(Damageable e) {
     	SoundUtils.attrack();
         GameController.getEntityManager().addEntities(
-                new Bullet(this.getX()+40,this.getY()+10,name,attack,100,this.getSide(),100,2)
+                new Bullet(this.getX() + (50*this.getSide().getVal()),this.getY(),name,attack,100,this.getSide(),2)
         );
         this.setAttackCountdown(attackDelay);
     }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static int getMaxHP() {
-        return maxHP;
-    }
-
-    public static int getAttack() {
-        return attack;
-    }
-
-    public static int getEnergyUsage() {
-        return energyUsage;
-    }
-
-    public static String getUrl() {
-        return name + "/default.png";
-    }
-
 }

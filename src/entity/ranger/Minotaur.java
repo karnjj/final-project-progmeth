@@ -21,14 +21,14 @@ public class Minotaur extends Ranger {
     static {
         name = "Minotaur";
         maxHP = 200;
-        attack = 500;
+        attack = 10;
         attackRange = 100;
         attackDelay = 2;
         buyDelay = 4;
         energyUsage = 5;
-        speed = 300;
-        sizeX = 0;
-        sizeY = 100;
+        speed = 150;
+        sizeX = 200;
+        sizeY = 200;
         walkFrame = 7;
         atkFrame = 10;
         idleFrame = 2;
@@ -52,26 +52,6 @@ public class Minotaur extends Ranger {
                 atkFrame,
                 idleFrame
         );
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static int getMaxHP() {
-        return maxHP;
-    }
-
-    public static int getAttack() {
-        return attack;
-    }
-
-    public static int getEnergyUsage() {
-        return energyUsage;
-    }
-
-    public static String getUrl() {
-        return name + "/default.png";
     }
 
 }

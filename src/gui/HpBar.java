@@ -35,14 +35,14 @@ public class HpBar extends Canvas {
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0,0,width, height);
 		if(side == Side.HERO) {
-			double lenHp = (GameController.getHeroTurret().getCurrentHP()/HeroTurret.maxHP) * (double)width;
+			double lenHp = (GameController.getHeroTurret().getCurrentHP()/HeroTurret.getMaxHP()) * (double)width;
 			gc.setFill(Color.valueOf("#ff0000"));
 			gc.fillRect(0,0,lenHp, height);
 			this.gc.drawImage(bg, 0,0,width, height);
 			
 		}
 		if(side == Side.ENEMY) {
-			double lenHp = (GameController.getEnemyTurret().getCurrentHP()/EnemyTurret.maxHP) * (double)width;
+			double lenHp = (GameController.getEnemyTurret().getCurrentHP()/EnemyTurret.getMaxHP()) * (double)width;
 			gc.setFill(Color.valueOf("#ff0000"));
 			gc.fillRect(width-lenHp,0,lenHp, height);
 			this.gc.drawImage(bg, 0,0,width, height);

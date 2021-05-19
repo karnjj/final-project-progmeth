@@ -1,9 +1,12 @@
 package logic;
 
+import entity.base.Buyable;
+
 public class Energy {
     private int level;
     private int currentEnergy;
     private int mxEnergy;
+    private int levelUpUsage;
 
     // this for fix can't parse double to int if value less than one.
     private double countSecondBeforeUpdate;
@@ -13,11 +16,19 @@ public class Energy {
         this.currentEnergy = 0;
         this.mxEnergy = 100;
         this.countSecondBeforeUpdate = 0;
+        this.levelUpUsage = 100/2;
     }
 
-    public void UpLevel() {
-        this.setLevel(level + 1);
-        this.mxEnergy += 80*level;
+    public void LevelUp() {
+        if(!canLevelUp()) return;
+        this.Use(this.levelUpUsage);
+        this.setLevel(this.level + 1);
+        this.mxEnergy += 30*level;
+        setLevelUpUsage(this.mxEnergy / 2);
+    }
+
+    public boolean canLevelUp() {
+        return this.currentEnergy >= this.levelUpUsage && this.level <= 6;
     }
 
     public boolean Use(int energy) {
@@ -53,11 +64,22 @@ public class Energy {
         this.mxEnergy = mxEnergy;
     }
 
+    public int getLevelUpUsage() {
+        return levelUpUsage;
+    }
+
+    public void setLevelUpUsage(int levelUpUsage) {
+        this.levelUpUsage = levelUpUsage;
+    }
+
     public void update(double dt) {
         countSecondBeforeUpdate += dt;
         if(countSecondBeforeUpdate > 0.1){
-            setCurrentEnergy((int) (getCurrentEnergy() + countSecondBeforeUpdate*10*this.getLevel()));
+            setCurrentEnergy((int) (getCurrentEnergy() + countSecondBeforeUpdate*20*this.getLevel()));
             countSecondBeforeUpdate -= 0.1;
         }
     }
+
+
+
 }

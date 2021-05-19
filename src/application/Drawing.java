@@ -97,7 +97,7 @@ public class Drawing {
     	
     	 if(GameController.getGameState() != GameState.Pause && !GameController.isGameOver()) {
     		EnergyPane.update();
-    		HeroPane.update();
+    		HeroPane.draw();
 			gc.clearRect(0,0,window_width,window_height);	
 			if(GameController.getGameState() == GameState.BeforePause) {
 				gc.setGlobalAlpha(0.9);

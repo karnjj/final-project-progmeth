@@ -22,7 +22,7 @@ public class Bullet extends Entity implements Attackable, Movable {
     private int speed;
     private Side side;
     private double sizeX;
-    private int frame;
+    private double sizeY;
 
     private final double startTime = System.nanoTime() / 1e9;
 
@@ -33,7 +33,6 @@ public class Bullet extends Entity implements Attackable, Movable {
                   int attack,
                   int speed,
                   Side side,
-                  double sizeX,
                   int frame
     ) {
         super(x, y);
@@ -41,8 +40,8 @@ public class Bullet extends Entity implements Attackable, Movable {
         this.attack = attack;
         this.speed = speed;
         this.side = side;
-        this.sizeX = sizeX;
-        this.frame = frame;
+        this.sizeX = 100;
+        this.sizeY = 100;
 
         for (int i = 0; i < frame; i++)
             animated.frames.add(new Image(name + "/bullet_" + i + ".png"));
@@ -100,8 +99,8 @@ public class Bullet extends Entity implements Attackable, Movable {
         Image ig = animated.getFrame(t + startTime);
         gc.drawImage(
                 ig,
-                this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
-                this.getY(),
+                this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getStartDraw(),
+                this.getY() - (this.sizeY/2) - 30,
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );

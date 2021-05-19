@@ -22,7 +22,6 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		// TODO
-		GameController.InitGame();
 		VBox root = new VBox();
 		root.setSpacing(10);
 		root.setPadding(new Insets(2,2,2,2));

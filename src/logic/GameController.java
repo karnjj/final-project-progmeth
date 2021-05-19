@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class GameController {
     private static Energy energy;
+    private static Bot bot;
     private static GameState gameState;
     private static EntityManager entityManager;
     private static boolean isWin;
@@ -22,6 +23,7 @@ public class GameController {
     private static Turret enemyTurret = new EnemyTurret(2850,155);
 
     public static void InitGame() {
+        bot = new Bot();
         energy = new Energy();
         entityManager = new EntityManager();
         gameState = GameState.Home;
@@ -39,11 +41,23 @@ public class GameController {
     public static int getCurrentEnergy() {
         return energy.getCurrentEnergy();
     }
+
+    public static int getMxEnergy() {
+        return energy.getMxEnergy();
+    }
     
     public static void useEnergy(int energy) {
         if (!GameController.energy.Use(energy)) {
             System.out.println("error not enought");
         }
+    }
+
+    public static void UpLevelEnergy() {
+        energy.LevelUp();
+    }
+
+    public static void updateBot(double dt) {
+        bot.update(dt);
     }
 
     public static void updateEnergy(double dt) {
@@ -72,8 +86,8 @@ public class GameController {
     	SoundUtils.createdRanger();
 	    double x = side == Side.HERO ? 100 : Drawing.getGameWidth() - 100;
 	    double y = (double) getRandomNumber(
-	            Drawing.getWindowHeight() - 380,
-                Drawing.getWindowHeight() - 330
+	            Drawing.getWindowHeight() - 310,
+                Drawing.getWindowHeight() - 240
                 );
     	switch (name) {
     	    case "Inkblue" -> ranger = new Inkblue(x,y,side);
@@ -109,10 +123,7 @@ public class GameController {
         }
         return side == Side.HERO ? frontHero : frontEnemy;
     }
-    
-    public static void levelup() {
-    	//update levelup
-    }
+
 
 	public static GameState getGameState() {
 		return gameState;

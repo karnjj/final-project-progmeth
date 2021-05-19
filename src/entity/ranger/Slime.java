@@ -25,7 +25,7 @@ public class Slime extends Ranger {
         attackRange = 100;
         attackDelay = 2;
         buyDelay = 4;
-        energyUsage = 5;
+        energyUsage = 20;
         speed = 100;
         sizeX = 100;
         sizeY = 100;
@@ -52,26 +52,6 @@ public class Slime extends Ranger {
                 atkFrame,
                 idleFrame
         );
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static int getMaxHP() {
-        return maxHP;
-    }
-
-    public static int getAttack() {
-        return attack;
-    }
-
-    public static int getEnergyUsage() {
-        return energyUsage;
-    }
-
-    public static String getUrl() {
-        return name + "/default.png";
     }
 
 }
