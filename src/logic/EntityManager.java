@@ -24,10 +24,6 @@ public class EntityManager {
         }
     }
 
-    public void removeEntities(Entity... entities) {
-        allEntity.removeAll(Arrays.asList(entities));
-    }
-
     public Set<Entity> getEntitiesToBeRemoved() {
         return removeEntity;
     }
