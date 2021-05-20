@@ -28,10 +28,10 @@ public class Inkblue extends Ranger {
     static {
         name = "Inkblue";
         maxHP = 100;
-        attack = 10;
+        attack = 20;
         attackRange = 1000;
         attackDelay = 3;
-        buyDelay = 4;
+        buyDelay = 5;
         energyUsage = 5;
         speed = 200;
         sizeX = 100;
@@ -66,7 +66,7 @@ public class Inkblue extends Ranger {
     public void attack(Damageable e) {
     	SoundUtils.attrack();
         GameController.getEntityManager().addEntities(
-                new Bullet(this.getX() + (50*this.getSide().getVal()),this.getY(),name,attack,100,this.getSide(),2)
+                new Bullet(this.getX() + (50*this.getSide().getVal()),this.getY(),name,attack,1000,this.getSide(),2)
         );
         this.setAttackCountdown(attackDelay);
     }

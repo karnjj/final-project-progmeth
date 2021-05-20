@@ -20,12 +20,12 @@ public class Slime extends Ranger {
 
     static {
         name = "Slime";
-        maxHP = 200;
-        attack = 5;
+        maxHP = 300;
+        attack = 10;
         attackRange = 100;
         attackDelay = 2;
-        buyDelay = 4;
-        energyUsage = 20;
+        buyDelay = 2;
+        energyUsage = 40;
         speed = 100;
         sizeX = 100;
         sizeY = 100;
