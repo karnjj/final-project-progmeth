@@ -13,7 +13,7 @@ import logic.State;
 
 public class Turret extends Entity implements Attackable, Damageable{
 	private String name;
-    private static double maxHP;
+    private double maxHP;
     private double currentHP;
     private int attack;
     private int attackRange;
@@ -87,11 +87,6 @@ public class Turret extends Entity implements Attackable, Damageable{
                 this.getSide().getVal()*image.getWidth(),
                 image.getHeight());
     }
-
-	public static double getMaxHP() {
-		return maxHP;
-	}
-
 	public double getCurrentHP() {
 		return currentHP;
 	}

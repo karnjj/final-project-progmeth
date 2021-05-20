@@ -28,8 +28,8 @@ public class GameController {
         entityManager = new EntityManager();
         gameState = GameState.Home;
         isWin = false;
-        entityManager.addEntities(heroTurret,enemyTurret);
-
+        entityManager.getAllEntity().add(heroTurret);
+        entityManager.getAllEntity().add(enemyTurret);
     }
 
     public static void clear() {
@@ -84,7 +84,7 @@ public class GameController {
     public static void createRanger(String name,Side side) {
     	Ranger ranger;
     	SoundUtils.createdRanger();
-	    double x = side == Side.HERO ? 100 : Drawing.getGameWidth() - 100;
+	    double x = side == Side.HERO ? 200 : Drawing.getGameWidth() - 200;
 	    double y = (double) getRandomNumber(
 	            Drawing.getWindowHeight() - 310,
                 Drawing.getWindowHeight() - 240
