@@ -8,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import application.Drawing;
+import application.SoundUtils;
 
 public class GameLoop{
     int width, height;
@@ -37,6 +38,7 @@ public class GameLoop{
     }
 
     private void update(double dt) {
+    	SoundUtils.showThread();
     	Drawing.updatePosiBg(dt);
     	if (GameController.getGameState() != GameState.Pause) {
     		GameController.isGameOver();

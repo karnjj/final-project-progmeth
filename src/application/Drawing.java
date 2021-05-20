@@ -67,8 +67,10 @@ public class Drawing {
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
 				GameController.clear();
+				GameController.InitGame();
 				endgamePanel.update();
 				endgamePanel.setVisible(true);
+				break;
 		}
 		SoundUtils.playBackgroundMusic();
 		GameController.setGameState(state);

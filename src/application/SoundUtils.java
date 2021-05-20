@@ -3,6 +3,7 @@ package application;
 import java.util.Set;
 
 import gui.MuteButton;
+import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -52,13 +53,12 @@ public class SoundUtils {
 			musicplay = new Thread(music);
 			musicplay.start();
 		}else {
-			stopBackgroundMusic();
+			terminate();
 		}
 	}
 	
 	public static void stopBackgroundMusic() {
 		if(backgroundMusic != null) {
-//			System.out.println("in playbackgroundMusic");
 			backgroundMusic.stop();
 		}
 	}
@@ -97,15 +97,14 @@ public class SoundUtils {
 					
 	            	Media media = attrackSound; 
 	            	effect = new MediaPlayer(media); 
-	            	effect.setStartTime(Duration.millis(150));
-	            	effect.setStopTime(Duration.millis(1200));
 	            	//Random valume
 	            	effect.setVolume(0.2);
 	            	effect.play(); 
 	            }
 			};
 			hitThread = new Thread(efSound);
-			hitThread.run(); 
+			hitThread.run();
+			hitThread.interrupt(); 
 		}
 	}
 	
@@ -145,14 +144,19 @@ public class SoundUtils {
 			{
 				public void run()
 	            {
-					
-	            	Media media = createdSound; 
-	            	effect = new MediaPlayer(media); 
-	            	effect.setStartTime(Duration.millis(100));
-	            	effect.setStopTime(Duration.millis(1200));
-	            	//Random valume
-	            	effect.setVolume(0.2);
-	            	effect.play(); 
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							Media media = createdSound; 
+							effect = new MediaPlayer(media); 
+							effect.setStartTime(Duration.millis(100));
+							effect.setStopTime(Duration.millis(1200));
+							//Random valume
+							effect.setVolume(0.2);
+							effect.play(); 
+						}
+					});
 	            }
 			};
 			thread = new Thread(efSound);

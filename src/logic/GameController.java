@@ -28,8 +28,7 @@ public class GameController {
         entityManager = new EntityManager();
         gameState = GameState.Home;
         isWin = false;
-        entityManager.getAllEntity().add(heroTurret);
-        entityManager.getAllEntity().add(enemyTurret);
+        entityManager.addEntities(heroTurret,enemyTurret);
     }
 
     public static void clear() {

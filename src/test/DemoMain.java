@@ -65,7 +65,7 @@ public class DemoMain extends Application{
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
 		//add style
 		scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
-		primaryStage.setTitle("Zaa");
+		primaryStage.setTitle("War of Alien");
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
