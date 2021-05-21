@@ -2,6 +2,8 @@ package entity;
 
 import application.Drawing;
 import entity.base.Entity;
+import exception.IndexOfFrameOutboundException;
+import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.AnimatedImage;
@@ -22,9 +24,16 @@ public class Smoke extends Entity {
     }
 
     @Override
-    public void draw(GraphicsContext gc, double t) {
+    public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
+        Image ig = null;
+        try {
+            ig = animated.getFrame(0.4-this.timeLeft);
+        }catch (IndexOfFrameOutboundException e) {
+            System.out.println(e.getMessage());
+        }
+        if (ig == null) throw new NullImageToRenderException();
         gc.drawImage(
-                animated.getFrame(0.4-this.timeLeft),
+                ig,
                 this.getX() - 50 + Drawing.getStartDraw(),
                 this.getY() - 50
         );

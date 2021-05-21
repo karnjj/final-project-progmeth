@@ -1,5 +1,6 @@
 package entity.base;
 
+import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import logic.Side;
@@ -18,7 +19,7 @@ public abstract class Entity {
         this.state = State.NONE;
     }
 
-    public void draw(GraphicsContext gc,double t) {
+    public void draw(GraphicsContext gc,double t) throws NullImageToRenderException {
         gc.setFill(Color.BLACK);
         gc.fillOval(x,y,25,25);
     }
