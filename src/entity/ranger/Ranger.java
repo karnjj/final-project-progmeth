@@ -11,19 +11,20 @@ import logic.GameController;
 import logic.Side;
 import logic.State;
 
-public abstract class Ranger extends Entity implements Attackable, Damageable, Movable {
-    private String name;
-    private int maxHP;
+public abstract class Ranger extends Entity implements Attackable, Damageable, Movable{
+    protected String name;
+    protected int maxHP;
     private int currentHP;
-    private int attack;
-    private int attackRange;
-    private double attackDelay;
+    protected int attack;
+    protected int attackRange;
+    protected double attackDelay;
     private double attackCountdown;
-    private double buyDelay;
-    private int energyUsage;
-    private int speed;
-    private double sizeX;
-    private double sizeY;
+    protected double buyDelay;
+    protected int energyUsage;
+    protected int speed;
+
+    protected double sizeX;
+    protected double sizeY;
 
     private final double startTime = System.nanoTime() / 1e9;
 
@@ -48,7 +49,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
                   int atkFrame,
                   int idleFrame
     ) {
-        super(x, y-Drawing.getTargetPosiBg());
+        super(x, y-Drawing.getTargetPosBg());
         this.name = name;
         this.maxHP = maxHP;
         this.currentHP = maxHP;

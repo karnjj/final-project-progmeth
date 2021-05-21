@@ -2,14 +2,12 @@ package entity;
 
 import application.Drawing;
 import entity.base.Attackable;
-import entity.base.Buyable;
 import entity.base.Damageable;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.GameController;
 import logic.Side;
-import logic.State;
 
 public class Turret extends Entity implements Attackable, Damageable{
 	private String name;
@@ -83,7 +81,7 @@ public class Turret extends Entity implements Attackable, Damageable{
         gc.drawImage(
                 image,
                 this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
-                this.getY() + Drawing.getCurrentPosiBg(),
+                this.getY() + Drawing.getCurrentPosBg(),
                 this.getSide().getVal()*image.getWidth(),
                 image.getHeight());
     }

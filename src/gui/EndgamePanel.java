@@ -18,8 +18,8 @@ import logic.GameController;
 import logic.GameState;
 
 public class EndgamePanel extends VBox {
-    private static Image losebg = new Image("gameoverPane.png");
-    private static Image Winbg = new Image("winPane.png");
+    private static final Image losebg = new Image("gameoverPane.png");
+    private static final Image Winbg = new Image("winPane.png");
 
     public EndgamePanel() {
         this.setSpacing(10);

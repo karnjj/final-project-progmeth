@@ -5,7 +5,7 @@ public enum Side {
     ENEMY(-1);
     private int val;
 
-    private Side(int val)
+    Side(int val)
     {
         this.val = val;
     }

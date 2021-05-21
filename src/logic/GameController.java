@@ -85,7 +85,7 @@ public class GameController {
     	Ranger ranger;
     	SoundUtils.createdRanger();
 	    double x = side == Side.HERO ? 200 : Drawing.getGameWidth() - 200;
-	    double y = (double) getRandomNumber(
+	    double y = getRandomNumber(
 	            Drawing.getWindowHeight() - 310,
                 Drawing.getWindowHeight() - 240
                 );

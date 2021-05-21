@@ -64,7 +64,7 @@ public class Inkred extends Ranger {
 
     @Override
     public void attack(Damageable e) {
-    	SoundUtils.attrack();
+    	SoundUtils.attack();
         GameController.getEntityManager().addEntities(
                 new Bullet(this.getX() + (50*this.getSide().getVal()),this.getY(),name,attack,1000,this.getSide(),2)
         );

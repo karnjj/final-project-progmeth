@@ -1,8 +1,6 @@
 package application;
 
 
-import entity.EnemyTurret;
-import entity.HeroTurret;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BoxBlur;
@@ -23,66 +21,63 @@ public class Drawing {
 	private static double inertia = 0;
 
 	// backGround moving
-	private static double currentPosiBg = 0;
-	private static double targetPosiBg = 0;
-	private static double speedPosiBg = 100;
-	
+	private static double currentPosBg = 0;
+	private static double targetPosBg = 0;
+	private static final double speedPosBg = 100;
+
 	private static HomePanel homePanel;
 	private static PlayPanel playPanel;
 	private static PausePanel pausePanel;
 	private static EndgamePanel endgamePanel;
 	// posi Draw Ranger =  window_height - current.y + currentPosiBg;
 	
-	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
+	private static final WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
 //	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,435,false,false).getPixelReader(),0,0,window_width,435);
 	
 	public static void updatePanel(GameState state) {
-		switch(state) {
-			case Home :
+		switch (state) {
+			case Home -> {
 				homePanel.setVisible(true);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
 				endgamePanel.setVisible(false);
 				GameController.clear();
 				GameController.InitGame();
-				break;
-			case Play :
+			}
+			case Play -> {
 				homePanel.setVisible(false);
 				playPanel.setVisible(true);
 				pausePanel.setVisible(false);
 				endgamePanel.setVisible(false);
-				break;
-			case Pause :
+			}
+			case Pause, BeforePause -> {
 				pausePanel.setVisible(true);
 				playPanel.setVisible(false);
 				endgamePanel.setVisible(false);
-				break;
-			case BeforePause :
-				pausePanel.setVisible(true);
-				playPanel.setVisible(false);
-				endgamePanel.setVisible(false);
-				break;
-			case End:
+			}
+			case End -> {
 				homePanel.setVisible(false);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
 				GameController.clear();
 				endgamePanel.update();
 				endgamePanel.setVisible(true);
+			}
 		}
 		SoundUtils.playBackgroundMusic();
 		GameController.setGameState(state);
 	}
 
 	public static void updatePosiBg(double dt) {
-		targetPosiBg = (GameController.getGameState()== GameState.Home)? 0:-120;
+		targetPosBg = (GameController.getGameState()== GameState.Home)? 0:-120;
 		if (GameController.getGameState()!= GameState.Home) {
-			if(targetPosiBg<currentPosiBg) {
-				currentPosiBg -= speedPosiBg*dt;
+			if(targetPosBg < currentPosBg) {
+				currentPosBg -= speedPosBg *dt;
 			}
 		}
 		else {
-			if(targetPosiBg>currentPosiBg) {currentPosiBg += speedPosiBg*dt;}
+			if(targetPosBg > currentPosBg) {
+				currentPosBg += speedPosBg *dt;}
 		}
 		setStartDraw(getStartDraw() + getInertia());
 	}
@@ -117,7 +112,7 @@ public class Drawing {
 
 	
 	public static void drawBackground(GraphicsContext gc) {
-		gc.drawImage(bg, 0 + startDraw, currentPosiBg,bg.getWidth(),bg.getHeight());
+		gc.drawImage(bg, 0 + startDraw, currentPosBg,bg.getWidth(),bg.getHeight());
 		
 	}
 	
@@ -128,20 +123,20 @@ public class Drawing {
 		return window_height;
 	}
 
-	public static double getCurrentPosiBg() {
-		return currentPosiBg;
+	public static double getCurrentPosBg() {
+		return currentPosBg;
 	}
 
-	public static void setCurrentPosiBg(double currentPosiBg) {
-		Drawing.currentPosiBg = currentPosiBg;
+	public static void setCurrentPosBg(double currentPosBg) {
+		Drawing.currentPosBg = currentPosBg;
 	}
 
-	public static double getTargetPosiBg() {
-		return targetPosiBg;
+	public static double getTargetPosBg() {
+		return targetPosBg;
 	}
 
-	public static void setTargetPosiBg(double targetPosiBg) {
-		Drawing.targetPosiBg = targetPosiBg;
+	public static void setTargetPosBg(double targetPosBg) {
+		Drawing.targetPosBg = targetPosBg;
 	}
 
 	public static HomePanel getHomePanel() {
