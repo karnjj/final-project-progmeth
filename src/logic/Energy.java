@@ -28,7 +28,7 @@ public class Energy {
     }
 
     public boolean canLevelUp() {
-        return this.currentEnergy >= this.levelUpUsage && this.level <= 6;
+        return this.currentEnergy >= this.levelUpUsage && this.level < 6;
     }
 
     public boolean Use(int energy) {
