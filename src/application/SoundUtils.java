@@ -14,9 +14,8 @@ public class SoundUtils {
 	private static MediaPlayer backgroundMusic;
 	private static MediaPlayer click = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/buttonSound.wav").toExternalForm()));
 	private static MediaPlayer createdSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/createdRanger.mp3").toExternalForm()));
-	private static final MediaPlayer attackSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/attackSound.wav").toExternalForm()));
+	private static MediaPlayer attackSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/attackSound.wav").toExternalForm()));
 	private static Thread playMusic;
-	private static Thread effectThread;
 	
 	private static boolean soundOn = true;
     private static MuteButton muteButton ;
@@ -30,6 +29,7 @@ public class SoundUtils {
 	}
 	
 	public static void playBackgroundMusic() {
+		System.out.println(isSoundOn());
 		if(isSoundOn()) {
 			Runnable music = new Runnable()
 			{
@@ -92,7 +92,6 @@ public class SoundUtils {
 			click.setStartTime(Duration.millis(250));
 	    	click.setStopTime(Duration.millis(1200));
 	    	click.setVolume(5);
-	    	click.setOnEndOfMedia(effectThread);
         	click.play(); 
 		}
 	}

@@ -1,6 +1,7 @@
 package gui;
 
 import application.Drawing;
+import application.SoundUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ public class LevelupButton extends Button {
 		this.getStyleClass().add("levelupButton");
 		this.setOnMouseClicked(e ->{
 			System.out.println("LevelUp");
+			SoundUtils.clickedSound();
 			GameController.UpLevelEnergy();
 		});
 		canvas = new Canvas(width,height);

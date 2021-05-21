@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import logic.GameState;
 import logic.Side;
 import application.Drawing;
+import application.SoundUtils;
 import javafx.geometry.Insets;
 
 public class PlayPanel extends StackPane{
@@ -24,19 +25,11 @@ public class PlayPanel extends StackPane{
 		StackPane.setMargin(hpEnemy, new Insets(10, 0, 0, 10));
 		StackPane.setAlignment(hpEnemy, Pos.TOP_RIGHT);
 		
-//		Button bn = new Button("debugButton");
-//		bn.setOnMouseClicked(e ->{
-////			System.out.println("Button on PlayPanel");
-////			GameController.getHeroTurret().setCurrentHP(10);
-////			System.out.println(GameController.getHeroTurret().getCurrentHP());
-////			hpHero.update();
-//		});
-//		StackPane.setAlignment(bn, Pos.TOP_LEFT);
-		
 		Button pauseButton = new Button();
 		pauseButton.getStyleClass().add("pauseButton");
 		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("pause");
+			SoundUtils.clickedSound();
 			Drawing.updatePanel(GameState.BeforePause);
 		});
 		StackPane.setMargin(pauseButton, new Insets(10, 0, 0, 0));

@@ -67,16 +67,16 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         this.setSide(side);
 
         for (int i = 0; i < walkFrame; i++)
-            walkAnimated.frames.add(new Image(name + "/walk_" + i + ".png"));
-        walkAnimated.duration = 20.0/this.getSpeed();
+            walkAnimated.getFrames().add(new Image(name + "/walk_" + i + ".png"));
+        walkAnimated.setDuration(20.0/this.getSpeed());
 
         for (int i = 0; i < atkFrame; i++)
-            atkAnimated.frames.add(new Image( name + "/attack_" + i + ".png" ));
-        atkAnimated.duration = this.getAttackDelay()*(20.0/this.getSpeed())/atkFrame;
+            atkAnimated.getFrames().add(new Image( name + "/attack_" + i + ".png" ));
+        atkAnimated.setDuration(this.getAttackDelay()*(20.0/this.getSpeed())/atkFrame);
 
         for (int i = 0; i < idleFrame; i++)
-            idleAnimated.frames.add(new Image( name + "/idle_" + i + ".png" ));
-        idleAnimated.duration = 20.0/this.getSpeed();
+            idleAnimated.getFrames().add(new Image( name + "/idle_" + i + ".png" ));
+        idleAnimated.setDuration(20.0/this.getSpeed());
 
     }
 
