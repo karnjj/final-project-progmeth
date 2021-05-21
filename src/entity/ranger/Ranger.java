@@ -3,6 +3,8 @@ package entity.ranger;
 import application.Drawing;
 import entity.Smoke;
 import entity.base.*;
+import exception.IndexOfFrameOutboundException;
+import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -155,20 +157,24 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
     }
 
     @Override
-    public void draw(GraphicsContext gc, double t) {
+    public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
         Image ig = null;
-        if (this.getState() == State.WALK) {
-            ig = this.walkAnimated.getFrame(t+this.startTime);
-        }else if(this.getState() == State.ATTACK) {
-            if (this.getAttackDelay() * (20.0/this.getSpeed()) < this.getAttackCountdown()) {
-                ig = this.idleAnimated.getFrame(t+this.startTime);
-            }else {
-                ig = this.atkAnimated.getFrame(
-                        this.getAttackDelay() * (20.0/this.getSpeed()) - this.getAttackCountdown()
-                );
+        try {
+            if (this.getState() == State.WALK) {
+                ig = this.walkAnimated.getFrame(t+this.startTime);
+            }else if(this.getState() == State.ATTACK) {
+                if (this.getAttackDelay() * (20.0/this.getSpeed()) < this.getAttackCountdown()) {
+                    ig = this.idleAnimated.getFrame(t+this.startTime);
+                }else {
+                    ig = this.atkAnimated.getFrame(
+                            this.getAttackDelay() * (20.0/this.getSpeed()) - this.getAttackCountdown()
+                    );
+                }
             }
+        }catch (IndexOfFrameOutboundException e) {
+            System.out.println(e.getMessage());
         }
-        if(ig == null) return;
+        if (ig == null) throw new NullImageToRenderException();
         gc.drawImage(
                 ig,
                 this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getStartDraw(),

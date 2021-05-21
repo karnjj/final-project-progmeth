@@ -5,6 +5,8 @@ import entity.base.Attackable;
 import entity.base.Damageable;
 import entity.base.Entity;
 import entity.base.Movable;
+import exception.IndexOfFrameOutboundException;
+import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -100,8 +102,14 @@ public class Bullet extends Entity implements Attackable, Movable {
     }
 
     @Override
-    public void draw(GraphicsContext gc, double t) {
-        Image ig = animated.getFrame(t + startTime);
+    public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
+        Image ig = null;
+        try {
+            ig = animated.getFrame(t + startTime);
+        }catch (IndexOfFrameOutboundException e) {
+            System.out.println(e.getMessage());
+        }
+        if (ig == null) throw new NullImageToRenderException();
         gc.drawImage(
                 ig,
                 this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getStartDraw(),

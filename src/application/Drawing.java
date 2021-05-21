@@ -2,6 +2,7 @@ package application;
 
 
 import entity.base.Entity;
+import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
@@ -87,7 +88,11 @@ public class Drawing {
 
 	public static void drawEntities(GraphicsContext gc, double t){
 		for (Entity e : GameController.getEntityManager().getAllEntity()) {
-			e.draw(gc, t);
+			try {
+				e.draw(gc, t);
+			}catch (NullImageToRenderException nie) {
+				System.out.println(nie.getMessage());
+			}
 		}
 	}
 
