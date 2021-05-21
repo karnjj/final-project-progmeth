@@ -43,6 +43,7 @@ public class DemoMain extends Application{
 
 		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		loop.start();
+		SoundUtils.init();
 		
 		MuteButton muteButton = new MuteButton();
 		SoundUtils.setMuteButton(muteButton);
