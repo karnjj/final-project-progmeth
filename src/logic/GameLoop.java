@@ -33,7 +33,7 @@ public class GameLoop{
     }
 
     private void update(double dt) {
-    	SoundUtils.showThread();
+//    	SoundUtils.showThread();
     	Drawing.updatePosiBg(dt);
     	if (GameController.getGameState() != GameState.Pause) {
     		GameController.isGameOver();
