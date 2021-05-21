@@ -34,7 +34,7 @@ public class Smoke extends Entity {
         if (ig == null) throw new NullImageToRenderException();
         gc.drawImage(
                 ig,
-                this.getX() - 50 + Drawing.getStartDraw(),
+                this.getX() - 50 + Drawing.getMovePosBgX(),
                 this.getY() - 50
         );
     }

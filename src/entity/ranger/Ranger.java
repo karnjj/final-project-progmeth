@@ -51,7 +51,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
                   int atkFrame,
                   int idleFrame
     ) {
-        super(x, y-Drawing.getTargetPosBg());
+        super(x, y);
         this.name = name;
         this.maxHP = maxHP;
         this.currentHP = maxHP;
@@ -177,13 +177,13 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         if (ig == null) throw new NullImageToRenderException();
         gc.drawImage(
                 ig,
-                this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getStartDraw(),
-                this.getY() - this.pivotY,
+                this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getMovePosBgX(),
+                this.getY() - this.pivotY + Drawing.getMovePosBgY(),
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );
         gc.setFill(Color.RED);
-        gc.fillText(String.valueOf(this.currentHP),this.getX() + Drawing.getStartDraw(),this.getY());
+        gc.fillText(String.valueOf(this.currentHP),this.getX() + Drawing.getMovePosBgX(),this.getY() + Drawing.getMovePosBgY());
     }
 
     public String getName() {

@@ -16,15 +16,14 @@ public class Drawing {
 	private static final int window_height = 595;
 
 	private static final int game_width = 3000;
-	private static final int game_height = 595;
+	private static final int game_height = 715;
 
-	private static double startDraw = 0;
-	private static double inertia = 0;
 	private static boolean changePanel;
 
 	// backGround moving
-	private static double currentPosBg = 0;
-	private static double targetPosBg = 0;
+	private static double movePosBgX = 0;
+	private static double movePosBgY = 0;
+	private static int inertia = 0;
 	private static final double speedPosBg = 100;
 
 	private static HomePanel homePanel;
@@ -65,25 +64,19 @@ public class Drawing {
 				GameController.InitGame();
 				endgamePanel.update();
 				endgamePanel.setVisible(true);
-				break;
 			}
 		}
 		SoundUtils.playBackgroundMusic();
 		GameController.setGameState(state);
 	}
 
-	public static void updatePosiBg(double dt) {
-		targetPosBg = (GameController.getGameState()== GameState.Home)? 0:-120;
-		if (GameController.getGameState()!= GameState.Home) {
-			if(targetPosBg < currentPosBg) {
-				currentPosBg -= speedPosBg *dt;
-			}
-		}
-		else {
-			if(targetPosBg > currentPosBg) {
-				currentPosBg += speedPosBg *dt;}
-		}
-		setStartDraw(getStartDraw() + getInertia());
+	public static void updatePosBg(double dt) {
+		if(GameController.getGameState() == GameState.Pause) return;
+		if (GameController.getGameState() != GameState.Home)
+			setMovePosBgY(getMovePosBgY() - speedPosBg * dt);
+		else
+			setMovePosBgY(getMovePosBgY() + speedPosBg * dt);
+		setMovePosBgX(getMovePosBgX() + getInertia());
 	}
 
 	public static void drawEntities(GraphicsContext gc, double t){
@@ -120,7 +113,7 @@ public class Drawing {
 
 	
 	public static void drawBackground(GraphicsContext gc) {
-		gc.drawImage(bg, 0 + startDraw, currentPosBg,bg.getWidth(),bg.getHeight());
+		gc.drawImage(bg, 0 + movePosBgX, movePosBgY,bg.getWidth(),bg.getHeight());
 		
 	}
 	
@@ -131,21 +124,6 @@ public class Drawing {
 		return window_height;
 	}
 
-	public static double getCurrentPosBg() {
-		return currentPosBg;
-	}
-
-	public static void setCurrentPosBg(double currentPosBg) {
-		Drawing.currentPosBg = currentPosBg;
-	}
-
-	public static double getTargetPosBg() {
-		return targetPosBg;
-	}
-
-	public static void setTargetPosBg(double targetPosBg) {
-		Drawing.targetPosBg = targetPosBg;
-	}
 
 	public static HomePanel getHomePanel() {
 		return homePanel;
@@ -179,10 +157,25 @@ public class Drawing {
 		return game_height;
 	}
 
-	public static double getStartDraw() {
-		return startDraw;
+	public static void setMovePosBgX(double movePosBgX) {
+		Drawing.movePosBgX = movePosBgX;
+		if (Drawing.movePosBgX > 0) Drawing.movePosBgX = 0;
+		if (Drawing.movePosBgX < (Drawing.window_width - Drawing.game_width)) Drawing.movePosBgX = (Drawing.window_width - Drawing.game_width);
 	}
-	
+
+	public static double getMovePosBgX() {
+		return movePosBgX;
+	}
+
+	public static double getMovePosBgY() {
+		return movePosBgY;
+	}
+
+	public static void setMovePosBgY(double movePosBgY) {
+		Drawing.movePosBgY = movePosBgY;
+		if (Drawing.movePosBgY > 0) Drawing.movePosBgY = 0;
+		if (Drawing.movePosBgY < (Drawing.window_height - Drawing.game_height)) Drawing.movePosBgY = (Drawing.window_height - Drawing.game_height);
+	}
 
 	public static EndgamePanel getEndgamePanel() {
 		return endgamePanel;
@@ -192,18 +185,15 @@ public class Drawing {
 		Drawing.endgamePanel = endgamePanel;
 	}
 
-	public static void setStartDraw(double startDraw) {
-		Drawing.startDraw = startDraw;
-		if (Drawing.startDraw > 0) Drawing.startDraw = 0;
-		if (Drawing.startDraw < -(Drawing.game_width - Drawing.window_width)) Drawing.startDraw = -(Drawing.game_width - Drawing.window_width);
-	}
+
+
 
 	public static double getInertia() {
 		return inertia;
 	}
 
-	public static void setInertia(double inertia) {
-		Drawing.inertia = (int)(inertia);
+	public static void setInertia(int inertia) {
+		Drawing.inertia = inertia;
 	}
 
 	public static boolean isChangePanel() {

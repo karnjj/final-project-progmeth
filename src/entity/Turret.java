@@ -53,8 +53,8 @@ public class Turret extends Entity implements Damageable{
     public void draw(GraphicsContext gc, double t) {
         gc.drawImage(
                 image,
-                this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getStartDraw(),
-                this.getY() + Drawing.getCurrentPosBg(),
+                this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getMovePosBgX(),
+                this.getY() + Drawing.getMovePosBgY(),
                 this.getSide().getVal()*image.getWidth(),
                 image.getHeight());
     }

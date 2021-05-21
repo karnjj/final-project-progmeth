@@ -70,18 +70,18 @@ public class PlayPanel extends StackPane{
 						double now = System.currentTimeMillis();
 						if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
 							Drawing.setInertia(0);
-							startDraw = Drawing.getStartDraw();
+							startDraw = Drawing.getMovePosBgX();
 							lastTime = System.currentTimeMillis();
 							startPos = e.getX();
 							lastPos = e.getX();
 						}else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-							Drawing.setStartDraw(startDraw -(startPos -e.getX()));
+							Drawing.setMovePosBgX(startDraw -(startPos -e.getX()));
 							if (now - lastTime > 50) {
 								lastPos = e.getX();
 								lastTime = System.currentTimeMillis();
 							}
 						}else if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
-							double inertia = (e.getX() - lastPos) / (now - lastTime)*8;
+							int inertia = (int) ((e.getX() - lastPos) / (now - lastTime)*8);
 							Drawing.setInertia(inertia);
 						}
 					}
