@@ -3,54 +3,24 @@ package entity.ranger;
 import logic.Side;
 
 public class Slime extends Ranger {
-    private static final String name;
-    private static final int maxHP;
-    private static final int attack;
-    private static final int attackRange;
-    private static final double attackDelay;
-    private static final double buyDelay;
-    private static final int energyUsage;
-    private static final int speed;
-    private static final double sizeX;
-    private static final double sizeY;
-
-    private static final int walkFrame;
-    private static final int atkFrame;
-    private static final int idleFrame;
-
-    static {
-        name = "Slime";
-        maxHP = 300;
-        attack = 10;
-        attackRange = 100;
-        attackDelay = 2;
-        buyDelay = 2;
-        energyUsage = 40;
-        speed = 100;
-        sizeX = 100;
-        sizeY = 100;
-        walkFrame = 4;
-        atkFrame = 5;
-        idleFrame = 4;
-    }
 
     public Slime(double x, double y, Side side) {
-        super(name,
-                maxHP,
-                attack,
-                attackRange,
-                attackDelay,
-                buyDelay,
-                energyUsage,
-                speed,
+        super("Slime",
+                300,
+                10,
+                100,
+                2,
+                2,
+                40,
+                100,
                 x,
                 y,
                 side,
-                sizeX,
-                sizeY,
-                walkFrame,
-                atkFrame,
-                idleFrame
+                50,
+                100,
+                4,
+                5,
+                4
         );
     }
 

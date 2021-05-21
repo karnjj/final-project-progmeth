@@ -23,8 +23,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
     protected int energyUsage;
     protected int speed;
 
-    protected double sizeX;
-    protected double sizeY;
+    protected double pivotX;
+    protected double pivotY;
 
     private final double startTime = System.nanoTime() / 1e9;
 
@@ -43,8 +43,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
                   double x,
                   double y,
                   Side side,
-                  double sizeX,
-                  double sizeY,
+                  double pivotX,
+                  double pivotY,
                   int walkFrame,
                   int atkFrame,
                   int idleFrame
@@ -59,8 +59,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         this.buyDelay = buyDelay;
         this.energyUsage = energyUsage;
         this.speed = speed;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        this.pivotX = pivotX;
+        this.pivotY = pivotY;
         this.attackCountdown = this.attackDelay;
         this.setSide(side);
 
@@ -171,8 +171,8 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         if(ig == null) return;
         gc.drawImage(
                 ig,
-                this.getX() - (this.getSide().getVal() * this.sizeX/2) + Drawing.getStartDraw(),
-                this.getY() - this.sizeY,
+                this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getStartDraw(),
+                this.getY() - this.pivotY,
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );

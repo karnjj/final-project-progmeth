@@ -60,6 +60,11 @@ public class Bullet extends Entity implements Attackable, Movable {
     }
 
     @Override
+    public int getAttack() {
+        return this.attack;
+    }
+
+    @Override
     public int getAttackRange() {
         return this.attackRange;
     }

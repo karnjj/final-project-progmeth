@@ -35,22 +35,22 @@ public class Minotaur extends Ranger {
     }
 
     public Minotaur(double x, double y, Side side) {
-        super(name,
-                maxHP,
-                attack,
-                attackRange,
-                attackDelay,
-                buyDelay,
-                energyUsage,
-                speed,
+        super("Minotaur",
+                200,
+                10,
+                100,
+                2,
+                4,
+                5,
+                150,
                 x,
                 y,
                 side,
-                sizeX,
-                sizeY,
-                walkFrame,
-                atkFrame,
-                idleFrame
+                100,
+                200,
+                7,
+                10,
+                2
         );
     }
 
