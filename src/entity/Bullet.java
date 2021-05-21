@@ -46,8 +46,8 @@ public class Bullet extends Entity implements Attackable, Movable {
         this.sizeY = 100;
 
         for (int i = 0; i < frame; i++)
-            animated.frames.add(new Image(name + "/bullet_" + i + ".png"));
-        animated.duration = 20.0/this.getSpeed();
+            animated.getFrames().add(new Image(name + "/bullet_" + i + ".png"));
+        animated.setDuration(20.0/this.getSpeed());
     }
 
     @Override

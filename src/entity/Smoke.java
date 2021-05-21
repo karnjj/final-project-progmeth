@@ -19,8 +19,8 @@ public class Smoke extends Entity {
         super(x, y);
 
         for (int i = 0; i < 4; i++)
-            animated.frames.add(new Image( "Smoke/smoke_" + i + ".png" ));
-        animated.duration = timeLeft / 4;
+            animated.getFrames().add(new Image( "Smoke/smoke_" + i + ".png" ));
+        animated.setDuration(timeLeft / 4) ;
     }
 
     @Override
