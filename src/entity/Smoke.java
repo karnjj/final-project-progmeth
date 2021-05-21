@@ -35,7 +35,7 @@ public class Smoke extends Entity {
         gc.drawImage(
                 ig,
                 this.getX() - 50 + Drawing.getMovePosBgX(),
-                this.getY() - 50
+                this.getY() - 50 + Drawing.getMovePosBgY()
         );
     }
 

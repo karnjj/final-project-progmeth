@@ -34,7 +34,7 @@ public class GameLoop{
 
     private void update(double dt) {
 //    	SoundUtils.showThread();
-    	Drawing.updatePosiBg(dt);
+    	Drawing.updatePosBg(dt);
     	if (GameController.getGameState() != GameState.Pause) {
     		GameController.isGameOver();
             GameController.updateEntities(dt);

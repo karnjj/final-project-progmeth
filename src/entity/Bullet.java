@@ -110,7 +110,7 @@ public class Bullet extends Entity implements Attackable, Movable {
         gc.drawImage(
                 ig,
                 this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getMovePosBgX(),
-                this.getY() - (this.sizeY/2) - 30,
+                this.getY() - (this.sizeY/2) - 30 + Drawing.getMovePosBgY(),
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );
