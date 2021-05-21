@@ -43,6 +43,7 @@ public class DemoMain extends Application{
 
 		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		loop.start();
+		SoundUtils.init();
 		
 		MuteButton muteButton = new MuteButton();
 		SoundUtils.setMuteButton(muteButton);
@@ -60,7 +61,7 @@ public class DemoMain extends Application{
 		Scene scene = new Scene(root,Drawing.getWindowWidth(),Drawing.getWindowHeight());
 		//add style
 		scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toExternalForm());
-		primaryStage.setTitle("Zaa");
+		primaryStage.setTitle("War of Alien");
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();

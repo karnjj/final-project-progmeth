@@ -19,6 +19,7 @@ public class Drawing {
 
 	private static double startDraw = 0;
 	private static double inertia = 0;
+	private static boolean changePanel;
 
 	// backGround moving
 	private static double currentPosBg = 0;
@@ -60,8 +61,10 @@ public class Drawing {
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
 				GameController.clear();
+				GameController.InitGame();
 				endgamePanel.update();
 				endgamePanel.setVisible(true);
+				break;
 			}
 		}
 		SoundUtils.playBackgroundMusic();
@@ -197,4 +200,14 @@ public class Drawing {
 	public static void setInertia(double inertia) {
 		Drawing.inertia = (int)(inertia);
 	}
+
+	public static boolean isChangePanel() {
+		return changePanel;
+	}
+
+	public static void setChangePanel(boolean changePanel) {
+		Drawing.changePanel = changePanel;
+	}
+	
+	
 }

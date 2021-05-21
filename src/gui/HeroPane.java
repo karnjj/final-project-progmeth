@@ -40,11 +40,9 @@ public class HeroPane extends HBox{
 			x.addEventHandler(MouseEvent.MOUSE_CLICKED,
 			    new EventHandler<MouseEvent>() {
 			        @Override public void handle(MouseEvent e) {
-			        	// createRanger
-//						GameController.createRanger(x.hero.getName(), Side.ENEMY);
 			        	mouseClickHandler(x);
 			            x.setEffect(shadow);
-						System.out.println("Click");
+						System.out.println("Log: Click summon ranger(HeroPane)");
 			        }
 			});
 			x.addEventHandler(MouseEvent.MOUSE_EXITED, 
@@ -58,7 +56,6 @@ public class HeroPane extends HBox{
 		
 		this.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, 
 				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
 		for (HeroButton heroButton : HeroButtonList) {
 			this.getChildren().add(heroButton);
 		}
