@@ -14,17 +14,16 @@ public class SoundUtils {
 	private static MediaPlayer backgroundMusic;
 	private static MediaPlayer sound;
 	private static MediaPlayer effect;
-	private static Thread musicplay;
+	private static Thread playMusic;
 	
 	private static boolean soundOn = true;
     private static MuteButton muteButton ;
 
 //	private static Thread effectSound;
-	private static Media homeBackgroudSound = new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm()); 
-	private static Media playBackgroudSound = new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm());
-	private static Media createdSound = new Media(ClassLoader.getSystemResource("sound/createdRanger.mp3").toExternalForm());
-	private static Media hitSound = new Media(ClassLoader.getSystemResource("sound/hit.wav").toExternalForm());
-	private static Media attrackSound = new Media(ClassLoader.getSystemResource("sound/attrackSound.wav").toExternalForm());
+	private static final Media homeBackgroundSound = new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm());
+	private static final Media playBackgroundSound = new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm());
+	private static final Media createdSound = new Media(ClassLoader.getSystemResource("sound/createdRanger.mp3").toExternalForm());
+	private static final Media attackSound = new Media(ClassLoader.getSystemResource("sound/attackSound.wav").toExternalForm());
 	
 	public static void playBackgroundMusic() {
 		if(isSoundOn()) {
@@ -33,9 +32,9 @@ public class SoundUtils {
 				public void run()
 	            {
 					stopBackgroundMusic();
-	            	Media media = homeBackgroudSound;
+	            	Media media = homeBackgroundSound;
 	            	if(GameController.getGameState()==GameState.Play) {
-	            		media=playBackgroudSound;
+	            		media= playBackgroundSound;
 	            	}
 	            	backgroundMusic = new MediaPlayer(media);
 	            	backgroundMusic.setOnEndOfMedia(new Runnable() {
@@ -50,8 +49,8 @@ public class SoundUtils {
 	            	}
 	            }
 			};
-			musicplay = new Thread(music);
-			musicplay.start();
+			playMusic = new Thread(music);
+			playMusic.start();
 		}else {
 			terminate();
 		}
@@ -62,49 +61,26 @@ public class SoundUtils {
 			backgroundMusic.stop();
 		}
 	}
-	
-	
-	public static void hitSound() {
+
+
+	public static void attack() {
 		Thread hitThread;
 		if(SoundUtils.isSoundOn()) {
 			Runnable efSound = new Runnable()
 			{
 				public void run()
 	            {
-					
-	            	Media media = hitSound; 
-	            	effect = new MediaPlayer(media); 
-	            	effect.setStartTime(Duration.millis(100));
+
+					effect = new MediaPlayer(attackSound);
+	            	effect.setStartTime(Duration.millis(150));
 	            	effect.setStopTime(Duration.millis(1200));
-	            	//Random valume
+	            	//Random volume
 	            	effect.setVolume(0.2);
 	            	effect.play(); 
 	            }
 			};
 			hitThread = new Thread(efSound);
-			hitThread.run(); 
-		}
-	}
-	
-	
-	public static void attrack() {
-		Thread hitThread;
-		if(SoundUtils.isSoundOn()) {
-			Runnable efSound = new Runnable()
-			{
-				public void run()
-	            {
-					
-	            	Media media = attrackSound; 
-	            	effect = new MediaPlayer(media); 
-	            	//Random valume
-	            	effect.setVolume(0.2);
-	            	effect.play(); 
-	            }
-			};
-			hitThread = new Thread(efSound);
-			hitThread.run();
-			hitThread.interrupt(); 
+			hitThread.start();
 		}
 	}
 	
@@ -123,7 +99,7 @@ public class SoundUtils {
 				public void run()
 	            {
 					
-	            	Media media = new Media(getClass().getClassLoader().getResource("sound/buttonSound.wav").toExternalForm()); 
+	            	Media media = new Media(ClassLoader.getSystemResource("sound/buttonSound.wav").toExternalForm());
 	            	sound = new MediaPlayer(media); 
 	            	sound.setStartTime(Duration.millis(250));
 					sound.setStopTime(Duration.millis(1200));
@@ -144,23 +120,17 @@ public class SoundUtils {
 			{
 				public void run()
 	            {
-					Platform.runLater(new Runnable() {
 
-						@Override
-						public void run() {
-							Media media = createdSound; 
-							effect = new MediaPlayer(media); 
-							effect.setStartTime(Duration.millis(100));
-							effect.setStopTime(Duration.millis(1200));
-							//Random valume
-							effect.setVolume(0.2);
-							effect.play(); 
-						}
-					});
+					effect = new MediaPlayer(createdSound);
+	            	effect.setStartTime(Duration.millis(100));
+	            	effect.setStopTime(Duration.millis(1200));
+	            	//Random volume
+	            	effect.setVolume(0.2);
+	            	effect.play(); 
 	            }
 			};
 			thread = new Thread(efSound);
-			thread.run(); 
+			thread.start();
 		}
 	}
 	
@@ -178,7 +148,7 @@ public class SoundUtils {
 	}
 
 	public static void terminate() {
-		musicplay.interrupt();
+		playMusic.interrupt();
 	}
 	
 	public static MuteButton getMuteButton() {

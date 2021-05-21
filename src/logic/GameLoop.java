@@ -1,8 +1,5 @@
 package logic;
 
-import entity.ranger.Inkblue;
-import entity.ranger.Ranger;
-import entity.ranger.Slime;
 import gui.HeroPane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,7 +13,6 @@ public class GameLoop{
 
     int framePerSecond; // FPS
     int updatePerSecond; // UPS
-    private boolean running;
 
     int updates = 0; // count update
     int draws = 0; // count draw
@@ -28,7 +24,6 @@ public class GameLoop{
     }
 
     public void start() {
-        running = true;
         this.run();
     }
 
@@ -49,7 +44,6 @@ public class GameLoop{
     	if(GameController.getGameState() == GameState.Play) {
     	    GameController.updateBot(dt);
         }
-//        System.out.println("karn HP:" + karn.getCurrentHP() + " non HP:" + non.getCurrentHP());
         updates++;
     }
 

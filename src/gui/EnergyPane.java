@@ -3,7 +3,6 @@ package gui;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -13,9 +12,9 @@ import logic.GameController;
 
 public class EnergyPane extends Canvas{
 	private static GraphicsContext gc;
-	private static int width = 190;
-	private static int height = 122;
-	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("energyPane.png").toString(),width,height,false,false).getPixelReader(),0,0,width,height);
+	private static final int width = 190;
+	private static final int height = 122;
+	private static final WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("energyPane.png").toString(),width,height,false,false).getPixelReader(),0,0,width,height);
 	
 	public EnergyPane() {
 		this.setHeight(height);
