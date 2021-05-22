@@ -6,8 +6,12 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public class AnimatedImage{
-    private ArrayList<Image> frames = new ArrayList<Image>();
+    private ArrayList<Image> frames;
     private double duration;
+
+    public AnimatedImage(){
+    	frames = new ArrayList<Image>();
+	}
 
     public Image getFrame(double time) throws IndexOfFrameOutboundException {
         int index = (int)((time % (frames.size() * duration)) / duration);

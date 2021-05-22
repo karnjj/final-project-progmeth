@@ -16,7 +16,6 @@ public class GameController {
     private static Energy energy;
     private static Bot bot;
     private static GameState gameState;
-    private static EntityManager entityManager;
     private static boolean isWin;
 
     private static Turret heroTurret = new HeroTurret(150, 155);
@@ -25,14 +24,13 @@ public class GameController {
     public static void InitGame() {
         bot = new Bot();
         energy = new Energy();
-        entityManager = new EntityManager();
         gameState = GameState.Home;
         isWin = false;
-        entityManager.addEntities(heroTurret, enemyTurret);
+        EntityManager.addEntities(heroTurret, enemyTurret);
     }
 
     public static void clear() {
-        entityManager.clear();
+        EntityManager.clear();
         heroTurret = new HeroTurret(150, 155);
         enemyTurret = new EnemyTurret(2850, 155);
     }
@@ -42,7 +40,7 @@ public class GameController {
     }
 
     public static int getMxEnergy() {
-        return energy.getMxEnergy();
+        return energy.getMaxEnergy();
     }
 
     public static void useEnergy(int energy) {
@@ -64,10 +62,10 @@ public class GameController {
     }
 
     public static void updateEntities(double dt) {
-        entityManager.cleanupEntities();
-        for (Entity e : entityManager.getAllEntity()) {
+        EntityManager.cleanupEntities();
+        for (Entity e : EntityManager.getAllEntity()) {
             e.update(dt);
-            if (e.getState() == logic.State.DEAD) entityManager.addEntitiesToBeRemoved(e);
+            if (e.getState() == logic.State.DEAD) EntityManager.addEntitiesToBeRemoved(e);
             if (e instanceof Movable) {
                 if (e.getState() == logic.State.WALK) ((Movable) e).move(dt);
             }
@@ -96,7 +94,7 @@ public class GameController {
             case "Inkred" -> ranger = new Inkred(x, y, side);
             default -> throw new IllegalStateException("Unexpected value: " + name);
         }
-        entityManager.addEntities(ranger);
+        EntityManager.addEntities(ranger);
     }
 
     public static Entity getFrontmost(Side side) {
@@ -104,7 +102,7 @@ public class GameController {
         Entity frontEnemy = null;
         double maxX = 0;
         double minX = Double.MAX_VALUE;
-        for (Entity e : entityManager.getAllEntity()) {
+        for (Entity e : EntityManager.getAllEntity()) {
             if (e instanceof Damageable) {
                 if (e.getSide() == Side.HERO) {
                     if (maxX < e.getX()) {
@@ -135,10 +133,6 @@ public class GameController {
     public static int getRandomNumber(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
-    }
-
-    public static EntityManager getEntityManager() {
-        return entityManager;
     }
 
     public static Turret getHeroTurret() {

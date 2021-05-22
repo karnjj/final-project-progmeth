@@ -12,11 +12,11 @@ public class EntityManager {
 
     private static Set<Entity> removeEntity = new HashSet<>();
 
-    public List<Entity> getAllEntity() {
+    public static List<Entity> getAllEntity() {
         return allEntity;
     }
 
-    public void addEntities(Entity... entities) {
+    public static void addEntities(Entity... entities) {
         if (entities.length > 1) {
             addEntity.addAll(Arrays.asList((Entity[]) entities));
         } else {
@@ -24,11 +24,11 @@ public class EntityManager {
         }
     }
 
-    public Set<Entity> getEntitiesToBeRemoved() {
+    public static Set<Entity> getEntitiesToBeRemoved() {
         return removeEntity;
     }
 
-    public void addEntitiesToBeRemoved(Entity... entities) {
+    public static void addEntitiesToBeRemoved(Entity... entities) {
         if (entities.length > 1) {
             removeEntity.addAll(Arrays.asList((Entity[]) entities));
         } else {
@@ -36,7 +36,7 @@ public class EntityManager {
         }
     }
 
-    public void cleanupEntities() {
+    public static void cleanupEntities() {
         allEntity.removeAll(removeEntity);
         allEntity.addAll(addEntity);
         removeEntity.clear();
@@ -44,7 +44,7 @@ public class EntityManager {
         allEntity.sort(Comparator.comparing(Entity::getY));
     }
     
-    public void clear() {
+    public static void clear() {
     	allEntity.clear();
     	addEntity.clear();
     	removeEntity.clear();

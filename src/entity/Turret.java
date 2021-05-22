@@ -5,6 +5,7 @@ import entity.base.Damageable;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.EntityManager;
 import logic.GameController;
 import logic.Side;
 
@@ -37,7 +38,7 @@ public class Turret extends Entity implements Damageable{
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        GameController.getEntityManager().addEntities(new Smoke(this.getX(),this.getY()+100));
+        EntityManager.addEntities(new Smoke(this.getX(),this.getY()+100));
     }
 
     @Override

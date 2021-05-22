@@ -8,10 +8,7 @@ import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import logic.AnimatedImage;
-import logic.GameController;
-import logic.Side;
-import logic.State;
+import logic.*;
 
 public abstract class Ranger extends Entity implements Attackable, Damageable, Movable{
     protected String name;
@@ -99,7 +96,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        GameController.getEntityManager().addEntities(new Smoke(this.getX(),this.getY()-50));
+        EntityManager.addEntities(new Smoke(this.getX(),this.getY()-50));
     }
 
     @Override

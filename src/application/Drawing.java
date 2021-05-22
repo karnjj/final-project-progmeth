@@ -8,6 +8,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import gui.*;
+import logic.EntityManager;
 import logic.GameController;
 import logic.GameState;
 
@@ -80,7 +81,7 @@ public class Drawing {
 	}
 
 	public static void drawEntities(GraphicsContext gc, double t){
-		for (Entity e : GameController.getEntityManager().getAllEntity()) {
+		for (Entity e : EntityManager.getAllEntity()) {
 			try {
 				e.draw(gc, t);
 			}catch (NullImageToRenderException nie) {
