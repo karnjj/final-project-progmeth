@@ -47,7 +47,7 @@ public class GameController {
 
     public static void useEnergy(int energy) {
         if (!GameController.energy.Use(energy)) {
-            System.out.println("error not enought");
+            System.out.println("energy not enough");
         }
     }
 
