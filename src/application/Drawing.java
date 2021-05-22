@@ -32,7 +32,6 @@ public class Drawing {
 	private static PausePanel pausePanel;
 	private static EndgamePanel endgamePanel;
 	private static LevelupButton levelupButton;
-	// posi Draw Ranger =  window_height - current.y + currentPosiBg;
 	
 	private static final WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
 //	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,435,false,false).getPixelReader(),0,0,window_width,435);
@@ -53,7 +52,7 @@ public class Drawing {
 				pausePanel.setVisible(false);
 				endgamePanel.setVisible(false);
 			}
-			case Pause, BeforePause -> {
+			case Pause-> {
 				pausePanel.setVisible(true);
 				playPanel.setVisible(false);
 				endgamePanel.setVisible(false);
@@ -92,16 +91,10 @@ public class Drawing {
 	}
 
     public  static void drawEverything(GraphicsContext gc, double t) {
-    	
     	 if(GameController.getGameState() != GameState.Pause && !GameController.isGameOver()) {
     		EnergyPane.update();
     		HeroPane.draw();
-			gc.clearRect(0,0,window_width,window_height);	
-			if(GameController.getGameState() == GameState.BeforePause) {
-				gc.setGlobalAlpha(0.9);
-	            gc.setEffect(new BoxBlur(7, 7, 3));
-	            updatePanel(GameState.Pause);
-			}
+			gc.clearRect(0,0,window_width,window_height);
 			if(GameController.getGameState() != GameState.Pause) {
 				gc.setGlobalAlpha(1);
 				gc.setEffect(null);
@@ -111,6 +104,12 @@ public class Drawing {
 			PlayPanel.hpEnemy.draw();
 			PlayPanel.hpHero.draw();
     	 }
+    	 if(GameController.getGameState() == GameState.Pause) {
+			gc.setGlobalAlpha(0.9);
+            gc.setEffect(new BoxBlur(7, 7, 3));
+            Drawing.drawBackground(gc);
+            Drawing.drawEntities(gc,t);
+		}
 	}
 
 	

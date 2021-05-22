@@ -30,7 +30,7 @@ public class PlayPanel extends StackPane{
 		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("pause");
 			SoundUtils.clickedSound();
-			Drawing.updatePanel(GameState.BeforePause);
+			Drawing.updatePanel(GameState.Pause);
 		});
 		StackPane.setMargin(pauseButton, new Insets(10, 0, 0, 0));
 		StackPane.setAlignment(pauseButton, Pos.TOP_CENTER);

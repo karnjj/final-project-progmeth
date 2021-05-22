@@ -34,10 +34,9 @@ public class LevelupButton extends Button {
 	public void update(double dt) {
 		this.setStyle("-fx-border-color: none;");
 		if(GameController.canLevelup()) {
-			System.out.println("Yaaaaa");
-			time+= dt*1000;
-			if(time%1000>0) {
-				time-=1000;
+			time+= dt*100;
+			if(time%100>0) {
+				time-=100;
 				isGreen^=true;
 			}
 			if(isGreen) {
