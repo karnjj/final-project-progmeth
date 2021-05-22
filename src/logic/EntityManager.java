@@ -6,15 +6,11 @@ import java.util.*;
 
 public class EntityManager {
 
-    private static List<Entity> allEntity = new ArrayList<>();
+    private static final ArrayList<Entity> allEntity = new ArrayList<>();
 
-    private static Set<Entity> addEntity = new HashSet<>();
+    private static final HashSet<Entity> addEntity = new HashSet<>();
 
-    private static Set<Entity> removeEntity = new HashSet<>();
-
-    public static List<Entity> getAllEntity() {
-        return allEntity;
-    }
+    private static final HashSet<Entity> removeEntity = new HashSet<>();
 
     public static void addEntities(Entity... entities) {
         if (entities.length > 1) {
@@ -22,10 +18,6 @@ public class EntityManager {
         } else {
             addEntity.add(entities[0]);
         }
-    }
-
-    public static Set<Entity> getEntitiesToBeRemoved() {
-        return removeEntity;
     }
 
     public static void addEntitiesToBeRemoved(Entity... entities) {
@@ -48,5 +40,17 @@ public class EntityManager {
     	allEntity.clear();
     	addEntity.clear();
     	removeEntity.clear();
+    }
+
+    public static ArrayList<Entity> getAllEntity() {
+        return allEntity;
+    }
+
+    public static HashSet<Entity> getAddEntity() {
+        return addEntity;
+    }
+
+    public static HashSet<Entity> getRemoveEntity() {
+        return removeEntity;
     }
 }
