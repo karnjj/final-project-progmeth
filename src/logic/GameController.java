@@ -18,21 +18,23 @@ public class GameController {
     private static GameState gameState;
     private static boolean isWin;
 
-    private static Turret heroTurret = new HeroTurret(150, 155);
-    private static Turret enemyTurret = new EnemyTurret(2850, 155);
+    private static Turret heroTurret;
+    private static Turret enemyTurret;
 
     public static void InitGame() {
         bot = new Bot();
         energy = new Energy();
         gameState = GameState.Home;
         isWin = false;
-        EntityManager.addEntities(heroTurret, enemyTurret);
-    }
-
-    public static void clear() {
-        EntityManager.clear();
         heroTurret = new HeroTurret(150, 155);
         enemyTurret = new EnemyTurret(2850, 155);
+        EntityManager.addEntities(heroTurret, enemyTurret);
+        System.out.println("init");
+    }
+
+    public static void reset() {
+        EntityManager.clear();
+        GameController.InitGame();
     }
 
     public static int getCurrentEnergy() {

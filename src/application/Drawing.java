@@ -44,8 +44,6 @@ public class Drawing {
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
 				endgamePanel.setVisible(false);
-				GameController.clear();
-				GameController.InitGame();
 			}
 			case Play -> {
 				homePanel.setVisible(false);
@@ -62,8 +60,6 @@ public class Drawing {
 				homePanel.setVisible(false);
 				playPanel.setVisible(false);
 				pausePanel.setVisible(false);
-				GameController.clear();
-				GameController.InitGame();
 				endgamePanel.update();
 				endgamePanel.setVisible(true);
 			}
