@@ -11,7 +11,6 @@ public class BackgroundSound extends Thread{
 	public static AtomicInteger lastState = new AtomicInteger(0); // 0 = home, 1=play, 2= stop
 	private static final MediaPlayer homeSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm()));
 	private static final MediaPlayer playSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm()));
-	private int state; //1:home, 2:play
 	private static MediaPlayer mediaPlayer;
 	private static int previous = -1;
 	
@@ -48,7 +47,7 @@ public class BackgroundSound extends Thread{
 			    }
 				previous = lastState.get();
 			}catch(InterruptedException e) {
-				e.printStackTrace();
+				Thread.currentThread().interrupt();
 			}
 		}
 	}
