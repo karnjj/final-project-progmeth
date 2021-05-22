@@ -31,6 +31,7 @@ public class Drawing {
 	private static PlayPanel playPanel;
 	private static PausePanel pausePanel;
 	private static EndgamePanel endgamePanel;
+	private static LevelupButton levelupButton;
 	// posi Draw Ranger =  window_height - current.y + currentPosiBg;
 	
 	private static final WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
@@ -204,6 +205,15 @@ public class Drawing {
 	public static void setChangePanel(boolean changePanel) {
 		Drawing.changePanel = changePanel;
 	}
+
+	public static LevelupButton getLevelupButton() {
+		return levelupButton;
+	}
+
+	public static void setLevelupButton(LevelupButton levelupButton) {
+		Drawing.levelupButton = levelupButton;
+	}
+	
 	
 	
 }

@@ -19,6 +19,8 @@ public class LevelupButton extends Button {
 		this.setHeight(height);
 		this.setWidth(width);
 		this.getStyleClass().add("levelupButton");
+		this.setStyle("-fx-border-color: #ff0000; -fx-border-width: 3px;-fx-border-radius: 10;");
+//		this.setStyle("-fx-background-color: #00ff00; -fx-border-radius: 10;");
 		this.setOnMouseClicked(e ->{
 			System.out.println("LevelUp");
 			SoundUtils.clickedSound();
@@ -29,8 +31,8 @@ public class LevelupButton extends Button {
 		update();
 	}
 	
-	public static void update() {
-		gc.setFill(Color.RED);
-		gc.fillOval(10,10, 50, 50);
+	public void update() {
+		System.out.println("in update LevelUp");
+		this.setStyle("-fx-border-color: #ff0000; -fx-border-width: 3px;-fx-border-radius: 10;");
 	}
 }
