@@ -26,8 +26,8 @@ public class GameController {
         energy = new Energy();
         gameState = GameState.Home;
         isWin = false;
-        heroTurret = new HeroTurret(150, 155);
-        enemyTurret = new EnemyTurret(2850, 155);
+        heroTurret = new HeroTurret(150, 455);
+        enemyTurret = new EnemyTurret(2850, 455);
         EntityManager.addEntities(heroTurret, enemyTurret);
         System.out.println("init");
     }
@@ -85,8 +85,8 @@ public class GameController {
         SoundUtils.createdRanger();
         double x = side == Side.HERO ? 200 : Drawing.getGameWidth() - 200;
         double y = getRandomNumber(
-                Drawing.getWindowHeight() - 70,
-                Drawing.getWindowHeight()
+                Drawing.getGameHeight() - 190,
+                Drawing.getGameHeight() - 120
         );
         switch (name) {
             case "Inkblue" -> ranger = new Inkblue(x, y, side);
@@ -149,18 +149,15 @@ public class GameController {
         return isWin;
     }
 
-    public static boolean isGameOver() {
+    public static void isGameOver() {
         if (getHeroTurret().getCurrentHP() <= 0) {
             setWin(false);
             Drawing.updatePanel(GameState.End);
-            return true;
         }
         if (getEnemyTurret().getCurrentHP() <= 0) {
             setWin(true);
             Drawing.updatePanel(GameState.End);
-            return true;
         }
-        return false;
     }
 
     public static void setWin(boolean isWin) {
