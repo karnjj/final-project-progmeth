@@ -167,5 +167,10 @@ public class GameController {
         GameController.isWin = isWin;
     }
 
+	public static boolean canLevelup() {
+		return energy.canLevelUp();
+	}
+
+    
 
 }

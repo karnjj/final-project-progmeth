@@ -10,10 +10,11 @@ import logic.GameController;
 import logic.GameState;
 
 public class LevelupButton extends Button {
-	private static GraphicsContext gc;
 	private static Canvas canvas;
 	private static int width = 190;
 	private static int height = 122;
+	private boolean isGreen;
+	private double time;
 	
 	public LevelupButton() {
 		this.setHeight(height);
@@ -26,13 +27,22 @@ public class LevelupButton extends Button {
 			SoundUtils.clickedSound();
 			GameController.UpLevelEnergy();
 		});
-		canvas = new Canvas(width,height);
-		gc = canvas.getGraphicsContext2D();
-		update();
+		this.time = 0;
+		isGreen=false;
 	}
 	
-	public void update() {
-		System.out.println("in update LevelUp");
-		this.setStyle("-fx-border-color: #ff0000; -fx-border-width: 3px;-fx-border-radius: 10;");
+	public void update(double dt) {
+		this.setStyle("-fx-border-color: none;");
+		if(GameController.canLevelup()) {
+			System.out.println("Yaaaaa");
+			time+= dt*1000;
+			if(time%1000>0) {
+				time-=1000;
+				isGreen^=true;
+			}
+			if(isGreen) {
+				this.setStyle("-fx-border-color: #00ff00; -fx-border-width: 4px;-fx-border-radius: 10;");
+			}
+		}
 	}
 }

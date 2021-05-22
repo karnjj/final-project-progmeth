@@ -29,7 +29,6 @@ public class SoundUtils {
 	}
 	
 	public static void playBackgroundMusic() {
-		System.out.println(isSoundOn());
 		if(isSoundOn()) {
 			Runnable music = new Runnable()
 			{
