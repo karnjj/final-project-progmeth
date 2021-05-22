@@ -5,7 +5,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import application.Drawing;
-import application.SoundUtils;
 
 public class GameLoop{
     int width, height;
@@ -28,6 +27,8 @@ public class GameLoop{
     }
 
     private void init() {
+        GameController.init();
+        Drawing.init(gc);
         framePerSecond = 60;
         updatePerSecond = 60;
     }
@@ -49,7 +50,10 @@ public class GameLoop{
     }
 
     private void draw(double t) {
-        Drawing.drawEverything(gc,t);
+        if(GameController.getGameState() != GameState.Pause) {
+            Drawing.resetBackgroundEffect();
+            Drawing.drawEverything(t);
+        }
         draws++;
     }
 

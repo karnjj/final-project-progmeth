@@ -21,7 +21,7 @@ public class GameController {
     private static Turret heroTurret;
     private static Turret enemyTurret;
 
-    public static void InitGame() {
+    public static void init() {
         bot = new Bot();
         energy = new Energy();
         gameState = GameState.Home;
@@ -34,7 +34,7 @@ public class GameController {
 
     public static void reset() {
         EntityManager.clear();
-        GameController.InitGame();
+        GameController.init();
     }
 
     public static int getCurrentEnergy() {
