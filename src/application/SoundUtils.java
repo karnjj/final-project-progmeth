@@ -29,14 +29,16 @@ public class SoundUtils {
 	}
 	
 	public static void playBackgroundMusic() {
-		if(GameController.getGameState() == GameState.Play) {
-			BackgroundSound.lastState.set(1);			
-		}
-		else if(GameController.getGameState() == GameState.Home) {
-			BackgroundSound.lastState.set(0);			
-		}
-		else {
-			BackgroundSound.lastState.set(2);	
+		if(SoundUtils.isSoundOn()) {
+			if(GameController.getGameState() == GameState.Play) {
+				BackgroundSound.lastState.set(1);			
+			}
+			else if(GameController.getGameState() == GameState.Home) {
+				BackgroundSound.lastState.set(0);			
+			}
+			else {
+				BackgroundSound.lastState.set(2);	
+			}
 		}
 	}
 	
@@ -86,7 +88,7 @@ public class SoundUtils {
 	public static void setSoundOn(boolean isMuteSound) {
 		SoundUtils.soundOn = isMuteSound;
 		if(!isMuteSound) {
-			//
+			BackgroundSound.lastState.set(2);	
 		}else {
 			playBackgroundMusic();
 		}

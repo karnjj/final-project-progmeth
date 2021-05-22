@@ -18,10 +18,9 @@ public class BackgroundSound extends Thread{
 	public void run() {
 		while(true) {
 			try {
-				Thread.sleep(300);
+				Thread.sleep(100);
 				if(lastState.get() != previous) {
 					stopSound();
-					System.out.println(lastState.get() + "inicreament");
 					switch (lastState.get()) {
 						case 0,2 -> {
 							mediaPlayer = homeSound;
