@@ -43,6 +43,7 @@ public class PlayPanel extends StackPane{
 		LevelupButton levelupButton = new LevelupButton();
 		StackPane.setMargin(levelupButton, new Insets(0,100, 10, 0));
 		StackPane.setAlignment(levelupButton, Pos.BOTTOM_RIGHT);
+		Drawing.setLevelupButton(levelupButton);
 		
 		HeroPane heroPane = new HeroPane();
 		StackPane.setMargin(heroPane, new Insets(0, 0, 10, 0));
