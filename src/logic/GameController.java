@@ -165,10 +165,8 @@ public class GameController {
         GameController.isWin = isWin;
     }
 
-	public static boolean canLevelup() {
+	public static boolean canLevelUp() {
 		return energy.canLevelUp();
 	}
-
-    
 
 }

@@ -1,13 +1,9 @@
 package gui;
 
-import application.Drawing;
 import application.SoundUtils;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import logic.GameController;
-import logic.GameState;
 
 public class LevelupButton extends Button {
 	private static Canvas canvas;
@@ -29,7 +25,7 @@ public class LevelupButton extends Button {
 	
 	public void update() {
 		this.setStyle("-fx-border-color: none;");
-		if(GameController.canLevelup()) {
+		if(GameController.canLevelUp()) {
 			this.setStyle("-fx-border-color: #00ff00; -fx-border-width: 4px;-fx-border-radius: 10;");
 
 		}
