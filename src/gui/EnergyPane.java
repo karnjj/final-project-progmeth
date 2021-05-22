@@ -28,6 +28,6 @@ public class EnergyPane extends Canvas{
 		gc.drawImage(bg,0,0);
 		gc.setFont(new Font(30));
 		gc.setFill(Color.WHITE);
-		gc.fillText("" + GameController.getCurrentEnergy() + " / " + GameController.getMxEnergy(),Math.round(width / 2),Math.round(height / 2)+10);
+		gc.fillText("" + GameController.getCurrentEnergy() + " / " + GameController.getMaxEnergy(),Math.round(width / 2),Math.round(height / 2)+10);
 	}
 }

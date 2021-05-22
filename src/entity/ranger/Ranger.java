@@ -129,7 +129,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
     private State checkState() {
         if (this.getState() == State.DEAD || this.isDead()) return State.DEAD;
 
-        Entity nearest = GameController.getFrontmost(this.getSide().getOpposite());
+        Entity nearest = GameController.getFrontMost(this.getSide().getOpposite());
         if (nearest != null) {
             if (this.getSide().getVal()*(nearest.getX() - this.getX()) <= attackRange) {
                 return State.ATTACK;

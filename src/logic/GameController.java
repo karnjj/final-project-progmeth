@@ -41,7 +41,7 @@ public class GameController {
         return energy.getCurrentEnergy();
     }
 
-    public static int getMxEnergy() {
+    public static int getMaxEnergy() {
         return energy.getMaxEnergy();
     }
 
@@ -73,7 +73,7 @@ public class GameController {
             }
             if (e instanceof Attackable) {
                 if (e.getState() == logic.State.ATTACK && ((Attackable) e).canAttack()) {
-                    Entity target = getFrontmost(e.getSide().getOpposite());
+                    Entity target = getFrontMost(e.getSide().getOpposite());
                     if (target != null) ((Attackable) e).attack((Damageable) target);
                 }
             }
@@ -99,7 +99,7 @@ public class GameController {
         EntityManager.addEntities(ranger);
     }
 
-    public static Entity getFrontmost(Side side) {
+    public static Entity getFrontMost(Side side) {
         Entity frontHero = null;
         Entity frontEnemy = null;
         double maxX = 0;
