@@ -36,7 +36,7 @@ public class Main extends Application{
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 
-		GameLoop loop = new GameLoop(gc, Drawing.getWindowWidth(), Drawing.getWindowHeight());
+		GameLoop loop = new GameLoop(gc);
 		loop.start();
 		MuteButton muteButton = new MuteButton();
 		SoundUtils.setMuteButton(muteButton);

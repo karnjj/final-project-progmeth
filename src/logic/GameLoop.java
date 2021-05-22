@@ -1,26 +1,22 @@
 package logic;
 
+import application.SoundUtils;
 import gui.HeroPane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import application.Drawing;
-import application.SoundUtils;
 
 public class GameLoop{
-    int width, height;
-    GraphicsContext gc;
+    private GraphicsContext gc;
 
-    int framePerSecond; // FPS
-    int updatePerSecond; // UPS
+    private int updates; // count update
+    private int draws; // count draw
 
-    int updates = 0; // count update
-    int draws = 0; // count draw
-
-    public GameLoop(GraphicsContext gc, int width, int height) {
-        this.width = width;
-        this.height = height;
+    public GameLoop(GraphicsContext gc) {
         this.gc = gc;
+        this.updates = 0;
+        this.draws = 0;
     }
 
     public void start() {
@@ -31,8 +27,6 @@ public class GameLoop{
         GameController.init();
         Drawing.init(gc);
         SoundUtils.init();
-        framePerSecond = 60;
-        updatePerSecond = 60;
     }
 
     private void update(double dt) {
