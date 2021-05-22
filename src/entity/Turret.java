@@ -5,15 +5,17 @@ import entity.base.Damageable;
 import entity.base.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import logic.EntityManager;
 import logic.GameController;
 import logic.Side;
 
 public class Turret extends Entity implements Damageable{
-	private String name;
-    private double maxHP;
+	protected String name;
+    protected double maxHP;
     private double currentHP;
-    private double pivotX;
+    protected double pivotX;
+    protected double pivotY;
 
     private Image image;
 
@@ -22,6 +24,7 @@ public class Turret extends Entity implements Damageable{
                   double x,
                   double y,
                   double pivotX,
+                  double pivotY,
                   Side side
     ) {
         super(x, y);
@@ -29,6 +32,7 @@ public class Turret extends Entity implements Damageable{
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.pivotX = pivotX;
+        this.pivotY = pivotY;
 
         this.setSide(side);
 
@@ -38,7 +42,7 @@ public class Turret extends Entity implements Damageable{
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        EntityManager.addEntities(new Smoke(this.getX(),this.getY()+100));
+        EntityManager.addEntities(new Smoke(this.getX(),this.getY()));
     }
 
     @Override
@@ -55,7 +59,7 @@ public class Turret extends Entity implements Damageable{
         gc.drawImage(
                 image,
                 this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getMovePosBgX(),
-                this.getY() + Drawing.getMovePosBgY(),
+                this.getY() - this.pivotY + Drawing.getMovePosBgY(),
                 this.getSide().getVal()*image.getWidth(),
                 image.getHeight());
     }
