@@ -32,17 +32,17 @@ public class EndgamePanel extends VBox {
         restartButton.getStyleClass().add("restartButton");
         restartButton.setOnMouseClicked(e -> {
             System.out.println("Log: Restart(pausePanel)");
-            GameController.clear();
-            GameController.InitGame();
+            GameController.reset();
             Drawing.updatePanel(GameState.Play);
             SoundUtils.clickedSound();
         });
 
 
-        Button quitButton = new Button();
-        quitButton.getStyleClass().add("homeButton");
-        quitButton.setOnMouseClicked(e -> {
+        Button homeButton = new Button();
+        homeButton.getStyleClass().add("homeButton");
+        homeButton.setOnMouseClicked(e -> {
             System.out.println("Log: OutToHome(pausePanel)");
+            GameController.reset();
             Drawing.updatePanel(GameState.Home);
             SoundUtils.clickedSound();
         });
@@ -52,7 +52,7 @@ public class EndgamePanel extends VBox {
         this.setAlignment(Pos.CENTER);
         this.setMaxHeight(500);
         this.setMaxWidth(550);
-        this.getChildren().addAll(restartButton, quitButton);
+        this.getChildren().addAll(restartButton, homeButton);
     }
 
     public void update() {
