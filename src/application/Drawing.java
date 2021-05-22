@@ -42,8 +42,8 @@ public class Drawing {
 	}
 
 
-	public static void updatePanel(GameState state) {
-		switch (state) {
+	public static void updatePanel() {
+		switch (GameController.getGameState()) {
 			case Home -> {
 				homePanel.setVisible(true);
 				playPanel.setVisible(false);

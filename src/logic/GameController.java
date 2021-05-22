@@ -124,31 +124,11 @@ public class GameController {
         return side == Side.HERO ? frontHero : frontEnemy;
     }
 
-
-    public static GameState getGameState() {
-        return gameState;
-    }
-
-    public static void setGameState(GameState gameState) {
-        GameController.gameState = gameState;
-    }
-
     public static int getRandomNumber(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
 
-    public static Turret getHeroTurret() {
-        return GameController.heroTurret;
-    }
-
-    public static Turret getEnemyTurret() {
-        return GameController.enemyTurret;
-    }
-
-    public static boolean isWin() {
-        return isWin;
-    }
 
     public static void isGameOver() {
         if (getHeroTurret().getCurrentHP() <= 0) {
@@ -161,18 +141,62 @@ public class GameController {
         }
     }
 
-    public static void setWin(boolean isWin) {
-        GameController.isWin = isWin;
-    }
-
 	public static boolean canLevelUp() {
 		return energy.canLevelUp();
 	}
 
 	public static void updateGameState(GameState gameState) {
         setGameState(gameState);
-        Drawing.updatePanel(gameState);
+        Drawing.updatePanel();
         SoundUtils.playBackgroundMusic();
     }
 
+    public static Turret getHeroTurret() {
+        return GameController.heroTurret;
+    }
+
+    public static void setHeroTurret(Turret heroTurret) {
+        GameController.heroTurret = heroTurret;
+    }
+
+    public static Turret getEnemyTurret() {
+        return GameController.enemyTurret;
+    }
+
+    public static void setEnemyTurret(Turret enemyTurret) {
+        GameController.enemyTurret = enemyTurret;
+    }
+
+    public static boolean isWin() {
+        return isWin;
+    }
+
+    public static void setWin(boolean isWin) {
+        GameController.isWin = isWin;
+    }
+
+
+    public static GameState getGameState() {
+        return gameState;
+    }
+
+    public static void setGameState(GameState gameState) {
+        GameController.gameState = gameState;
+    }
+
+    public static Energy getEnergy() {
+        return energy;
+    }
+
+    public static void setEnergy(Energy energy) {
+        GameController.energy = energy;
+    }
+
+    public static Bot getBot() {
+        return bot;
+    }
+
+    public static void setBot(Bot bot) {
+        GameController.bot = bot;
+    }
 }
