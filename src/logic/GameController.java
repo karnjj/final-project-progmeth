@@ -24,7 +24,7 @@ public class GameController {
     public static void init() {
         bot = new Bot();
         energy = new Energy();
-        gameState = GameState.Home;
+        updateGameState(GameState.Home);
         isWin = false;
         heroTurret = new HeroTurret(150, 455);
         enemyTurret = new EnemyTurret(2850, 455);
@@ -153,11 +153,11 @@ public class GameController {
     public static void isGameOver() {
         if (getHeroTurret().getCurrentHP() <= 0) {
             setWin(false);
-            Drawing.updatePanel(GameState.End);
+            GameController.updateGameState(GameState.End);
         }
         if (getEnemyTurret().getCurrentHP() <= 0) {
             setWin(true);
-            Drawing.updatePanel(GameState.End);
+            GameController.updateGameState(GameState.End);
         }
     }
 
@@ -168,5 +168,11 @@ public class GameController {
 	public static boolean canLevelUp() {
 		return energy.canLevelUp();
 	}
+
+	public static void updateGameState(GameState gameState) {
+        setGameState(gameState);
+        Drawing.updatePanel(gameState);
+        SoundUtils.playBackgroundMusic();
+    }
 
 }

@@ -69,8 +69,6 @@ public class Drawing {
 				endgamePanel.setVisible(true);
 			}
 		}
-		SoundUtils.playBackgroundMusic();
-		GameController.setGameState(state);
 	}
 
 	public static void updatePosBg(double dt) {

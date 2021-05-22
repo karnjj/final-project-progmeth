@@ -36,7 +36,7 @@ public class HomePanel extends VBox {
 		playButton.getStyleClass().add("playButton");
 		playButton.setOnMouseClicked(e ->{
 			System.out.println("Log play(honepanel)");
-			Drawing.updatePanel(GameState.Play);
+			GameController.updateGameState(GameState.Play);
 			SoundUtils.clickedSound();
 		});
 		this.getChildren().add(playButton);

@@ -35,7 +35,7 @@ public class DemoMain extends Application{
 		Drawing.setHomePanel(homePanel);
 		Drawing.setPlayPanel(playPanel);
 		Drawing.setPausePanel(pausePanel);
-		Drawing.updatePanel(GameState.Home);
+//		Drawing.updatePanel(GameState.Home);
 		Canvas canvas = new Canvas(Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 

@@ -32,7 +32,7 @@ public class PausePanel extends VBox {
 		resumeButton.getStyleClass().add("resumeButton");
 		resumeButton .setOnMouseClicked(e ->{
 			System.out.println("Log: Continue Game(pausePanel)");
-			Drawing.updatePanel(GameState.Play);
+			GameController.updateGameState(GameState.Play);
 			SoundUtils.clickedSound();
 		});
 		
@@ -41,7 +41,7 @@ public class PausePanel extends VBox {
 		restartButton.setOnMouseClicked(e ->{
 			System.out.println("Log: Restart(pausePanel)");
 			GameController.reset();
-			Drawing.updatePanel(GameState.Play);
+			GameController.updateGameState(GameState.Play);
 			SoundUtils.clickedSound();
 		});
 	
@@ -51,7 +51,7 @@ public class PausePanel extends VBox {
 		homeButton .setOnMouseClicked(e ->{
 			System.out.println("Log: OutToHome(pausePanel)");
 			GameController.reset();
-			Drawing.updatePanel(GameState.Home);
+			GameController.updateGameState(GameState.Home);
 			SoundUtils.clickedSound();
 		});
 		

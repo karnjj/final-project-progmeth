@@ -33,7 +33,7 @@ public class EndgamePanel extends VBox {
         restartButton.setOnMouseClicked(e -> {
             System.out.println("Log: Restart(pausePanel)");
             GameController.reset();
-            Drawing.updatePanel(GameState.Play);
+            GameController.updateGameState(GameState.Play);
             SoundUtils.clickedSound();
         });
 
@@ -43,7 +43,7 @@ public class EndgamePanel extends VBox {
         homeButton.setOnMouseClicked(e -> {
             System.out.println("Log: OutToHome(pausePanel)");
             GameController.reset();
-            Drawing.updatePanel(GameState.Home);
+            GameController.updateGameState(GameState.Home);
             SoundUtils.clickedSound();
         });
 

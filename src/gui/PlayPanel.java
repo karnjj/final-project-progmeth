@@ -7,6 +7,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import logic.GameController;
 import logic.GameState;
 import logic.Side;
 import application.Drawing;
@@ -33,7 +34,7 @@ public class PlayPanel extends StackPane{
 			SoundUtils.clickedSound();
 			Drawing.blurBackgroundEffect();
 			Drawing.drawBackground();
-			Drawing.updatePanel(GameState.Pause);
+			GameController.updateGameState(GameState.Pause);
 		});
 		StackPane.setMargin(pauseButton, new Insets(10, 0, 0, 0));
 		StackPane.setAlignment(pauseButton, Pos.TOP_CENTER);
