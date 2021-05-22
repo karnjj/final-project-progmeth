@@ -21,7 +21,7 @@ public class GameController {
     private static Turret heroTurret;
     private static Turret enemyTurret;
 
-    public static void InitGame() {
+    public static void init() {
         bot = new Bot();
         energy = new Energy();
         gameState = GameState.Home;
@@ -34,20 +34,20 @@ public class GameController {
 
     public static void reset() {
         EntityManager.clear();
-        GameController.InitGame();
+        GameController.init();
     }
 
     public static int getCurrentEnergy() {
         return energy.getCurrentEnergy();
     }
 
-    public static int getMxEnergy() {
+    public static int getMaxEnergy() {
         return energy.getMaxEnergy();
     }
 
     public static void useEnergy(int energy) {
         if (!GameController.energy.Use(energy)) {
-            System.out.println("error not enought");
+            System.out.println("energy not enough");
         }
     }
 
@@ -73,7 +73,7 @@ public class GameController {
             }
             if (e instanceof Attackable) {
                 if (e.getState() == logic.State.ATTACK && ((Attackable) e).canAttack()) {
-                    Entity target = getFrontmost(e.getSide().getOpposite());
+                    Entity target = getFrontMost(e.getSide().getOpposite());
                     if (target != null) ((Attackable) e).attack((Damageable) target);
                 }
             }
@@ -99,7 +99,7 @@ public class GameController {
         EntityManager.addEntities(ranger);
     }
 
-    public static Entity getFrontmost(Side side) {
+    public static Entity getFrontMost(Side side) {
         Entity frontHero = null;
         Entity frontEnemy = null;
         double maxX = 0;

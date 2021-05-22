@@ -13,6 +13,7 @@ import logic.GameController;
 import logic.GameState;
 
 public class Drawing {
+	private static GraphicsContext gc;
 	private static final int window_width = 1289;
 	private static final int window_height = 595;
 
@@ -35,7 +36,12 @@ public class Drawing {
 	
 	private static final WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
 //	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,435,false,false).getPixelReader(),0,0,window_width,435);
-	
+
+	public static void init(GraphicsContext gc) {
+		Drawing.gc = gc;
+	}
+
+
 	public static void updatePanel(GameState state) {
 		switch (state) {
 			case Home -> {
@@ -76,7 +82,7 @@ public class Drawing {
 		setMovePosBgX(getMovePosBgX() + getInertia());
 	}
 
-	public static void drawEntities(GraphicsContext gc, double t){
+	public static void drawEntities(double t){
 		for (Entity e : EntityManager.getAllEntity()) {
 			try {
 				e.draw(gc, t);
@@ -86,30 +92,47 @@ public class Drawing {
 		}
 	}
 
-    public  static void drawEverything(GraphicsContext gc, double t) {
-    	 if(GameController.getGameState() != GameState.Pause && !GameController.isGameOver()) {
-    		EnergyPane.update();
-    		HeroPane.draw();
-			gc.clearRect(0,0,window_width,window_height);
-			if(GameController.getGameState() != GameState.Pause) {
-				gc.setGlobalAlpha(1);
-				gc.setEffect(null);
-			}
-			Drawing.drawBackground(gc);
-			Drawing.drawEntities(gc,t);
-			PlayPanel.hpEnemy.draw();
-			PlayPanel.hpHero.draw();
-    	 }
-    	 if(GameController.getGameState() == GameState.Pause) {
-			gc.setGlobalAlpha(0.9);
-            gc.setEffect(new BoxBlur(7, 7, 3));
-            Drawing.drawBackground(gc);
-            Drawing.drawEntities(gc,t);
-		}
+	public static void blurBackgroundEffect() {
+		gc.setGlobalAlpha(0.9);
+		gc.setEffect(new BoxBlur(7, 7, 3));
+	}
+
+	public static void resetBackgroundEffect() {
+		gc.setGlobalAlpha(1);
+		gc.setEffect(null);
+	}
+
+    public static void drawEverything(double t) {
+		Drawing.drawBackground();
+		Drawing.drawEntities(t);
+		EnergyPane.draw();
+		HeroPane.draw();
+		PlayPanel.hpEnemy.draw();
+		PlayPanel.hpHero.draw();
+
+//    	 if(GameController.getGameState() != GameState.Pause && !GameController.isGameOver()) {
+//    		EnergyPane.draw();
+//    		HeroPane.draw();
+//			gc.clearRect(0,0,window_width,window_height);
+//			if(GameController.getGameState() != GameState.Pause) {
+//				gc.setGlobalAlpha(1);
+//				gc.setEffect(null);
+//			}
+//			Drawing.drawBackground(gc);
+//			Drawing.drawEntities(gc,t);
+//			PlayPanel.hpEnemy.draw();
+//			PlayPanel.hpHero.draw();
+//    	 }
+//    	 if(GameController.getGameState() == GameState.Pause) {
+//			gc.setGlobalAlpha(0.9);
+//            gc.setEffect(new BoxBlur(7, 7, 3));
+////            Drawing.drawBackground(gc);
+////            Drawing.drawEntities(gc,t);
+//		}
 	}
 
 	
-	public static void drawBackground(GraphicsContext gc) {
+	public static void drawBackground() {
 		gc.drawImage(bg, 0 + movePosBgX, movePosBgY,bg.getWidth(),bg.getHeight());
 		
 	}

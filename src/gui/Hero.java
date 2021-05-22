@@ -38,7 +38,7 @@ public class Hero implements Buyable {
 	}
 
 	public void Buy() {
-		if (this.buyCountdown == 0 && GameController.getCurrentEnergy() > ranger.getEnergyUsage()) {
+		if (this.canBuy()) {
 			GameController.useEnergy(ranger.getEnergyUsage());
 			GameController.createRanger(ranger.getName(), ranger.getSide());
 			setBuyCountdown(ranger.getBuyDelay());

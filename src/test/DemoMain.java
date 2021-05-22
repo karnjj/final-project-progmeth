@@ -24,7 +24,6 @@ public class DemoMain extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		// TODO
-		GameController.InitGame();
 		StackPane root = new StackPane();
 		root.setPadding(new Insets(10,10,10,10));
 		

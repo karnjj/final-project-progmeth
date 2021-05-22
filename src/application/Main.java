@@ -1,6 +1,4 @@
 package application;
-import application.Drawing;
-import application.SoundUtils;
 import gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,7 +21,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		// TODO
-		GameController.InitGame();
+		GameController.init();
 		StackPane root = new StackPane();
 		root.setPadding(new Insets(10,10,10,10));
 		

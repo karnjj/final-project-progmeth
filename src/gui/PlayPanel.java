@@ -3,6 +3,7 @@ package gui;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -30,6 +31,8 @@ public class PlayPanel extends StackPane{
 		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("pause");
 			SoundUtils.clickedSound();
+			Drawing.blurBackgroundEffect();
+			Drawing.drawBackground();
 			Drawing.updatePanel(GameState.Pause);
 		});
 		StackPane.setMargin(pauseButton, new Insets(10, 0, 0, 0));
