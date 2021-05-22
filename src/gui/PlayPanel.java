@@ -31,7 +31,7 @@ public class PlayPanel extends StackPane{
 		pauseButton.getStyleClass().add("pauseButton");
 		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("Log: pauseButton(PlayPanel)");
-			SoundUtils.clickedSound();
+//			SoundUtils.clickedSound();
 			Drawing.blurBackgroundEffect();
 			Drawing.drawBackground();
 			GameController.updateGameState(GameState.Pause);
