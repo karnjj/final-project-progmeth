@@ -1,11 +1,9 @@
 package logic;
 
-import entity.base.Buyable;
-
 public class Energy {
     private int level;
     private int currentEnergy;
-    private int mxEnergy;
+    private int maxEnergy;
     private int levelUpUsage;
 
     // this for fix can't parse double to int if value less than one.
@@ -14,17 +12,18 @@ public class Energy {
     public Energy() {
         this.level = 1;
         this.currentEnergy = 0;
-        this.mxEnergy = 100;
+        this.maxEnergy = 100;
+        this.levelUpUsage = this.maxEnergy/2;
+
         this.countSecondBeforeUpdate = 0;
-        this.levelUpUsage = 100/2;
     }
 
     public void LevelUp() {
         if(!canLevelUp()) return;
         this.Use(this.levelUpUsage);
         this.setLevel(this.level + 1);
-        this.mxEnergy += 30*level;
-        setLevelUpUsage(this.mxEnergy / 2);
+        this.maxEnergy += 30*level;
+        setLevelUpUsage(this.maxEnergy / 2);
     }
 
     public boolean canLevelUp() {
@@ -53,15 +52,15 @@ public class Energy {
     public void setCurrentEnergy(int currentEnergy) {
         this.currentEnergy = currentEnergy;
         if(this.currentEnergy < 0) this.currentEnergy = 0;
-        if(this.currentEnergy > this.mxEnergy) this.currentEnergy = this.mxEnergy;
+        if(this.currentEnergy > this.maxEnergy) this.currentEnergy = this.maxEnergy;
     }
 
-    public int getMxEnergy() {
-        return mxEnergy;
+    public int getMaxEnergy() {
+        return maxEnergy;
     }
 
-    public void setMxEnergy(int mxEnergy) {
-        this.mxEnergy = mxEnergy;
+    public void setMaxEnergy(int maxEnergy) {
+        this.maxEnergy = maxEnergy;
     }
 
     public int getLevelUpUsage() {

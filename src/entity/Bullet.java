@@ -9,13 +9,10 @@ import exception.IndexOfFrameOutboundException;
 import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import logic.AnimatedImage;
 import logic.GameController;
 import logic.Side;
 import logic.State;
-
-import java.awt.font.ImageGraphicAttribute;
 
 public class Bullet extends Entity implements Attackable, Movable {
     private String name;
@@ -112,8 +109,8 @@ public class Bullet extends Entity implements Attackable, Movable {
         if (ig == null) throw new NullImageToRenderException();
         gc.drawImage(
                 ig,
-                this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getStartDraw(),
-                this.getY() - (this.sizeY/2) - 30,
+                this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getMovePosBgX(),
+                this.getY() - (this.sizeY/2) - 30 + Drawing.getMovePosBgY(),
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );

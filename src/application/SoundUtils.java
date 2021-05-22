@@ -78,9 +78,7 @@ public class SoundUtils {
 			attackSound.play();
 		}
 	}
-	
-	
-	
+
 	public static void showThread() {
 		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
 		System.out.println(threadSet.size());
