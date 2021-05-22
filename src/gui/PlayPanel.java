@@ -31,14 +31,13 @@ public class PlayPanel extends StackPane{
 		pauseButton.getStyleClass().add("pauseButton");
 		pauseButton.setOnMouseClicked(e ->{
 			System.out.println("Log: pauseButton(PlayPanel)");
-//			SoundUtils.clickedSound();
+			SoundUtils.clickedSound();
 			Drawing.blurBackgroundEffect();
 			Drawing.drawBackground();
 			GameController.updateGameState(GameState.Pause);
 		});
 		StackPane.setMargin(pauseButton, new Insets(10, 0, 0, 0));
 		StackPane.setAlignment(pauseButton, Pos.TOP_CENTER);
-//		
 		
 		EnergyPane energyPane = new EnergyPane();
 		StackPane.setMargin(energyPane, new Insets(0, 0, 10, 100));

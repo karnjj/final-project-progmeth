@@ -18,7 +18,6 @@ import logic.GameController;
 import logic.GameState;
 
 public class PausePanel extends VBox {
-	
 	public PausePanel() {
 		Image bg = new Image("pausePane.png");
 		setBackground(bg);
