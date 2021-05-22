@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import application.Drawing;
+import application.SoundUtils;
 
 public class GameLoop{
     int width, height;
@@ -29,6 +30,7 @@ public class GameLoop{
     private void init() {
         GameController.init();
         Drawing.init(gc);
+        SoundUtils.init();
         framePerSecond = 60;
         updatePerSecond = 60;
     }
@@ -76,7 +78,7 @@ public class GameLoop{
 
 //                check UPS and FPS
                 if (System.currentTimeMillis() - timer >= 1000) {
-                    System.out.println("UPS: " + updates + ", FPS: " + draws);
+//                    System.out.println("UPS: " + updates + ", FPS: " + draws);
                     updates = 0;
                     draws = 0;
                     timer += 1000;

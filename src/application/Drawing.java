@@ -35,7 +35,6 @@ public class Drawing {
 	private static LevelupButton levelupButton;
 	
 	private static final WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap3.png").toString(),game_width,715,false,false).getPixelReader(),0,0,game_width,715);
-//	private static WritableImage bg = new WritableImage(new Image(ClassLoader.getSystemResource("roadmap.png").toString(),window_width,435,false,false).getPixelReader(),0,0,window_width,435);
 
 	public static void init(GraphicsContext gc) {
 		Drawing.gc = gc;
@@ -107,26 +106,6 @@ public class Drawing {
 		HeroPane.draw();
 		PlayPanel.hpEnemy.draw();
 		PlayPanel.hpHero.draw();
-
-//    	 if(GameController.getGameState() != GameState.Pause && !GameController.isGameOver()) {
-//    		EnergyPane.draw();
-//    		HeroPane.draw();
-//			gc.clearRect(0,0,window_width,window_height);
-//			if(GameController.getGameState() != GameState.Pause) {
-//				gc.setGlobalAlpha(1);
-//				gc.setEffect(null);
-//			}
-//			Drawing.drawBackground(gc);
-//			Drawing.drawEntities(gc,t);
-//			PlayPanel.hpEnemy.draw();
-//			PlayPanel.hpHero.draw();
-//    	 }
-//    	 if(GameController.getGameState() == GameState.Pause) {
-//			gc.setGlobalAlpha(0.9);
-//            gc.setEffect(new BoxBlur(7, 7, 3));
-////            Drawing.drawBackground(gc);
-////            Drawing.drawEntities(gc,t);
-//		}
 	}
 
 	

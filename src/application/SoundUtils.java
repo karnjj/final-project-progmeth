@@ -1,6 +1,7 @@
 package application;
 
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import gui.MuteButton;
 import javafx.application.Platform;
@@ -16,55 +17,29 @@ public class SoundUtils {
 	private static MediaPlayer createdSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/createdRanger.mp3").toExternalForm()));
 	private static MediaPlayer attackSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/attackSound.wav").toExternalForm()));
 	private static Thread playMusic;
+	public static AtomicInteger atomicInteger = new AtomicInteger(0);
+	
 	
 	private static boolean soundOn = true;
     private static MuteButton muteButton ;
-
-//	private static Thread effectSound;
-	private static final Media homeBackgroundSound = new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm());
-	private static final Media playBackgroundSound = new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm());
 	
 	public static void init() {
-		playBackgroundMusic();
+		playMusic = new BackgroundSound();
+		playMusic.start();
 	}
 	
 	public static void playBackgroundMusic() {
-		if(isSoundOn()) {
-			Runnable music = new Runnable()
-			{
-				public void run()
-	            {
-					stopBackgroundMusic();
-	            	Media media = homeBackgroundSound;
-	            	System.out.println(GameController.getGameState());
-	            	if(GameController.getGameState()==GameState.Play) {
-	            		media= playBackgroundSound;
-	            	}
-	            	backgroundMusic = new MediaPlayer(media);
-	            	backgroundMusic.setOnEndOfMedia(new Runnable() {
-					       public void run() {
-					    	   backgroundMusic.seek(Duration.ZERO);
-					       }
-					   });
-	            	backgroundMusic.setVolume(0.3);
-	            	backgroundMusic.play();
-	            	if(GameController.getGameState() == GameState.Pause) {
-	            		stopBackgroundMusic();
-	            	}
-	            }
-			};
-			playMusic = new Thread(music);
-			playMusic.start();
-		}else {
-			terminate();
+		if(GameController.getGameState() == GameState.Play) {
+			BackgroundSound.lastState.set(1);			
+		}
+		else if(GameController.getGameState() == GameState.Home) {
+			BackgroundSound.lastState.set(0);			
+		}
+		else {
+			BackgroundSound.lastState.set(2);	
 		}
 	}
 	
-	public static void stopBackgroundMusic() {
-		if(backgroundMusic != null) {
-			backgroundMusic.stop();
-		}
-	}
 
 
 	public static void attack() {
@@ -111,14 +86,17 @@ public class SoundUtils {
 	public static void setSoundOn(boolean isMuteSound) {
 		SoundUtils.soundOn = isMuteSound;
 		if(!isMuteSound) {
-			stopBackgroundMusic();
+			//
 		}else {
 			playBackgroundMusic();
 		}
 	}
 
 	public static void terminate() {
-		playMusic.interrupt();
+		if(playMusic != null) {
+			System.out.println("in terminate(SoundUtils)");
+			playMusic.interrupt();
+		}
 	}
 	
 	public static MuteButton getMuteButton() {
