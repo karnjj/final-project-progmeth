@@ -29,7 +29,8 @@ public class GameController {
         heroTurret = new HeroTurret(150, 455);
         enemyTurret = new EnemyTurret(2850, 455);
         EntityManager.addEntities(heroTurret, enemyTurret);
-        System.out.println("init");
+        System.out.println(EntityManager.getAddEntity());
+        System.out.println("init(GameController)");
     }
 
     public static void reset() {

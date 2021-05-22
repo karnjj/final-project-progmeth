@@ -21,7 +21,6 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		// TODO
-		GameController.init();
 		StackPane root = new StackPane();
 		root.setPadding(new Insets(10,10,10,10));
 		

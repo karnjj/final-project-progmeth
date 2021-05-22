@@ -13,8 +13,6 @@ public class LevelupButton extends Button {
 	private static Canvas canvas;
 	private static int width = 190;
 	private static int height = 122;
-	private boolean isGreen;
-	private double time;
 	
 	public LevelupButton() {
 		this.setHeight(height);
@@ -27,21 +25,13 @@ public class LevelupButton extends Button {
 			SoundUtils.clickedSound();
 			GameController.UpLevelEnergy();
 		});
-		this.time = 0;
-		isGreen=false;
 	}
 	
-	public void update(double dt) {
+	public void update() {
 		this.setStyle("-fx-border-color: none;");
 		if(GameController.canLevelup()) {
-			time+= dt*100;
-			if(time%100>0) {
-				time-=100;
-				isGreen^=true;
-			}
-			if(isGreen) {
-				this.setStyle("-fx-border-color: #00ff00; -fx-border-width: 4px;-fx-border-radius: 10;");
-			}
+			this.setStyle("-fx-border-color: #00ff00; -fx-border-width: 4px;-fx-border-radius: 10;");
+
 		}
 	}
 }
