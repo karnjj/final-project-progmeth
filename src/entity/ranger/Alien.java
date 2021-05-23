@@ -5,12 +5,12 @@ import logic.Side;
 public class Alien extends Ranger {
     public Alien(double x, double y, Side side) {
         super("Alien",
-                200,
-                5,
+                150,
+                20,
                 100,
                 2,
-                4,
-                5,
+                1,
+                100,
                 100,
                 x,
                 y,
