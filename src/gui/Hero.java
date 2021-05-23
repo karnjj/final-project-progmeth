@@ -45,11 +45,7 @@ public class Hero implements Buyable {
 		if(this.buyCountdown != 0)
 			setBuyCountdown(this.buyCountdown - dt);
 	}
-	
-	public float getCountdown() {
-		return 1-((float)ranger.getBuyDelay()/buyCountdown)*100f;
-	}
-	
+
 	public Ranger getRanger() {
 		return this.ranger;
 	}
@@ -61,5 +57,7 @@ public class Hero implements Buyable {
 		if (this.buyCountdown < 0f) this.buyCountdown = 0f;
 	}
 
-	
+	public float getBuyCountdown() {
+		return buyCountdown;
+	}
 }
