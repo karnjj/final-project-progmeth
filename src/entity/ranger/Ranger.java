@@ -1,6 +1,7 @@
 package entity.ranger;
 
 import application.Drawing;
+import application.SoundUtils;
 import entity.Smoke;
 import entity.base.*;
 import exception.IndexOfFrameOutboundException;
@@ -78,6 +79,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
 
     @Override
     public void attack(Damageable e) {
+        SoundUtils.attack();
         e.takeDamage(this.attack);
         this.attackCountdown = this.attackDelay;
     }

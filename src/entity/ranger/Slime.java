@@ -6,13 +6,13 @@ public class Slime extends Ranger {
 
     public Slime(double x, double y, Side side) {
         super("Slime",
-                300,
+                200,
                 10,
                 100,
                 2,
                 2,
-                40,
-                100,
+                50,
+                80,
                 x,
                 y,
                 side,

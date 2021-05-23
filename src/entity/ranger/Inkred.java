@@ -10,13 +10,13 @@ public class Inkred extends Shooter {
 
     public Inkred(double x, double y, Side side) {
         super("Inkred",
-                100,
-                10,
+                20,
+                120,
                 1500,
                 3,
-                4,
-                5,
-                150,
+                8,
+                600,
+                100,
                 x,
                 y,
                 side,

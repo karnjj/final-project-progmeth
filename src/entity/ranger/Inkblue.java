@@ -9,13 +9,13 @@ import logic.Side;
 public class Inkblue extends Shooter {
     public Inkblue(double x, double y, Side side) {
         super("Inkblue",
-                100,
-                20,
+                60,
+                60,
                 1000,
                 3,
-                5,
-                5,
-                200,
+                6,
+                300,
+                150,
                 x,
                 y,
                 side,

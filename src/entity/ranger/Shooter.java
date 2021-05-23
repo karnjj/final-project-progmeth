@@ -7,8 +7,39 @@ import logic.EntityManager;
 import logic.Side;
 
 public class Shooter extends Ranger{
-    public Shooter(String name, int maxHP, int attack, int attackRange, double attackDelay, double buyDelay, int energyUsage, int speed, double x, double y, Side side, double pivotX, double pivotY, int walkFrame, int atkFrame, int idleFrame) {
-        super(name, maxHP, attack, attackRange, attackDelay, buyDelay, energyUsage, speed, x, y, side, pivotX, pivotY, walkFrame, atkFrame, idleFrame);
+    public Shooter(String name,
+                   int maxHP,
+                   int attack,
+                   int attackRange,
+                   double attackDelay,
+                   double buyDelay,
+                   int energyUsage,
+                   int speed,
+                   double x,
+                   double y,
+                   Side side,
+                   double pivotX,
+                   double pivotY,
+                   int walkFrame,
+                   int atkFrame,
+                   int idleFrame) {
+        super(name,
+                maxHP,
+                attack,
+                attackRange,
+                attackDelay,
+                buyDelay,
+                energyUsage,
+                speed,
+                x,
+                y,
+                side,
+                pivotX,
+                pivotY,
+                walkFrame,
+                atkFrame,
+                idleFrame
+        );
     }
 
     @Override

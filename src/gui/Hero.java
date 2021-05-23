@@ -30,7 +30,7 @@ public class Hero implements Buyable {
 
 	@Override
 	public boolean canBuy() {
-		return this.buyCountdown == 0 && GameController.getCurrentEnergy() > ranger.getEnergyUsage();
+		return this.buyCountdown == 0 && GameController.getCurrentEnergy() >= ranger.getEnergyUsage();
 	}
 	
 	public void Buy() {
