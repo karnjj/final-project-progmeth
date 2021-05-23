@@ -6,10 +6,10 @@ import logic.GameController;
 import logic.Side;
 
 public class Hero implements Buyable {
-	Ranger ranger;
-	private double buyCountdown;
+	private Ranger ranger;
+	private float buyCountdown;
 
-	Hero(String name) {
+	public Hero(String name) {
 		switch(name) {
 			case "Inkblue" ->
 					ranger = new Inkblue(-1,-1, Side.HERO);
@@ -28,15 +28,11 @@ public class Hero implements Buyable {
 		return "name: "+ ranger.getName() + "\nmaxHp: " + ranger.getMaxHP() + "\nattack: " + ranger.getAttack() +"\nEnergy: " + ranger.getEnergyUsage();
 	}
 
-	public Ranger getRanger() {
-		return this.ranger;
-	}
-
 	@Override
 	public boolean canBuy() {
 		return this.buyCountdown == 0 && GameController.getCurrentEnergy() > ranger.getEnergyUsage();
 	}
-
+	
 	public void Buy() {
 		if (this.canBuy()) {
 			GameController.useEnergy(ranger.getEnergyUsage());
@@ -44,14 +40,26 @@ public class Hero implements Buyable {
 			setBuyCountdown(ranger.getBuyDelay());
 		}
 	}
-
-	public void setBuyCountdown(double buyCountdown) {
-		this.buyCountdown = buyCountdown;
-		if (this.buyCountdown < 0) this.buyCountdown = 0;
-	}
-
+	
 	public void update(double dt) {
 		if(this.buyCountdown != 0)
 			setBuyCountdown(this.buyCountdown - dt);
 	}
+	
+	public float getCountdown() {
+		return 1-((float)ranger.getBuyDelay()/buyCountdown)*100f;
+	}
+	
+	public Ranger getRanger() {
+		return this.ranger;
+	}
+
+	
+
+	public void setBuyCountdown(double buyCountdown) {
+		this.buyCountdown = (float) buyCountdown;
+		if (this.buyCountdown < 0f) this.buyCountdown = 0f;
+	}
+
+	
 }
