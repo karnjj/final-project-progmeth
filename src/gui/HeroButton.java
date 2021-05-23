@@ -15,7 +15,6 @@ import logic.GameController;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import entity.AtomicFloat;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

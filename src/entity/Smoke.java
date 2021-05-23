@@ -11,16 +11,16 @@ import logic.State;
 
 public class Smoke extends Entity {
 
-    private double timeLeft = 0.4;
+    private double timeDelay = 0.4;
 
-    AnimatedImage animated = new AnimatedImage();
+    private AnimatedImage animated = new AnimatedImage();
 
     public Smoke(double x, double y) {
         super(x, y);
 
         for (int i = 0; i < 4; i++)
             animated.getFrames().add(new Image( "Smoke/smoke_" + i + ".png" ));
-        animated.setDuration(timeLeft / 4) ;
+        animated.setDuration(timeDelay / 4) ;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Smoke extends Entity {
         if(this.getState() == State.DEAD) return;
         Image ig = null;
         try {
-            ig = animated.getFrame(0.4-this.timeLeft);
+            ig = animated.getFrame(0.4-this.timeDelay);
         }catch (IndexOfFrameOutboundException e) {
             System.out.println(e.getMessage());
         }
@@ -40,14 +40,14 @@ public class Smoke extends Entity {
         );
     }
 
-    public void setTimeLeft(double timeLeft) {
-        this.timeLeft = timeLeft;
-        if (this.timeLeft < 0) this.timeLeft = 0;
+    public void setTimeDelay(double timeDelay) {
+        this.timeDelay = timeDelay;
+        if (this.timeDelay < 0) this.timeDelay = 0;
     }
 
     public void update(double t){
-        setTimeLeft(this.timeLeft - t);
-        if (this.timeLeft == 0) this.setState(State.DEAD);
+    	setTimeDelay(this.timeDelay - t);
+        if (this.timeDelay == 0) this.setState(State.DEAD);
     }
 
 }
