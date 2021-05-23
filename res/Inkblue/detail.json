@@ -1,0 +1,15 @@
+{
+    "name": "Inkblue",
+    "maxHP": 60,
+    "attack": 50,
+    "attackRange": 1000,
+    "attackDelay": 3,
+    "buyDelay": 6,
+    "energyUsage": 300,
+    "speed": 150,
+    "pivotX": 50,
+    "pivotY": 100,
+    "walkFrame": 5,
+    "atkFrame": 5,
+    "idleFrame": 2
+ }

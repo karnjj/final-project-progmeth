@@ -1,0 +1,15 @@
+{
+    "name": "Slime",
+    "maxHP": 200,
+    "attack": 10,
+    "attackRange": 100,
+    "attackDelay": 2,
+    "buyDelay": 2,
+    "energyUsage": 50,
+    "speed": 80,
+    "pivotX": 50,
+    "pivotY": 100,
+    "walkFrame": 4,
+    "atkFrame": 5,
+    "idleFrame": 4
+ }

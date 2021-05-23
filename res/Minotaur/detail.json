@@ -1,0 +1,15 @@
+{
+    "name": "Minotaur",
+    "maxHP": 100,
+    "attack": 15,
+    "attackRange": 100,
+    "attackDelay": 1,
+    "buyDelay": 3,
+    "energyUsage": 200,
+    "speed": 200,
+    "pivotX": 100,
+    "pivotY": 200,
+    "walkFrame": 7,
+    "atkFrame": 10,
+    "idleFrame": 2
+ }
