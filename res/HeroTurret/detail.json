@@ -1,0 +1,6 @@
+{
+    "name": "HeroTurret",
+    "maxHP": 500,
+    "pivotX": 150,
+    "pivotY": 300,
+ }
