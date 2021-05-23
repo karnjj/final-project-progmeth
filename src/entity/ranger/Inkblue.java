@@ -10,7 +10,7 @@ public class Inkblue extends Shooter {
     public Inkblue(double x, double y, Side side) {
         super("Inkblue",
                 60,
-                60,
+                50,
                 1000,
                 3,
                 6,
