@@ -26,7 +26,7 @@ public class PausePanel extends VBox {
 		Canvas empty = new Canvas(20,170);
 		this.getChildren().add(empty);
 		
-		this.setSpacing(5);
+//		this.setSpacing(5);
 		Button resumeButton = new Button();
 		resumeButton.getStyleClass().add("resumeButton");
 		resumeButton .setOnMouseClicked(e ->{
