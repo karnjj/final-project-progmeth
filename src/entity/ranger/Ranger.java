@@ -7,7 +7,6 @@ import exception.IndexOfFrameOutboundException;
 import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import logic.*;
 
 public abstract class Ranger extends Entity implements Attackable, Damageable, Movable{
@@ -155,6 +154,7 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
 
     @Override
     public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
+        if(this.getState() == State.DEAD) return;
         Image ig = null;
         try {
             if (this.getState() == State.WALK) {
@@ -179,8 +179,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
                 this.getSide().getVal()*ig.getWidth(),
                 ig.getHeight()
         );
-        gc.setFill(Color.RED);
-        gc.fillText(String.valueOf(this.currentHP),this.getX() + Drawing.getMovePosBgX(),this.getY() + Drawing.getMovePosBgY());
     }
 
     public String getName() {

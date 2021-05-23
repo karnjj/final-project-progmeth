@@ -99,6 +99,7 @@ public class Bullet extends Entity implements Attackable, Movable {
 
     @Override
     public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
+        if(this.getState() == State.DEAD) return;
         Image ig = null;
         try {
             ig = animated.getFrame(t + startTime);

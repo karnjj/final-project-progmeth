@@ -23,7 +23,7 @@ public class Main extends Application{
 		// TODO
 		StackPane root = new StackPane();
 		root.setPadding(new Insets(10,10,10,10));
-		
+
 		HomePanel homePanel= new HomePanel();
 		PlayPanel playPanel = new PlayPanel();
 		PausePanel pausePanel = new  PausePanel();
@@ -34,9 +34,9 @@ public class Main extends Application{
 		Drawing.setPausePanel(pausePanel);
 		Canvas canvas = new Canvas(Drawing.getWindowWidth(), Drawing.getWindowHeight());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-
-
 		GameLoop loop = new GameLoop(gc);
+
+
 		loop.start();
 		MuteButton muteButton = new MuteButton();
 		SoundUtils.setMuteButton(muteButton);
