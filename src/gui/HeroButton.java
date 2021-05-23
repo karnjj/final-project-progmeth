@@ -66,14 +66,17 @@ public class HeroButton extends StackPane {
 	}
 	
 	private void setBackGround() {
-		if(this.hero.canBuy()) {
+		if(this.hero.getBuyCountdown() != 0) {
+			processBox.setDisable(false);
+			processBox.setVisible(true);
+		}else {
 			processBox.setDisable(true);
 			processBox.setVisible(false);
+		}
+		if(this.hero.canBuy()) {
 			btn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		}
 		else {
-			processBox.setDisable(false);
-			processBox.setVisible(true);
 			btn.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 		}
 		btn.setBorder(new Border(new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID,CornerRadii.EMPTY, BorderWidths.DEFAULT)));
