@@ -25,7 +25,7 @@ public class Bullet extends Entity implements Attackable, Movable {
 
     private final double startTime = System.nanoTime() / 1e9;
 
-    AnimatedImage animated = new AnimatedImage();
+    private AnimatedImage animated = new AnimatedImage();
     public Bullet(double x,
                   double y,
                   String name,
@@ -58,16 +58,54 @@ public class Bullet extends Entity implements Attackable, Movable {
         return true;
     }
 
+    @Override
+    public void move(double dt) {
+    	this.setX(this.getX() + speed * side.getVal() * dt);
+    }
+
+    private State checkState() {
+    	if (this.getState() == State.DEAD) return State.DEAD;
+    	Entity nearest = GameController.getFrontMost(this.getSide().getOpposite());
+    	if (nearest == null) return State.WALK;
+    	if (this.getSide().getVal()*(nearest.getX() - this.getX()) > attackRange) {
+    		return State.WALK;
+    	} else {
+    		return State.ATTACK;
+    	}
+    }
+    
+    @Override
+    public void update(double dt) {
+    	this.setState(checkState());
+    }
+    
+    @Override
+    public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
+    	if(this.getState() == State.DEAD) return;
+    	Image ig = null;
+    	try {
+    		ig = animated.getFrame(t + startTime);
+    	}catch (IndexOfFrameOutboundException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	if (ig == null) throw new NullImageToRenderException();
+    	gc.drawImage(
+    			ig,
+    			this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getMovePosBgX(),
+    			this.getY() - (this.sizeY/2) - 30 + Drawing.getMovePosBgY(),
+    			this.getSide().getVal()*ig.getWidth(),
+    			ig.getHeight()
+    			);
+    }
+   
     public int getAttack() {
         return this.attack;
     }
 
-    @Override
     public int getAttackRange() {
         return this.attackRange;
     }
 
-    @Override
     public int getSpeed() {
         return this.speed;
     }
@@ -76,43 +114,5 @@ public class Bullet extends Entity implements Attackable, Movable {
         return side;
     }
 
-    @Override
-    public void move(double dt) {
-        this.setX(this.getX() + speed * side.getVal() * dt);
-    }
 
-    private State checkState() {
-        if (this.getState() == State.DEAD) return State.DEAD;
-        Entity nearest = GameController.getFrontMost(this.getSide().getOpposite());
-        if (nearest == null) return State.WALK;
-        if (this.getSide().getVal()*(nearest.getX() - this.getX()) > attackRange) {
-            return State.WALK;
-        } else {
-            return State.ATTACK;
-        }
-    }
-
-    @Override
-    public void update(double dt) {
-        this.setState(checkState());
-    }
-
-    @Override
-    public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
-        if(this.getState() == State.DEAD) return;
-        Image ig = null;
-        try {
-            ig = animated.getFrame(t + startTime);
-        }catch (IndexOfFrameOutboundException e) {
-            System.out.println(e.getMessage());
-        }
-        if (ig == null) throw new NullImageToRenderException();
-        gc.drawImage(
-                ig,
-                this.getX() - (this.getSide().getVal() * (this.sizeX/2)) + Drawing.getMovePosBgX(),
-                this.getY() - (this.sizeY/2) - 30 + Drawing.getMovePosBgY(),
-                this.getSide().getVal()*ig.getWidth(),
-                ig.getHeight()
-        );
-    }
 }
