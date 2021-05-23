@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import logic.GameController;
 
 public class LevelupButton extends Button {
-	private static Canvas canvas;
 	private static int width = 190;
 	private static int height = 122;
 	

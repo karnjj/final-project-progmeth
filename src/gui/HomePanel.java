@@ -67,9 +67,6 @@ public class HomePanel extends VBox {
 		this.getChildren().add(exitButton);
 		
 		
-		
-//		
-		
 		this.setMaxHeight(500);
 		this.setMaxWidth(550);
 		this.setAlignment(Pos.CENTER);
