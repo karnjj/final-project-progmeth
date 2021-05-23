@@ -3,12 +3,17 @@ package entity;
 import application.Drawing;
 import entity.base.Damageable;
 import entity.base.Entity;
+import entity.ranger.Ranger;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import logic.EntityManager;
 import logic.GameController;
 import logic.Side;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.InputStream;
 
 public class Turret extends Entity implements Damageable{
 	protected String name;
@@ -20,23 +25,29 @@ public class Turret extends Entity implements Damageable{
     private Image image;
 
     public Turret(String name,
-                  double maxHP,
                   double x,
                   double y,
-                  double pivotX,
-                  double pivotY,
                   Side side
     ) {
         super(x, y);
-        this.name = name;
-        this.maxHP = maxHP;
-        this.currentHP = maxHP;
-        this.pivotX = pivotX;
-        this.pivotY = pivotY;
-
         this.setSide(side);
 
+        String resourceName = "/" + name + "/detail.json";
+        InputStream is = Ranger.class.getResourceAsStream(resourceName);
+        if (is == null) {
+            throw new NullPointerException("Cannot find resource file " + resourceName);
+        }
+        JSONTokener tokener = new JSONTokener(is);
+        JSONObject turret = new JSONObject(tokener);
+
+        this.name = turret.getString("name");
+        this.maxHP = turret.getInt("maxHP");
+        this.currentHP = this.maxHP;
+        this.pivotX = turret.getInt("pivotX");
+        this.pivotY = turret.getInt("pivotY");
+
         image = new Image(this.getUrl());
+
     }
 
     @Override
@@ -51,7 +62,7 @@ public class Turret extends Entity implements Damageable{
     }
 
     public String getUrl() {
-        return name + ".png";
+        return name + "/default.png";
     }
 
     @Override

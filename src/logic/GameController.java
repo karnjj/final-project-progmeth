@@ -26,8 +26,8 @@ public class GameController {
         energy = new Energy();
         updateGameState(GameState.Home);
         isWin = false;
-        heroTurret = new HeroTurret(150, 455);
-        enemyTurret = new EnemyTurret(2850, 455);
+        heroTurret = new Turret("HeroTurret",150, 455,Side.HERO);
+        enemyTurret = new Turret("EnemyTurret",2850, 455,Side.ENEMY);
         EntityManager.addEntities(heroTurret, enemyTurret);
         System.out.println("init(GameController)");
     }

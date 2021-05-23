@@ -1,7 +1,5 @@
 package gui;
 
-import entity.EnemyTurret;
-import entity.HeroTurret;
 import entity.Turret;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
