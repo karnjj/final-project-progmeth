@@ -26,9 +26,9 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
 
     private final double startTime = System.nanoTime() / 1e9;
 
-    AnimatedImage walkAnimated = new AnimatedImage();
-    AnimatedImage atkAnimated = new AnimatedImage();
-    AnimatedImage idleAnimated = new AnimatedImage();
+    protected AnimatedImage walkAnimated = new AnimatedImage();
+    protected AnimatedImage atkAnimated = new AnimatedImage();
+    protected AnimatedImage idleAnimated = new AnimatedImage();
 
     public Ranger(String name,
                   int maxHP,
@@ -88,11 +88,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
     }
 
     @Override
-    public int getAttackRange() {
-        return this.attackRange;
-    }
-
-    @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
         EntityManager.addEntities(new Smoke(this.getX(),this.getY()-50));
@@ -103,26 +98,11 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         return currentHP == 0;
     }
 
-    public void setCurrentHP(int currentHP) {
-        this.currentHP = currentHP;
-        if (this.currentHP < 0) this.currentHP = 0;
-    }
-
-
-    public void setAttackCountdown(double attackCountdown) {
-        this.attackCountdown = attackCountdown;
-        if (this.attackCountdown < 0) this.attackCountdown = 0;
-    }
-
-    @Override
-    public int getSpeed() {
-        return this.speed;
-    }
 
     @Override
     public void move(double dt) {
         this.setX(this.getX() + speed * this.getSide().getVal() * dt);
-        
+
     }
 
     private State checkState() {
@@ -138,13 +118,6 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         return State.WALK;
     }
 
-    public double getAttackDelay() {
-        return attackDelay;
-    }
-
-    public double getAttackCountdown() {
-        return attackCountdown;
-    }
 
     public void update(double dt) {
         this.setState(checkState());
@@ -181,6 +154,25 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         );
     }
 
+    public String getUrl() {
+        return name + "/default.png";
+    }
+
+    public void setCurrentHP(int currentHP) {
+        this.currentHP = currentHP;
+        if (this.currentHP < 0) this.currentHP = 0;
+    }
+
+
+    public void setAttackCountdown(double attackCountdown) {
+        this.attackCountdown = attackCountdown;
+        if (this.attackCountdown < 0) this.attackCountdown = 0;
+    }
+
+    public int getSpeed() {
+        return this.speed;
+    }
+
     public String getName() {
         return name;
     }
@@ -197,11 +189,98 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
         return attack;
     }
 
-    public String getUrl() {
-        return name + "/default.png";
-    }
-
     public double getBuyDelay() {
         return buyDelay;
+    }
+    public double getAttackDelay() {
+        return attackDelay;
+    }
+
+    public double getAttackCountdown() {
+        return attackCountdown;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
+
+    public int getCurrentHP() {
+        return currentHP;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    public void setAttackDelay(double attackDelay) {
+        this.attackDelay = attackDelay;
+    }
+
+    public void setBuyDelay(double buyDelay) {
+        this.buyDelay = buyDelay;
+    }
+
+    public void setEnergyUsage(int energyUsage) {
+        this.energyUsage = energyUsage;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public double getPivotX() {
+        return pivotX;
+    }
+
+    public void setPivotX(double pivotX) {
+        this.pivotX = pivotX;
+    }
+
+    public double getPivotY() {
+        return pivotY;
+    }
+
+    public void setPivotY(double pivotY) {
+        this.pivotY = pivotY;
+    }
+
+    public double getStartTime() {
+        return startTime;
+    }
+
+    public AnimatedImage getWalkAnimated() {
+        return walkAnimated;
+    }
+
+    public void setWalkAnimated(AnimatedImage walkAnimated) {
+        this.walkAnimated = walkAnimated;
+    }
+
+    public AnimatedImage getAtkAnimated() {
+        return atkAnimated;
+    }
+
+    public void setAtkAnimated(AnimatedImage atkAnimated) {
+        this.atkAnimated = atkAnimated;
+    }
+
+    public AnimatedImage getIdleAnimated() {
+        return idleAnimated;
+    }
+
+    public void setIdleAnimated(AnimatedImage idleAnimated) {
+        this.idleAnimated = idleAnimated;
     }
 }

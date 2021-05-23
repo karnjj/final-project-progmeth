@@ -4,7 +4,6 @@ import application.SoundUtils;
 import entity.Bullet;
 import entity.base.Damageable;
 import logic.EntityManager;
-import logic.GameController;
 import logic.Side;
 
 public class Shooter extends Ranger{
