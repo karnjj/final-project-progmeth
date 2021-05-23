@@ -29,10 +29,6 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
     private double pivotX;
     private double pivotY;
 
-    private int walkFrame;
-    private int atkFrame;
-    private int idleFrame;
-
 
     private final double startTime = System.nanoTime() / 1e9;
 
@@ -69,9 +65,9 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
         this.pivotY = ranger.getInt("pivotY");
         this.attackCountdown = this.attackDelay;
 
-        this.walkFrame = ranger.getInt("walkFrame");
-        this.atkFrame = ranger.getInt("atkFrame");
-        this.idleFrame = ranger.getInt("idleFrame");
+        int walkFrame = ranger.getInt("walkFrame");
+        int atkFrame = ranger.getInt("atkFrame");
+        int idleFrame = ranger.getInt("idleFrame");
 
         for (int i = 0; i < walkFrame; i++)
             walkAnimated.getFrames().add(new Image(name + "/walk_" + i + ".png"));
@@ -79,7 +75,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
 
         for (int i = 0; i < atkFrame; i++)
             atkAnimated.getFrames().add(new Image( name + "/attack_" + i + ".png" ));
-        atkAnimated.setDuration(this.getAttackDelay()*(20.0/this.getSpeed())/atkFrame);
+        atkAnimated.setDuration(this.getAttackDelay()*(20.0/this.getSpeed())/ atkFrame);
 
         for (int i = 0; i < idleFrame; i++)
             idleAnimated.getFrames().add(new Image( name + "/idle_" + i + ".png" ));
