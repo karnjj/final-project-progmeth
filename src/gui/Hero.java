@@ -11,16 +11,11 @@ public class Hero implements Buyable {
 
 	public Hero(String name) {
 		switch(name) {
-			case "Inkblue" ->
-					ranger = new Inkblue(-1,-1, Side.HERO);
-			case "Slime" ->
-					ranger = new Slime(-1,-1, Side.HERO);
-			case "Minotaur" ->
-					ranger = new Minotaur(-1,-1, Side.HERO);
-			case "Alien" ->
-					ranger = new Alien(-1,-1, Side.HERO);
-			case "Inkred" ->
-					ranger = new Inkred(-1,-1, Side.HERO);
+			case "Inkblue","Inkred" ->
+					ranger = new Shooter(name,-1,-1, Side.HERO);
+			case "Slime","Minotaur","Alien" ->
+					ranger = new Ranger(name,-1, -1, Side.HERO);
+			default -> throw new IllegalStateException("Unexpected value: " + name);
 		}
 	}
 	

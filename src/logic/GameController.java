@@ -89,11 +89,10 @@ public class GameController {
                 Drawing.getGameHeight() - 120
         );
         switch (name) {
-            case "Inkblue" -> ranger = new Inkblue(x, y, side);
-            case "Slime" -> ranger = new Slime(x, y, side);
-            case "Minotaur" -> ranger = new Minotaur(x, y, side);
-            case "Alien" -> ranger = new Alien(x, y, side);
-            case "Inkred" -> ranger = new Inkred(x, y, side);
+            case "Inkblue","Inkred" ->
+                    ranger = new Shooter(name,x,y, side);
+            case "Slime","Minotaur","Alien" ->
+                    ranger = new Ranger(name,x, y, side);
             default -> throw new IllegalStateException("Unexpected value: " + name);
         }
         EntityManager.addEntities(ranger);

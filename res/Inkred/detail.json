@@ -1,0 +1,15 @@
+{
+    "name": "Inkred",
+    "maxHP": 20,
+    "attack": 100,
+    "attackRange": 1500,
+    "attackDelay": 3,
+    "buyDelay": 8,
+    "energyUsage": 600,
+    "speed": 100,
+    "pivotX": 50,
+    "pivotY": 100,
+    "walkFrame": 5,
+    "atkFrame": 5,
+    "idleFrame": 2
+ }

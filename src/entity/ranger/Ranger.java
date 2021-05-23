@@ -9,21 +9,30 @@ import exception.NullImageToRenderException;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.*;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-public abstract class Ranger extends Entity implements Attackable, Damageable, Movable{
-    protected String name;
-    protected int maxHP;
+import java.io.InputStream;
+
+public class Ranger extends Entity implements Attackable, Damageable, Movable{
+    private String name;
+    private int maxHP;
     private int currentHP;
-    protected int attack;
-    protected int attackRange;
-    protected double attackDelay;
+    private int attack;
+    private int attackRange;
+    private double attackDelay;
     private double attackCountdown;
-    protected double buyDelay;
-    protected int energyUsage;
-    protected int speed;
+    private double buyDelay;
+    private int energyUsage;
+    private int speed;
 
-    protected double pivotX;
-    protected double pivotY;
+    private double pivotX;
+    private double pivotY;
+
+    private int walkFrame;
+    private int atkFrame;
+    private int idleFrame;
+
 
     private final double startTime = System.nanoTime() / 1e9;
 
@@ -32,36 +41,37 @@ public abstract class Ranger extends Entity implements Attackable, Damageable, M
     protected AnimatedImage idleAnimated = new AnimatedImage();
 
     public Ranger(String name,
-                  int maxHP,
-                  int attack,
-                  int attackRange,
-                  double attackDelay,
-                  double buyDelay,
-                  int energyUsage,
-                  int speed,
                   double x,
                   double y,
-                  Side side,
-                  double pivotX,
-                  double pivotY,
-                  int walkFrame,
-                  int atkFrame,
-                  int idleFrame
+                  Side side
     ) {
         super(x, y);
-        this.name = name;
-        this.maxHP = maxHP;
-        this.currentHP = maxHP;
-        this.attack = attack;
-        this.attackDelay = attackDelay;
-        this.attackRange = attackRange;
-        this.buyDelay = buyDelay;
-        this.energyUsage = energyUsage;
-        this.speed = speed;
-        this.pivotX = pivotX;
-        this.pivotY = pivotY;
-        this.attackCountdown = this.attackDelay;
         this.setSide(side);
+
+        String resourceName = "/" + name + "/detail.json";
+        InputStream is = Ranger.class.getResourceAsStream(resourceName);
+        if (is == null) {
+            throw new NullPointerException("Cannot find resource file " + resourceName);
+        }
+        JSONTokener tokener = new JSONTokener(is);
+        JSONObject ranger = new JSONObject(tokener);
+
+        this.name = ranger.getString("name");
+        this.maxHP = ranger.getInt("maxHP");
+        this.currentHP = maxHP;
+        this.attack = ranger.getInt("attack");
+        this.attackDelay = ranger.getInt("attackDelay");
+        this.attackRange = ranger.getInt("attackRange");
+        this.buyDelay = ranger.getInt("buyDelay");
+        this.energyUsage = ranger.getInt("energyUsage");
+        this.speed = ranger.getInt("speed");
+        this.pivotX = ranger.getInt("pivotX");
+        this.pivotY = ranger.getInt("pivotY");
+        this.attackCountdown = this.attackDelay;
+
+        this.walkFrame = ranger.getInt("walkFrame");
+        this.atkFrame = ranger.getInt("atkFrame");
+        this.idleFrame = ranger.getInt("idleFrame");
 
         for (int i = 0; i < walkFrame; i++)
             walkAnimated.getFrames().add(new Image(name + "/walk_" + i + ".png"));
