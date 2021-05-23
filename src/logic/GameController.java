@@ -26,8 +26,8 @@ public class GameController {
         energy = new Energy();
         updateGameState(GameState.Home);
         isWin = false;
-        heroTurret = new Turret("HeroTurret",150, 455,Side.HERO);
-        enemyTurret = new Turret("EnemyTurret",2850, 455,Side.ENEMY);
+        heroTurret = new Turret("HeroTurret", 150, 455, Side.HERO);
+        enemyTurret = new Turret("EnemyTurret", 2850, 455, Side.ENEMY);
         EntityManager.addEntities(heroTurret, enemyTurret);
         System.out.println("init(GameController)");
     }
@@ -89,10 +89,8 @@ public class GameController {
                 Drawing.getGameHeight() - 120
         );
         switch (name) {
-            case "Inkblue","Inkred" ->
-                    ranger = new Shooter(name,x,y, side);
-            case "Slime","Minotaur","Alien" ->
-                    ranger = new Ranger(name,x, y, side);
+            case "Inkblue", "Inkred" -> ranger = new Shooter(name, x, y, side);
+            case "Slime", "Minotaur", "Alien" -> ranger = new Ranger(name, x, y, side);
             default -> throw new IllegalStateException("Unexpected value: " + name);
         }
         EntityManager.addEntities(ranger);
@@ -139,11 +137,11 @@ public class GameController {
         }
     }
 
-	public static boolean canLevelUp() {
-		return energy.canLevelUp();
-	}
+    public static boolean canLevelUp() {
+        return energy.canLevelUp();
+    }
 
-	public static void updateGameState(GameState gameState) {
+    public static void updateGameState(GameState gameState) {
         setGameState(gameState);
         Drawing.updatePanel();
         SoundUtils.playBackgroundMusic();

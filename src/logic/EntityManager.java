@@ -35,11 +35,11 @@ public class EntityManager {
         addEntity.clear();
         allEntity.sort(Comparator.comparing(Entity::getY));
     }
-    
+
     public static void clear() {
-    	allEntity.clear();
-    	addEntity.clear();
-    	removeEntity.clear();
+        allEntity.clear();
+        addEntity.clear();
+        removeEntity.clear();
     }
 
     public static ArrayList<Entity> getAllEntity() {

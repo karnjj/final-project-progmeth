@@ -19,17 +19,17 @@ public class Smoke extends Entity {
         super(x, y);
 
         for (int i = 0; i < 4; i++)
-            animated.getFrames().add(new Image( "Smoke/smoke_" + i + ".png" ));
-        animated.setDuration(timeDelay / 4) ;
+            animated.getFrames().add(new Image("Smoke/smoke_" + i + ".png"));
+        animated.setDuration(timeDelay / 4);
     }
 
     @Override
     public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
-        if(this.getState() == State.DEAD) return;
+        if (this.getState() == State.DEAD) return;
         Image ig = null;
         try {
-            ig = animated.getFrame(0.4-this.timeDelay);
-        }catch (IndexOfFrameOutboundException e) {
+            ig = animated.getFrame(0.4 - this.timeDelay);
+        } catch (IndexOfFrameOutboundException e) {
             System.out.println(e.getMessage());
         }
         if (ig == null) throw new NullImageToRenderException();
@@ -45,8 +45,8 @@ public class Smoke extends Entity {
         if (this.timeDelay < 0) this.timeDelay = 0;
     }
 
-    public void update(double t){
-    	setTimeDelay(this.timeDelay - t);
+    public void update(double t) {
+        setTimeDelay(this.timeDelay - t);
         if (this.timeDelay == 0) this.setState(State.DEAD);
     }
 

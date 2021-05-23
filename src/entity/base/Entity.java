@@ -19,12 +19,13 @@ public abstract class Entity {
         this.state = State.NONE;
     }
 
-    public void draw(GraphicsContext gc,double t) throws NullImageToRenderException {
+    public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
         gc.setFill(Color.BLACK);
-        gc.fillOval(x,y,25,25);
+        gc.fillOval(x, y, 25, 25);
     }
 
-    public void update(double dt) {}
+    public void update(double dt) {
+    }
 
     public double getX() {
         return this.x;

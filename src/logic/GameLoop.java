@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 import application.Drawing;
 
-public class GameLoop{
+public class GameLoop {
     private GraphicsContext gc;
 
     private int updates; // count update
@@ -31,22 +31,22 @@ public class GameLoop{
 
     private void update(double dt) {
 //    	SoundUtils.showThread();
-    	Drawing.updatePosBg(dt);
-    	Drawing.getLevelupButton().update();
-    	if (GameController.getGameState() != GameState.Pause) {
-    		GameController.isGameOver();
+        Drawing.updatePosBg(dt);
+        Drawing.getLevelupButton().update();
+        if (GameController.getGameState() != GameState.Pause) {
+            GameController.isGameOver();
             GameController.updateEntities(dt);
             GameController.updateEnergy(dt);
             HeroPane.update(dt);
-    	}
-    	if(GameController.getGameState() == GameState.Play) {
-    	    GameController.updateBot(dt);
+        }
+        if (GameController.getGameState() == GameState.Play) {
+            GameController.updateBot(dt);
         }
         updates++;
     }
 
     private void draw(double t) {
-        if(GameController.getGameState() != GameState.Pause) {
+        if (GameController.getGameState() != GameState.Pause) {
             Drawing.resetBackgroundEffect();
             Drawing.drawEverything(t);
         }
@@ -59,6 +59,7 @@ public class GameLoop{
             double delta = 0;
             double pastTick = System.nanoTime();
             double timer = System.currentTimeMillis();
+
             @Override
             public void handle(long now) {
                 delta = (now - pastTick) / 1e9;

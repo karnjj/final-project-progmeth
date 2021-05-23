@@ -15,8 +15,8 @@ import org.json.JSONTokener;
 
 import java.io.InputStream;
 
-public class Turret extends Entity implements Damageable{
-	protected String name;
+public class Turret extends Entity implements Damageable {
+    protected String name;
     protected double maxHP;
     private double currentHP;
     protected double pivotX;
@@ -53,7 +53,7 @@ public class Turret extends Entity implements Damageable{
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        EntityManager.addEntities(new Smoke(this.getX(),this.getY()));
+        EntityManager.addEntities(new Smoke(this.getX(), this.getY()));
     }
 
     @Override
@@ -71,22 +71,22 @@ public class Turret extends Entity implements Damageable{
                 image,
                 this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getMovePosBgX(),
                 this.getY() - this.pivotY + Drawing.getMovePosBgY(),
-                this.getSide().getVal()*image.getWidth(),
+                this.getSide().getVal() * image.getWidth(),
                 image.getHeight());
     }
-	public double getCurrentHP() {
-		return currentHP;
-	}
 
-	public void setCurrentHP(double currentHP) {
+    public double getCurrentHP() {
+        return currentHP;
+    }
+
+    public void setCurrentHP(double currentHP) {
         this.currentHP = currentHP;
         if (this.currentHP < 0) this.currentHP = 0;
-	}
+    }
 
-	public double getMaxHP() {
+    public double getMaxHP() {
         return this.maxHP;
     }
-    
 
 
 }

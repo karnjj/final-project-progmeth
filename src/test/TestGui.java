@@ -14,22 +14,22 @@ import logic.GameLoop;
 import logic.Side;
 
 public class TestGui extends Application {
-	
-	@Override
-	public void start(Stage primaryStage) {
-		StackPane root = new StackPane();
-		EndgamePanel  itemButton = new EndgamePanel();
-		
-		root.getChildren().add(itemButton);
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("MyJavaFX"); // Set the stage title
-		primaryStage.setScene(scene); // Place the scene
-		primaryStage.show();
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
+
+    @Override
+    public void start(Stage primaryStage) {
+        StackPane root = new StackPane();
+        EndgamePanel itemButton = new EndgamePanel();
+
+        root.getChildren().add(itemButton);
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("MyJavaFX"); // Set the stage title
+        primaryStage.setScene(scene); // Place the scene
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
 
 

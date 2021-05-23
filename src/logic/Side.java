@@ -5,20 +5,17 @@ public enum Side {
     ENEMY(-1);
     private int val;
 
-    Side(int val)
-    {
+    Side(int val) {
         this.val = val;
     }
 
-    public int getVal()
-    {
+    public int getVal() {
         return this.val;
     }
 
     public Side getOpposite() {
         return this.val == 1 ? Side.ENEMY : Side.HERO;
     }
-
 
 
 }

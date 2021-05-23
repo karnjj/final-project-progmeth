@@ -14,7 +14,7 @@ import org.json.JSONTokener;
 
 import java.io.InputStream;
 
-public class Ranger extends Entity implements Attackable, Damageable, Movable{
+public class Ranger extends Entity implements Attackable, Damageable, Movable {
     private String name;
     private int maxHP;
     private int currentHP;
@@ -71,15 +71,15 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
 
         for (int i = 0; i < walkFrame; i++)
             walkAnimated.getFrames().add(new Image(name + "/walk_" + i + ".png"));
-        walkAnimated.setDuration(20.0/this.getSpeed());
+        walkAnimated.setDuration(20.0 / this.getSpeed());
 
         for (int i = 0; i < atkFrame; i++)
-            atkAnimated.getFrames().add(new Image( name + "/attack_" + i + ".png" ));
-        atkAnimated.setDuration(this.getAttackDelay()*(20.0/this.getSpeed())/ atkFrame);
+            atkAnimated.getFrames().add(new Image(name + "/attack_" + i + ".png"));
+        atkAnimated.setDuration(this.getAttackDelay() * (20.0 / this.getSpeed()) / atkFrame);
 
         for (int i = 0; i < idleFrame; i++)
-            idleAnimated.getFrames().add(new Image( name + "/idle_" + i + ".png" ));
-        idleAnimated.setDuration(20.0/this.getSpeed());
+            idleAnimated.getFrames().add(new Image(name + "/idle_" + i + ".png"));
+        idleAnimated.setDuration(20.0 / this.getSpeed());
 
     }
 
@@ -98,7 +98,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
     @Override
     public void takeDamage(int i) {
         setCurrentHP(currentHP - i);
-        EntityManager.addEntities(new Smoke(this.getX(),this.getY()-50));
+        EntityManager.addEntities(new Smoke(this.getX(), this.getY() - 50));
     }
 
     @Override
@@ -118,7 +118,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
 
         Entity nearest = GameController.getFrontMost(this.getSide().getOpposite());
         if (nearest != null) {
-            if (this.getSide().getVal()*(nearest.getX() - this.getX()) <= attackRange) {
+            if (this.getSide().getVal() * (nearest.getX() - this.getX()) <= attackRange) {
                 return State.ATTACK;
             }
         }
@@ -129,27 +129,27 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
 
     public void update(double dt) {
         this.setState(checkState());
-        if(this.getState() == State.ATTACK)
+        if (this.getState() == State.ATTACK)
             setAttackCountdown(attackCountdown - dt);
     }
 
     @Override
     public void draw(GraphicsContext gc, double t) throws NullImageToRenderException {
-        if(this.getState() == State.DEAD) return;
+        if (this.getState() == State.DEAD) return;
         Image ig = null;
         try {
             if (this.getState() == State.WALK) {
-                ig = this.walkAnimated.getFrame(t+this.startTime);
-            }else if(this.getState() == State.ATTACK) {
-                if (this.getAttackDelay() * (20.0/this.getSpeed()) < this.getAttackCountdown()) {
-                    ig = this.idleAnimated.getFrame(t+this.startTime);
-                }else {
+                ig = this.walkAnimated.getFrame(t + this.startTime);
+            } else if (this.getState() == State.ATTACK) {
+                if (this.getAttackDelay() * (20.0 / this.getSpeed()) < this.getAttackCountdown()) {
+                    ig = this.idleAnimated.getFrame(t + this.startTime);
+                } else {
                     ig = this.atkAnimated.getFrame(
-                            this.getAttackDelay() * (20.0/this.getSpeed()) - this.getAttackCountdown()
+                            this.getAttackDelay() * (20.0 / this.getSpeed()) - this.getAttackCountdown()
                     );
                 }
             }
-        }catch (IndexOfFrameOutboundException e) {
+        } catch (IndexOfFrameOutboundException e) {
             System.out.println(e.getMessage());
         }
         if (ig == null) throw new NullImageToRenderException();
@@ -157,7 +157,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
                 ig,
                 this.getX() - (this.getSide().getVal() * this.pivotX) + Drawing.getMovePosBgX(),
                 this.getY() - this.pivotY + Drawing.getMovePosBgY(),
-                this.getSide().getVal()*ig.getWidth(),
+                this.getSide().getVal() * ig.getWidth(),
                 ig.getHeight()
         );
     }
@@ -200,6 +200,7 @@ public class Ranger extends Entity implements Attackable, Damageable, Movable{
     public double getBuyDelay() {
         return buyDelay;
     }
+
     public double getAttackDelay() {
         return attackDelay;
     }

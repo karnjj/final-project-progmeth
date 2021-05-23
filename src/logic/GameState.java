@@ -1,8 +1,8 @@
 package logic;
 
 public enum GameState {
-	Home,
-	Play,
-	Pause,
-	End
+    Home,
+    Play,
+    Pause,
+    End
 }
