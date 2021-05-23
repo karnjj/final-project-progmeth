@@ -9,10 +9,10 @@ import javafx.util.Duration;
 
 public class BackgroundSound extends Thread{
 	public static AtomicInteger lastState = new AtomicInteger(0); // 0 = home, 1=play, 2= stop
-	private static final MediaPlayer homeSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm()));
-	private static final MediaPlayer playSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm()));
-	private static MediaPlayer mediaPlayer;
-	private static int previous = -1;
+	private final MediaPlayer homeSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/HomeGameSound.mp3").toExternalForm()));
+	private final MediaPlayer playSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/gameLoop.wav").toExternalForm()));
+	private MediaPlayer mediaPlayer;
+	private int previous = -1;
 	
 	
 	public void run() {
@@ -51,7 +51,7 @@ public class BackgroundSound extends Thread{
 		}
 	}
 	
-	public void stopSound() {
+	private void stopSound() {
 		if(mediaPlayer != null) {
 			mediaPlayer.stop();
 		}

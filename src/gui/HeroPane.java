@@ -35,38 +35,15 @@ public class HeroPane extends HBox{
 		HeroButtonList.add(new HeroButton("Inkblue"));
 		HeroButtonList.add(new HeroButton("Inkred"));
 
-		for(HeroButton x:HeroButtonList) {
-			DropShadow shadow = new DropShadow();
-			x.addEventHandler(MouseEvent.MOUSE_CLICKED,
-			    new EventHandler<MouseEvent>() {
-			        @Override public void handle(MouseEvent e) {
-			        	mouseClickHandler(x);
-			            x.setEffect(shadow);
-						System.out.println("Log: Click summon ranger(HeroPane)");
-			        }
-			});
-			x.addEventHandler(MouseEvent.MOUSE_EXITED, 
-			    new EventHandler<MouseEvent>() {
-			        @Override public void handle(MouseEvent e) {
-			            x.setEffect(null);
-			        }
-			});
-			
-		}
-		
 		this.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, 
 				CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		
 		for (HeroButton heroButton : HeroButtonList) {
 			this.getChildren().add(heroButton);
 		}
 		
 	}
 	
-	private void mouseClickHandler(HeroButton x) {
-		if(x.haveEnoughEnergy()) {
-			x.getHero().Buy();
-		}
-	}
 	
 	public static void draw() {
 		for(HeroButton x:HeroButtonList) {

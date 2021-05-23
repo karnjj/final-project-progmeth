@@ -17,15 +17,14 @@ public class SoundUtils {
 	private static MediaPlayer createdSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/createdRanger.mp3").toExternalForm()));
 	private static MediaPlayer attackSound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/attackSound.wav").toExternalForm()));
 	private static Thread playMusic;
-	public static AtomicInteger atomicInteger = new AtomicInteger(0);
 	
-	
-	private static boolean soundOn = true;
+	private static boolean soundOn;
     private static MuteButton muteButton ;
 	
 	public static void init() {
 		playMusic = new BackgroundSound();
 		playMusic.start();
+		soundOn = true;
 	}
 	
 	public static void playBackgroundMusic() {

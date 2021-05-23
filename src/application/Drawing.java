@@ -20,13 +20,11 @@ public class Drawing {
 	private static final int game_width = 3000;
 	private static final int game_height = 715;
 
-	private static boolean changePanel;
-
 	// backGround moving
-	private static double movePosBgX = 0;
-	private static double movePosBgY = 0;
-	private static int inertia = 0;
-	private static final double speedPosBg = 100;
+	private static double movePosBgX;
+	private static double movePosBgY;
+	private static int inertia;
+	private static double speedPosBg;
 
 	private static HomePanel homePanel;
 	private static PlayPanel playPanel;
@@ -38,6 +36,10 @@ public class Drawing {
 
 	public static void init(GraphicsContext gc) {
 		Drawing.gc = gc;
+		movePosBgX = 0;
+		movePosBgY = 0;
+		inertia = 0;
+		speedPosBg = 100;
 	}
 
 
@@ -193,13 +195,6 @@ public class Drawing {
 		Drawing.inertia = inertia;
 	}
 
-	public static boolean isChangePanel() {
-		return changePanel;
-	}
-
-	public static void setChangePanel(boolean changePanel) {
-		Drawing.changePanel = changePanel;
-	}
 
 	public static LevelupButton getLevelupButton() {
 		return levelupButton;
